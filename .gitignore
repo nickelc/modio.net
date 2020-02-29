@@ -1,0 +1,14 @@
+# Files left over from merge conflicts
+*.orig
+
+bin/[Dd]ebug/
+bin/[Rr]elease/
+
+[Bb]in
+[Oo]bj
+
+# VSCode
+**/.vscode/*
+!**/.vscode/settings.json
+!**/.vscode/tasks.json
+!**/.vscode/launch.json
