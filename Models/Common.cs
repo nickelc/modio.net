@@ -14,17 +14,6 @@ namespace Modio.Models
         [JsonPropertyName("result_total")]
         public uint Total { get; set; }
         [JsonPropertyName("data")]
-        public List<T> Data
-        {
-            get
-            {
-                if (Data == null)
-                {
-                    Data = new List<T>();
-                }
-                return Data;
-            }
-            set => Data = value;
-        }
+        public List<T>? Data { get; set; }
     }
 }
