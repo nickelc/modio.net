@@ -46,8 +46,8 @@ namespace Modio
             HttpRequestMessage? req = null;
             try
             {
-                var parameters = new Dictionary<string, string>() {
-                    {"api_key", Credentials.ApiKey}
+                var parameters = new Dictionary<string, string>(request.Parameters) {
+                    ["api_key"] = Credentials.ApiKey,
                 };
                 var uri = new Uri(request.BaseAddress, request.Endpoint)
                     .ApplyParameters(parameters);
