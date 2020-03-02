@@ -26,33 +26,5 @@ namespace Modio.Models
             }
             set => Data = value;
         }
-
-    }
-
-    public class Game
-    {
-        [JsonPropertyName("id")]
-        public uint Id { get; set; }
-
-        [JsonPropertyName("name")]
-        public string? Name { get; set; }
-    }
-
-    public class Mod
-    {
-        [JsonPropertyName("id")]
-        public uint Id { get; set; }
-
-        [JsonPropertyName("name")]
-        public string? Name { get; set; }
-    }
-
-    public class File
-    {
-        [JsonPropertyName("id")]
-        public uint Id { get; set; }
-
-        [JsonPropertyName("filename")]
-        public string? Filename { get; set; }
     }
 }
