@@ -5,6 +5,21 @@ using System.Linq;
 
 namespace Modio
 {
+    internal static class DictionaryExtensions
+    {
+        public static TValue GetOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
+            where TKey : notnull
+            where TValue : new()
+        {
+            TValue value;
+            if (!dict.TryGetValue(key, out value)) {
+                value = new TValue();
+                dict.Add(key, value);
+            }
+            return value;
+        }
+    }
+
     internal static class StringExtensions
     {
         public static Uri FormatUri(this string pattern, params object[] args)

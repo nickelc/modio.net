@@ -9,5 +9,8 @@ namespace Modio.Models
 
         [JsonPropertyName("name")]
         public string? Name { get; set; }
+
+        [JsonPropertyName("metadata_kvp")]
+        public Metadata? Metadata { get; set; }
     }
 }
