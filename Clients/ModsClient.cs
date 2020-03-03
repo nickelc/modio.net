@@ -1,3 +1,8 @@
+using System.Threading.Tasks;
+
+using Modio.Filters;
+using Modio.Models;
+
 namespace Modio
 {
 
@@ -11,5 +16,16 @@ namespace Modio
         }
 
         public ModClient this[uint mod] => new ModClient(Connection, GameId, mod);
+
+        public async Task<Result<Mod>> List(Filter? filter = null) {
+            var (method, path) = Routes.GetMods(GameId);
+            var req = new Request(method, Connection.BaseAddress, path);
+
+            if (filter != null) {
+                req.Parameters.Extend(filter.ToParameters());
+            }
+
+            return await Connection.Send<Result<Mod>>(req);
+        }
     }
 }
