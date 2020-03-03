@@ -12,11 +12,25 @@ namespace Modio
             where TValue : new()
         {
             TValue value;
-            if (!dict.TryGetValue(key, out value)) {
+            if (!dict.TryGetValue(key, out value))
+            {
                 value = new TValue();
                 dict.Add(key, value);
             }
             return value;
+        }
+
+        public static void Extend<T, K, V>(this T dict, params IDictionary<K, V>[] others)
+            where T : IDictionary<K, V>
+            where K : notnull
+        {
+            foreach (var other in others)
+            {
+                foreach (var (key, value) in other)
+                {
+                    dict[key] = value;
+                }
+            }
         }
     }
 
