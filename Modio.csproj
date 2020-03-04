@@ -1,19 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>An async-based mod.io API client library for .NET Core</Description>
+    <Description>An async-based mod.io API client library for .NET</Description>
     <AssemblyTitle>Modio</AssemblyTitle>
     <Version>0.0.0-dev</Version>
     <AssemblyName>Modio</AssemblyName>
     <PackageId>Modio</PackageId>
     <LangVersion>8.0</LangVersion>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;netcoreapp3.1</TargetFrameworks>
     <Nullable>enable</Nullable>
     <NullableContextOptions>enable</NullableContextOptions>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="System.Text.Json" Version="4.7.1" />
   </ItemGroup>
 
