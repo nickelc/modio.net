@@ -8,45 +8,54 @@ namespace Modio.Filters
     {
         private Parameters parameters;
 
-        internal Filter() {
+        internal Filter()
+        {
             parameters = new SortedDictionary<string, string>();
         }
 
-        internal Filter(Parameters parameters) {
+        internal Filter(Parameters parameters)
+        {
             this.parameters = new SortedDictionary<string, string>(parameters);
         }
 
-        internal Filter(string name, string value) : this() {
+        internal Filter(string name, string value) : this()
+        {
             parameters[name] = value;
         }
 
-        public static Filter WithLimit(uint limit) {
+        public static Filter WithLimit(uint limit)
+        {
             return new Filter("_limit", limit.ToString());
         }
 
-        public static Filter WithOffset(uint offset) {
+        public static Filter WithOffset(uint offset)
+        {
             return new Filter("_offset", offset.ToString());
         }
 
-        public Filter And(Filter other) {
+        public Filter And(Filter other)
+        {
             var filter = new Filter(this.parameters);
             filter.parameters.Extend(other.parameters);
             return filter;
         }
 
-        public Filter Limit(uint limit) {
+        public Filter Limit(uint limit)
+        {
             var filter = new Filter(this.parameters);
             filter.parameters["_limit"] = limit.ToString();
             return filter;
         }
 
-        public Filter Offset(uint offset) {
+        public Filter Offset(uint offset)
+        {
             var filter = new Filter(this.parameters);
             filter.parameters["_offset"] = offset.ToString();
             return filter;
         }
 
-        public IDictionary<string, string> ToParameters() {
+        public IDictionary<string, string> ToParameters()
+        {
             return new SortedDictionary<string, string>(parameters);
         }
     }
@@ -60,12 +69,34 @@ namespace Modio.Filters
             Field = field;
         }
 
-        protected Filter Asc() {
+        protected Filter Asc()
+        {
             return new Filter("_sort", Field);
         }
 
-        protected Filter Desc() {
+        protected Filter Desc()
+        {
             return new Filter("_sort", "-" + Field);
+        }
+    }
+
+    public sealed class SortField
+    {
+
+        private string Field;
+
+        internal SortField(string field)
+        {
+            Field = field;
+        }
+
+        public Filter Asc()
+        {
+            return new Filter("_sort", "-" + Field);
+        }
+
+        public Filter Desc() {
+            return new Filter("_sort", Field);
         }
     }
 
@@ -73,11 +104,13 @@ namespace Modio.Filters
     {
         internal NumericField(string field) : base(field) { }
 
-        public new Filter Asc() {
+        public new Filter Asc()
+        {
             return base.Asc();
         }
 
-        public new Filter Desc() {
+        public new Filter Desc()
+        {
             return base.Desc();
         }
 
@@ -162,11 +195,13 @@ namespace Modio.Filters
     {
         internal TextField(string field) : base(field) { }
 
-        public new Filter Asc() {
+        public new Filter Asc()
+        {
             return base.Asc();
         }
 
-        public new Filter Desc() {
+        public new Filter Desc()
+        {
             return base.Desc();
         }
 
