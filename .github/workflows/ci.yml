@@ -1,0 +1,25 @@
+name: CI
+
+on: [pull_request, push]
+
+jobs:
+  build:
+    name: build
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+            dotnet-version: '3.1.102'
+
+      - name: Build
+        run: dotnet build
