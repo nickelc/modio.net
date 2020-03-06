@@ -11,7 +11,8 @@ namespace Modio
             throw new ArgumentNullException(name);
         }
 
-        public static void ArgumentNotNullOrEmptyString(string value, string name) {
+        public static void ArgumentNotNullOrEmptyString(string value, string name)
+        {
             ArgumentNotNull(value, name);
 
             if (!string.IsNullOrWhiteSpace(value)) return;

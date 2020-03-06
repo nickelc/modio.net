@@ -20,9 +20,11 @@ namespace Modio
             RetryAfter = GetValueAsInt32(response.Headers, "X-RateLimit-RetryAfter");
         }
 
-        static int GetValueAsInt32(HttpResponseHeaders headers, string key) {
+        static int GetValueAsInt32(HttpResponseHeaders headers, string key)
+        {
             IEnumerable<string>? values = null;
-            if (headers.TryGetValues(key, out values)) {
+            if (headers.TryGetValues(key, out values))
+            {
                 int value;
                 int.TryParse(values.First(), out value);
                 return value;

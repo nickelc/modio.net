@@ -76,7 +76,8 @@ namespace Modio.Models
         public Uri? Thumb1280x720 { get; set; }
     }
 
-    public enum Status {
+    public enum Status
+    {
         NotAccepted = 0,
         Accepted = 1,
         Deleted = 3,

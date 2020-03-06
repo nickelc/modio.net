@@ -95,7 +95,8 @@ namespace Modio.Filters
             return new Filter("_sort", "-" + Field);
         }
 
-        public Filter Desc() {
+        public Filter Desc()
+        {
             return new Filter("_sort", Field);
         }
     }

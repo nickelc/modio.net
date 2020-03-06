@@ -92,7 +92,8 @@ namespace Modio
         static void HandleErrors(HttpResponseMessage response)
         {
             Func<HttpResponseMessage, ApiException>? func;
-            if (EXCEPTION_MAP.TryGetValue(response.StatusCode, out func)) {
+            if (EXCEPTION_MAP.TryGetValue(response.StatusCode, out func))
+            {
                 throw func(response);
             }
 

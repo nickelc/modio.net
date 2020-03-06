@@ -11,11 +11,13 @@ namespace Modio
 
         public GameClient this[uint game] => new GameClient(Connection, game);
 
-        public async Task<Result<Game>> List(Filter? filter = null) {
+        public async Task<Result<Game>> List(Filter? filter = null)
+        {
             var (method, path) = Routes.GetGames();
             var req = new Request(method, Connection.BaseAddress, path);
 
-            if (filter != null) {
+            if (filter != null)
+            {
                 req.Parameters.Extend(filter.ToParameters());
             }
 
