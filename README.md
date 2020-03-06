@@ -30,7 +30,7 @@ var filter = GameFilter.Id.In(5, 34, 51)
     .And(GameFilter.Id.Desc());
 
 var games = await client.Games.List(filter);
-foreach (var game : games.Data) {
+foreach (var game in games.Data) {
     Console.WriteLine(game.Name);
 }
 
