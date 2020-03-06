@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -7,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Modio
 {
+    using ExceptionMap = Dictionary<HttpStatusCode, Func<HttpResponseMessage, ApiException>>;
+
     internal interface IConnection
     {
         Uri BaseAddress { get; }
@@ -47,7 +50,8 @@ namespace Modio
             HttpRequestMessage? req = null;
             try
             {
-                var parameters = new Dictionary<string, string>(request.Parameters) {
+                var parameters = new Dictionary<string, string>(request.Parameters)
+                {
                     ["api_key"] = Credentials.ApiKey,
                 };
                 var uri = new Uri(request.BaseAddress, request.Endpoint)
@@ -77,8 +81,23 @@ namespace Modio
             return req;
         }
 
-        static void HandleErrors(HttpResponseMessage response) {
-            if ((int) response.StatusCode >= 400) {
+        static readonly ExceptionMap EXCEPTION_MAP = new ExceptionMap {
+            {HttpStatusCode.Unauthorized, resp => new UnauthorizedException(resp)},
+            {HttpStatusCode.Forbidden, resp => new ForbiddenException(resp)},
+            {HttpStatusCode.NotFound, resp => new NotFoundException(resp)},
+            {HttpStatusCode.UnprocessableEntity, resp => new ApiValidationException(resp)},
+            {HttpStatusCode.TooManyRequests, resp => new RateLimitExceededException(resp)}
+        };
+
+        static void HandleErrors(HttpResponseMessage response)
+        {
+            Func<HttpResponseMessage, ApiException>? func;
+            if (EXCEPTION_MAP.TryGetValue(response.StatusCode, out func)) {
+                throw func(response);
+            }
+
+            if ((int)response.StatusCode >= 400)
+            {
                 throw new ApiException(response);
             }
         }
