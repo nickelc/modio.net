@@ -35,6 +35,7 @@ namespace Modio
 
             var httpRequest = BuildRequest(request);
             var resp = await http.SendAsync(httpRequest);
+            HandleErrors(resp);
             var content = await resp.Content.ReadAsStreamAsync();
             return await JsonSerializer.DeserializeAsync<T>(content);
         }
@@ -74,6 +75,12 @@ namespace Modio
                 throw;
             }
             return req;
+        }
+
+        static void HandleErrors(HttpResponseMessage response) {
+            if ((int) response.StatusCode >= 400) {
+                throw new ApiException(response);
+            }
         }
     }
 }
