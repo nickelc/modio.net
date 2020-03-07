@@ -26,5 +26,13 @@ namespace Modio
 
             return await Connection.Send<Mod>(req);
         }
+
+        public async Task<Statistics> Statistics()
+        {
+            var (method, path) = Routes.GetModStats(GameId, ModId);
+            var req = new Request(method, Connection.BaseAddress, path);
+
+            return await Connection.Send<Statistics>(req);
+        }
     }
 }
