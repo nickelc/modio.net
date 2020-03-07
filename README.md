@@ -29,8 +29,8 @@ var filter = Filter.WithLimit(10).Offset(10);
 var filter = GameFilter.Id.In(5, 34, 51)
     .And(GameFilter.Id.Desc());
 
-var games = await client.Games.List(filter);
-foreach (var game in games.Data) {
+IAsyncEnumerable<Game> games = client.Games.Search(filter).ToEnumerable();
+await foreach (var game in games) {
     Console.WriteLine(game.Name);
 }
 
@@ -39,8 +39,8 @@ var filter = ModFilter.FullText.Eq("balance")
     .Limit(5)
     .And(ModFilter.Rating.Desc());
 
-var mods = await client.Games[5].Mods.List(filter);
-foreach (var mod in mods.Data) {
+IReadOnlyList<Mod> mods = await client.Games[5].Mods.Search(filter).ToList();
+await foreach (var mod in mods) {
     Console.WriteLine(mod.Name);
 }
 ```

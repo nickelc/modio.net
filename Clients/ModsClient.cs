@@ -17,17 +17,10 @@ namespace Modio
 
         public ModClient this[uint mod] => new ModClient(Connection, GameId, mod);
 
-        public async Task<Result<Mod>> List(Filter? filter = null)
+        public SearchClient<Mod> Search(Filter? filter = null)
         {
-            var (method, path) = Routes.GetMods(GameId);
-            var req = new Request(method, Connection.BaseAddress, path);
-
-            if (filter != null)
-            {
-                req.Parameters.Extend(filter.ToParameters());
-            }
-
-            return await Connection.Send<Result<Mod>>(req);
+            var route = Routes.GetMods(GameId);
+            return new SearchClient<Mod>(Connection, route, filter);
         }
     }
 }
