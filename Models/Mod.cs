@@ -151,4 +151,33 @@ namespace Modio.Models
         [JsonPropertyName("date_expires")]
         public long ExpiredAt { get; set; }
     }
+
+    public class ModEvent
+    {
+        [JsonPropertyName("id")]
+        public uint Id { get; set; }
+
+        [JsonPropertyName("mod_id")]
+        public uint ModId { get; set; }
+
+        [JsonPropertyName("user_id")]
+        public uint UserId { get; set; }
+
+        [JsonPropertyName("date_added")]
+        public long DateAdded { get; set; }
+
+        [JsonPropertyName("event_type")]
+        public ModEventType EventType { get; set; }
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum ModEventType
+    {
+        MODFILE_CHANGED,
+        MOD_AVAILABLE,
+        MOD_UNAVAILABLE,
+        MOD_EDITED,
+        MOD_DELETED,
+        MOD_TEAM_CHANGED,
+    }
 }

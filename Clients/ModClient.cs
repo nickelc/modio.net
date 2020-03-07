@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 
+using Modio.Filters;
 using Modio.Models;
 
 namespace Modio
@@ -25,6 +26,12 @@ namespace Modio
             var req = new Request(method, Connection.BaseAddress, path);
 
             return await Connection.Send<Mod>(req);
+        }
+
+        public SearchClient<ModEvent> GetEvents(Filter? filter = null)
+        {
+            var route = Routes.GetModEvents(GameId, ModId);
+            return new SearchClient<ModEvent>(Connection, route, filter);
         }
 
         public async Task<Statistics> GetStatistics()

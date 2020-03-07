@@ -23,6 +23,12 @@ namespace Modio
             return new SearchClient<Mod>(Connection, route, filter);
         }
 
+        public SearchClient<ModEvent> GetEvents(Filter? filter = null)
+        {
+            var route = Routes.GetAllModEvents(GameId);
+            return new SearchClient<ModEvent>(Connection, route, filter);
+        }
+
         public SearchClient<Statistics> GetStatistics(Filter? filter = null)
         {
             var route = Routes.GetAllModStats(GameId);
