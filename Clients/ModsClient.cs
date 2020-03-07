@@ -23,7 +23,7 @@ namespace Modio
             return new SearchClient<Mod>(Connection, route, filter);
         }
 
-        public SearchClient<Statistics> Statistics(Filter? filter = null)
+        public SearchClient<Statistics> GetStatistics(Filter? filter = null)
         {
             var route = Routes.GetAllModStats(GameId);
             return new SearchClient<Statistics>(Connection, route, filter);
