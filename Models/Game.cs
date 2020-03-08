@@ -64,13 +64,13 @@ namespace Modio.Models
         public CurationOption CurationOption { get; set; }
 
         [JsonPropertyName("community_options")]
-        public byte CommunityOptions { get; set; }
+        public CommunityOptions CommunityOptions { get; set; }
 
         [JsonPropertyName("revenue_options")]
-        public byte RevenueOptions { get; set; }
+        public RevenueOptions RevenueOptions { get; set; }
 
         [JsonPropertyName("api_access_options")]
-        public byte ApiAccessOptions { get; set; }
+        public ApiAccessOptions ApiAccessOptions { get; set; }
 
         [JsonPropertyName("tag_options")]
         public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
@@ -125,6 +125,33 @@ namespace Modio.Models
     {
         NotAllowed = 0,
         Allowed = 1,
+    }
+
+    [Flags]
+    public enum CommunityOptions : byte
+    {
+        NONE = 0,
+        COMMENTS = 0b0001,
+        GUIDES = 0b0010,
+        DISABLE_SUBSCRIBE = 0b0100,
+    }
+
+    [Flags]
+    public enum RevenueOptions : byte
+    {
+        NONE = 0,
+        SELL = 0b0001,
+        DONATIONS = 0b0010,
+        TRADE = 0b0100,
+        SCARCITY = 0b1000,
+    }
+
+    [Flags]
+    public enum ApiAccessOptions : byte
+    {
+        NONE = 0,
+        ALLOW_THIRD_PARTY = 0b0001,
+        ALLOW_DIRECT_DOWNLOADS = 0b0010,
     }
 
     public class TagOption
