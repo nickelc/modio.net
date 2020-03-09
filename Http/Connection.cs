@@ -67,8 +67,7 @@ namespace Modio
                     req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Credentials.Token);
                 }
 
-                var content = request.Body as HttpContent;
-                if (content != null)
+                if (request.Body is HttpContent content)
                 {
                     req.Content = content;
                 }
