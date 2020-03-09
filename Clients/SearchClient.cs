@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -23,15 +24,16 @@ namespace Modio
         {
             filter = filter != null ? filter.Limit(1) : Filter.WithLimit(1);
             var page = await FirstPage();
-            if (page.Count > 0) return page[0];
-            return default(T);
+            return page.FirstOrDefault();
         }
 
         public async Task<IReadOnlyList<T>> FirstPage()
         {
-            var enumerator = ToPagedEnumerable().GetAsyncEnumerator();
-            await enumerator.MoveNextAsync();
-            return enumerator.Current ?? new List<T>().AsReadOnly();
+            await using (var enumerator = ToPagedEnumerable().GetAsyncEnumerator())
+            {
+                await enumerator.MoveNextAsync();
+                return enumerator.Current ?? new List<T>().AsReadOnly();
+            }
         }
 
         public async Task<IReadOnlyList<T>> ToList()
