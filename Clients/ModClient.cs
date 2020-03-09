@@ -11,12 +11,15 @@ namespace Modio
 
         public uint ModId { get; private set; }
 
+        public DependenciesClient Dependencies { get; set; }
+
         public FilesClient Files { get; private set; }
 
         internal ModClient(IConnection connection, uint game, uint mod) : base(connection)
         {
             GameId = game;
             ModId = mod;
+            Dependencies = new DependenciesClient(connection, game, mod);
             Files = new FilesClient(connection, game, mod);
         }
 

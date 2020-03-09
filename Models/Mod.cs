@@ -107,6 +107,13 @@ namespace Modio.Models
         public Uri? Thumb320x180 { get; set; }
     }
 
+    public class Dependency
+    {
+        public uint ModId { get; set; }
+
+        public long DateAdded { get; set; }
+    }
+
     public class Tag
     {
         [JsonPropertyName("name")]
