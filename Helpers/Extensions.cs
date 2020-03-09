@@ -52,7 +52,7 @@ namespace Modio
 
             IDictionary<string, string> p = new Dictionary<string, string>(parameters);
 
-            var hasQueryString = uri.OriginalString.IndexOf("?", StringComparison.Ordinal);
+            var hasQueryString = uri.OriginalString.IndexOf('?', StringComparison.Ordinal);
 
             string uriWithoutQuery = hasQueryString == -1
                     ? uri.ToString()
@@ -71,7 +71,7 @@ namespace Modio
             }
 
             var values = queryString.Replace("?", "")
-                                    .Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+                                    .Split('&', StringSplitOptions.RemoveEmptyEntries);
 
             var existingParameters = values.ToDictionary(
                         key => key.Substring(0, key.IndexOf('=')),
@@ -85,9 +85,7 @@ namespace Modio
                 }
             }
 
-            Func<string, string, string> mapValueFunc = (key, value) => key == "q" ? value : Uri.EscapeDataString(value);
-
-            string query = string.Join("&", p.Select(kvp => kvp.Key + "=" + mapValueFunc(kvp.Key, kvp.Value)));
+            string query = string.Join('&', p.Select(kvp => kvp.Key + '=' + Uri.EscapeDataString(kvp.Value)));
             if (uri.IsAbsoluteUri)
             {
                 var uriBuilder = new UriBuilder(uri)
@@ -97,7 +95,7 @@ namespace Modio
                 return uriBuilder.Uri;
             }
 
-            return new Uri(uriWithoutQuery + "?" + query, UriKind.Relative);
+            return new Uri(uriWithoutQuery + '?' + query, UriKind.Relative);
         }
     }
 }
