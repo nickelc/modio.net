@@ -20,8 +20,8 @@ namespace Modio
         {
             var (method, path) = Routes.GetGame(GameId);
             var req = new Request(method, Connection.BaseAddress, path);
-
-            return await Connection.Send<Game>(req);
+            var resp = await Connection.Send<Game>(req);
+            return resp.Body!;
         }
     }
 }

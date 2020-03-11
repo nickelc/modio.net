@@ -68,7 +68,8 @@ namespace Modio
                 {
                     req.Parameters.Extend(filter.ToParameters());
                 }
-                var result = await Connection.Send<Result<T>>(req);
+                var resp = await Connection.Send<Result<T>>(req);
+                var result = resp.Body!;
 
                 remaining ??= result.Total;
                 remaining -= result.Count;

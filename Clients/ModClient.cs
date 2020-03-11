@@ -27,8 +27,8 @@ namespace Modio
         {
             var (method, path) = Routes.GetMod(GameId, ModId);
             var req = new Request(method, Connection.BaseAddress, path);
-
-            return await Connection.Send<Mod>(req);
+            var resp = await Connection.Send<Mod>(req);
+            return resp.Body!;
         }
 
         public SearchClient<ModEvent> GetEvents(Filter? filter = null)
@@ -41,8 +41,8 @@ namespace Modio
         {
             var (method, path) = Routes.GetModStats(GameId, ModId);
             var req = new Request(method, Connection.BaseAddress, path);
-
-            return await Connection.Send<Statistics>(req);
+            var resp = await Connection.Send<Statistics>(req);
+            return resp.Body!;
         }
     }
 }

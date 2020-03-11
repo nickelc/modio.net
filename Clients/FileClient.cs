@@ -23,8 +23,8 @@ namespace Modio
         {
             var (method, path) = Routes.GetFile(GameId, ModId, FileId);
             var req = new Request(method, Connection.BaseAddress, path);
-
-            return await Connection.Send<File>(req);
+            var resp = await Connection.Send<File>(req);
+            return resp.Body!;
         }
     }
 }

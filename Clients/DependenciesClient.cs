@@ -57,7 +57,7 @@ namespace Modio
             var parameters = mods.Select(m => new Parameter("dependencies[]", m.ToString()));
             req.Body = new FormUrlEncodedContent(parameters);
 
-            await Connection.Send<object>(req);
+            await Connection.Send<ApiMessage>(req);
         }
     }
 }
