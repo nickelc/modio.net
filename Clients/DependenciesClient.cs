@@ -41,7 +41,7 @@ namespace Modio
             var parameters = mods.Select(m => new Parameter("dependencies[]", m.ToString()));
             req.Body = new FormUrlEncodedContent(parameters);
 
-            await Connection.Send<Dependency>(req);
+            await Connection.Send<ApiMessage>(req);
         }
 
         public async Task Delete(params uint[] mods)
@@ -57,7 +57,7 @@ namespace Modio
             var parameters = mods.Select(m => new Parameter("dependencies[]", m.ToString()));
             req.Body = new FormUrlEncodedContent(parameters);
 
-            await Connection.Send<Dependency>(req);
+            await Connection.Send<object>(req);
         }
     }
 }
