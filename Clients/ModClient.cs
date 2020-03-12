@@ -11,6 +11,8 @@ namespace Modio
 
         public uint ModId { get; private set; }
 
+        public TagsClient Tags { get; private set; }
+
         public DependenciesClient Dependencies { get; set; }
 
         public FilesClient Files { get; private set; }
@@ -19,6 +21,7 @@ namespace Modio
         {
             GameId = game;
             ModId = mod;
+            Tags = new TagsClient(connection, game, mod);
             Dependencies = new DependenciesClient(connection, game, mod);
             Files = new FilesClient(connection, game, mod);
         }
