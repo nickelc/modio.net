@@ -40,7 +40,7 @@ var filter = ModFilter.FullText.Eq("balance")
     .And(ModFilter.Rating.Desc());
 
 IReadOnlyList<Mod> mods = await client.Games[5].Mods.Search(filter).ToList();
-await foreach (var mod in mods) {
+foreach (var mod in mods) {
     Console.WriteLine(mod.Name);
 }
 ```
