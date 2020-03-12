@@ -1,3 +1,6 @@
+using Modio.Filters;
+using Modio.Models;
+
 namespace Modio
 {
     public class FilesClient : ApiClient
@@ -13,5 +16,11 @@ namespace Modio
         }
 
         public FileClient this[uint file] => new FileClient(Connection, GameId, ModId, file);
+
+        public SearchClient<File> Search(Filter? filter = null)
+        {
+            var route = Routes.GetFiles(GameId, ModId);
+            return new SearchClient<File>(Connection, route, filter);
+        }
     }
 }
