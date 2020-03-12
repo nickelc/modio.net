@@ -13,7 +13,7 @@ namespace Modio
 
         public TagsClient Tags { get; private set; }
 
-        public DependenciesClient Dependencies { get; set; }
+        public DependenciesClient Dependencies { get; private set; }
 
         public FilesClient Files { get; private set; }
 
