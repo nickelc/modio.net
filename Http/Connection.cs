@@ -15,7 +15,7 @@ namespace Modio
     {
         Uri BaseAddress { get; }
 
-        Task<Response<T>> Send<T>(Request request) where T: class;
+        Task<Response<T>> Send<T>(Request request) where T : class;
     }
 
     internal class Connection : IConnection
@@ -34,7 +34,7 @@ namespace Modio
         }
 
         public async Task<Response<T>> Send<T>(Request request)
-            where T: class
+            where T : class
         {
             Ensure.ArgumentNotNull(request, nameof(request));
 
