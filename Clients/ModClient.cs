@@ -17,6 +17,8 @@ namespace Modio
 
         public FilesClient Files { get; private set; }
 
+        public CommentsClient Comments { get; private set; }
+
         internal ModClient(IConnection connection, uint game, uint mod) : base(connection)
         {
             GameId = game;
@@ -24,6 +26,7 @@ namespace Modio
             Tags = new TagsClient(connection, game, mod);
             Dependencies = new DependenciesClient(connection, game, mod);
             Files = new FilesClient(connection, game, mod);
+            Comments = new CommentsClient(connection, game, mod);
         }
 
         public async Task<Mod> Get()
