@@ -37,11 +37,11 @@ namespace Modio
 
         public async Task<Mod> Add(NewMod newMod)
         {
-            using (var form = newMod.ToContent())
+            using (var content = newMod.ToContent())
             {
                 var (method, path) = Routes.AddMod(GameId);
                 var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = form;
+                req.Body = content;
 
                 var resp = await Connection.Send<Mod>(req);
                 return resp.Body!;

@@ -47,7 +47,7 @@ namespace Modio
             Logo = logo;
         }
 
-        internal MultipartFormDataContent ToContent()
+        internal HttpContent ToContent()
         {
             var form = new MultipartFormDataContent();
             form.Add(Name.ToContent(), "name");
