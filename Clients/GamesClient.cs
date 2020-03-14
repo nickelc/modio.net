@@ -16,5 +16,10 @@ namespace Modio
             var route = Routes.GetGames();
             return new SearchClient<Game>(Connection, route, filter);
         }
+
+        public async Task<Game> Edit(uint game, EditGame editGame)
+        {
+            return await this[game].Edit(editGame);
+        }
     }
 }

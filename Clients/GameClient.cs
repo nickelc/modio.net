@@ -23,5 +23,18 @@ namespace Modio
             var resp = await Connection.Send<Game>(req);
             return resp.Body!;
         }
+
+        public async Task<Game> Edit(EditGame editGame)
+        {
+            using (var content = editGame.ToContent())
+            {
+                var (method, path) = Routes.EditGame(GameId);
+                var req = new Request(method, Connection.BaseAddress, path);
+                req.Body = content;
+
+                var resp = await Connection.Send<Game>(req);
+                return resp.Body!;
+            }
+        }
     }
 }
