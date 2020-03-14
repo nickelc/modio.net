@@ -40,6 +40,26 @@ namespace Modio
             return resp.Body!;
         }
 
+        public async Task<Mod> Edit(EditMod editMod)
+        {
+            using (var content = editMod.ToContent())
+            {
+                var (method, path) = Routes.EditMod(GameId, ModId);
+                var req = new Request(method, Connection.BaseAddress, path);
+                req.Body = content;
+
+                var resp = await Connection.Send<Mod>(req);
+                return resp.Body!;
+            }
+        }
+
+        public async Task Delete()
+        {
+            var (method, path) = Routes.DeleteMod(GameId, ModId);
+            var req = new Request(method, Connection.BaseAddress, path);
+            await Connection.Send<ApiMessage>(req);
+        }
+
         public SearchClient<ModEvent> GetEvents(Filter? filter = null)
         {
             var route = Routes.GetModEvents(GameId, ModId);

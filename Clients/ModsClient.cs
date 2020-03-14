@@ -47,5 +47,15 @@ namespace Modio
                 return resp.Body!;
             }
         }
+
+        public async Task<Mod> Edit(uint mod, EditMod editMod)
+        {
+            return await this[mod].Edit(editMod);
+        }
+
+        public async Task Delete(uint mod)
+        {
+            await this[mod].Delete();
+        }
     }
 }
