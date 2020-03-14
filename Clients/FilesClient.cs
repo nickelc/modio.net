@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 using Modio.Filters;
 using Modio.Models;
 
@@ -21,6 +23,29 @@ namespace Modio
         {
             var route = Routes.GetFiles(GameId, ModId);
             return new SearchClient<File>(Connection, route, filter);
+        }
+
+        public async Task<File> Add(NewFile newFile)
+        {
+            using (var content = newFile.ToContent())
+            {
+                var (method, path) = Routes.AddFile(GameId, ModId);
+                var req = new Request(method, Connection.BaseAddress, path);
+                req.Body = content;
+
+                var resp = await Connection.Send<File>(req);
+                return resp.Body!;
+            }
+        }
+
+        public async Task<File> Edit(uint file, EditFile editFile)
+        {
+            return await this[file].Edit(editFile);
+        }
+
+        public async Task Delete(uint file)
+        {
+            await this[file].Delete();
         }
     }
 }

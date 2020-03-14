@@ -26,5 +26,25 @@ namespace Modio
             var resp = await Connection.Send<File>(req);
             return resp.Body!;
         }
+
+        public async Task<File> Edit(EditFile editFile)
+        {
+            using (var content = editFile.ToContent())
+            {
+                var (method, path) = Routes.EditFile(GameId, ModId, FileId);
+                var req = new Request(method, Connection.BaseAddress, path);
+                req.Body = content;
+
+                var resp = await Connection.Send<File>(req);
+                return resp.Body!;
+            }
+        }
+
+        public async Task Delete()
+        {
+            var (method, path) = Routes.DeleteFile(GameId, ModId, FileId);
+            var req = new Request(method, Connection.BaseAddress, path);
+            await Connection.Send<ApiMessage>(req);
+        }
     }
 }
