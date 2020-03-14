@@ -15,7 +15,7 @@ namespace Modio
 
         public string? MetadataBlob { get; set; }
 
-        public HttpContent ToContent()
+        internal HttpContent ToContent()
         {
             var parameters = new List<Parameter>();
             if (Version is string version)

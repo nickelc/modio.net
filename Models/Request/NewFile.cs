@@ -27,7 +27,7 @@ namespace Modio
             File = file;
         }
 
-        public HttpContent ToContent()
+        internal HttpContent ToContent()
         {
             var form = new MultipartFormDataContent();
             form.Add(File.ToContent(), "filedata", File.Name);

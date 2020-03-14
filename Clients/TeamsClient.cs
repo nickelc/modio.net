@@ -54,7 +54,8 @@ namespace Modio
             var parameters = new List<Parameter> {
                 new Parameter("level", level.ToString()),
             };
-            if (position != null) {
+            if (position != null)
+            {
                 parameters.Add(new Parameter("position", position));
             }
             req.Body = new FormUrlEncodedContent(parameters);
