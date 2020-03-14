@@ -34,5 +34,18 @@ namespace Modio
             var route = Routes.GetAllModStats(GameId);
             return new SearchClient<Statistics>(Connection, route, filter);
         }
+
+        public async Task<Mod> Add(NewMod newMod)
+        {
+            using (var form = newMod.ToContent())
+            {
+                var (method, path) = Routes.AddMod(GameId);
+                var req = new Request(method, Connection.BaseAddress, path);
+                req.Body = form;
+
+                var resp = await Connection.Send<Mod>(req);
+                return resp.Body!;
+            }
+        }
     }
 }
