@@ -54,7 +54,7 @@ namespace Modio.Models
         public Uri? HomepageUrl { get; set; }
 
         [JsonPropertyName("maturity_option")]
-        public byte MaturityOption { get; set; }
+        public MaturityOption MaturityOption { get; set; }
 
         [JsonPropertyName("metadata_kvp")]
         public Metadata? Metadata { get; set; }
@@ -80,6 +80,16 @@ namespace Modio.Models
     {
         Hidden = 0,
         Public = 1,
+    }
+
+    [Flags]
+    public enum MaturityOption : byte
+    {
+        None = 0,
+        Alcohol = 0b0001,
+        Drugs = 0b0010,
+        Violence = 0b0100,
+        Explicit = 0b1000,
     }
 
     public class Media
