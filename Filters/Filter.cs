@@ -255,6 +255,60 @@ namespace Modio.Filters
         }
     }
 
+    public class GenericTextField<T> : FilterField
+        where T : notnull
+    {
+        internal GenericTextField(string field) : base(field) { }
+
+        public Filter Eq(T value)
+        {
+            var name = Operator.Equal.ToName(Field);
+            return new Filter(name, value.ToString()!);
+        }
+
+        public Filter Not(T value)
+        {
+            var name = Operator.NotEqual.ToName(Field);
+            return new Filter(name, value.ToString()!);
+        }
+
+        public Filter Like(T value)
+        {
+            var name = Operator.Like.ToName(Field);
+            return new Filter(name, value.ToString()!);
+        }
+
+        public Filter NotLike(T value)
+        {
+            var name = Operator.NotLike.ToName(Field);
+            return new Filter(name, value.ToString()!);
+        }
+
+        public Filter In(IEnumerable<T> values)
+        {
+            var name = Operator.In.ToName(Field);
+            return new Filter(name, string.Join(',', values));
+        }
+
+        public Filter NotIn(IEnumerable<T> values)
+        {
+            var name = Operator.NotIn.ToName(Field);
+            return new Filter(name, string.Join(',', values));
+        }
+
+        public Filter In(params T[] values)
+        {
+            var name = Operator.In.ToName(Field);
+            return new Filter(name, string.Join(',', new List<T>(values)));
+        }
+
+        public Filter NotIn(params T[] values)
+        {
+            var name = Operator.NotIn.ToName(Field);
+            return new Filter(name, string.Join(',', new List<T>(values)));
+        }
+    }
+
     internal enum Operator
     {
         Equal,
