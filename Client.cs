@@ -11,6 +11,8 @@ namespace Modio
 
         public GamesClient Games { get; private set; }
 
+        public UserClient User { get; private set; }
+
         public Client(Credentials credentials) : this(new Connection(ModioApiUrl, credentials))
         {
         }
@@ -23,6 +25,7 @@ namespace Modio
         {
             this.connection = connection;
             Games = new GamesClient(connection);
+            User = new UserClient(connection);
         }
 
         static Uri FixBaseUrl(Uri uri)

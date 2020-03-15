@@ -8,7 +8,7 @@ namespace Modio
         #region Game
         public static (HttpMethod, Uri) GetGames()
         {
-            return (HttpMethod.Get, "games".FormatUri());
+            return (HttpMethod.Get, new Uri("games", UriKind.Relative));
         }
 
         public static (HttpMethod, Uri) GetGame(uint game)
@@ -279,6 +279,43 @@ namespace Modio
         {
             var uri = "games/{0}/mods/{1}/files/{2}".FormatUri(game, mod, file);
             return (HttpMethod.Delete, uri);
+        }
+        #endregion
+
+        #region User
+        public static (HttpMethod, Uri) CurrentUser()
+        {
+            return (HttpMethod.Get, new Uri("me", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) UserSubscriptions()
+        {
+            return (HttpMethod.Get, new Uri("me/subscribed", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) UserEvents()
+        {
+            return (HttpMethod.Get, new Uri("me/events", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) UserGames()
+        {
+            return (HttpMethod.Get, new Uri("me/games", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) UserMods()
+        {
+            return (HttpMethod.Get, new Uri("me/mods", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) UserFiles()
+        {
+            return (HttpMethod.Get, new Uri("me/files", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) UserRatings()
+        {
+            return (HttpMethod.Get, new Uri("me/ratings", UriKind.Relative));
         }
         #endregion
     }
