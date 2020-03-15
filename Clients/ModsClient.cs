@@ -67,5 +67,10 @@ namespace Modio
         {
             await this[mod].Unsubscribe();
         }
+
+        public async Task Rate(uint mod, NewRating rating)
+        {
+            await this[mod].Rate(rating);
+        }
     }
 }

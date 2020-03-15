@@ -112,5 +112,28 @@ namespace Modio
                 }
             }
         }
+
+        public async Task Rate(NewRating rating)
+        {
+            using (var content = rating.ToContent())
+            {
+                var (method, path) = Routes.RateMod(GameId, ModId);
+                var req = new Request(method, Connection.BaseAddress, path);
+                req.Body = content;
+                try
+                {
+                    await Connection.Send<ApiMessage>(req);
+                }
+                catch (ApiException e)
+                {
+                    // The endpoint returns 400 if the user already submitted
+                    // a positive or negative rating
+                    if (e.StatusCode != HttpStatusCode.BadRequest)
+                    {
+                        throw;
+                    }
+                }
+            }
+        }
     }
 }
