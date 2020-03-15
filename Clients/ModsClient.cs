@@ -57,5 +57,15 @@ namespace Modio
         {
             await this[mod].Delete();
         }
+
+        public async Task Subscribe(uint mod)
+        {
+            await this[mod].Subscribe();
+        }
+
+        public async Task Unsubscribe(uint mod)
+        {
+            await this[mod].Unsubscribe();
+        }
     }
 }

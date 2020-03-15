@@ -1,3 +1,4 @@
+using System.Net;
 using System.Threading.Tasks;
 
 using Modio.Filters;
@@ -72,6 +73,44 @@ namespace Modio
             var req = new Request(method, Connection.BaseAddress, path);
             var resp = await Connection.Send<Statistics>(req);
             return resp.Body!;
+        }
+
+        public async Task Subscribe()
+        {
+            var (method, path) = Routes.Subscribe(GameId, ModId);
+            var req = new Request(method, Connection.BaseAddress, path);
+            req.Body = new NoHttpContent();
+            try
+            {
+                await Connection.Send<Mod>(req);
+            }
+            catch (ApiException e)
+            {
+                // The endpoint returns 400 if the user is already subscribed
+                if (e.StatusCode != HttpStatusCode.BadRequest)
+                {
+                    throw;
+                }
+            }
+        }
+
+        public async Task Unsubscribe()
+        {
+            var (method, path) = Routes.Unsubscribe(GameId, ModId);
+            var req = new Request(method, Connection.BaseAddress, path);
+            req.Body = new NoHttpContent();
+            try
+            {
+                await Connection.Send<ApiMessage>(req);
+            }
+            catch (ApiException e)
+            {
+                // The endpoint returns 400 if the user was not subscribed
+                if (e.StatusCode != HttpStatusCode.BadRequest)
+                {
+                    throw;
+                }
+            }
         }
     }
 }
