@@ -350,5 +350,10 @@ namespace Modio
             return (HttpMethod.Get, new Uri("me/ratings", UriKind.Relative));
         }
         #endregion
+
+        public static (HttpMethod, Uri) SubmitReport()
+        {
+            return (HttpMethod.Post, new Uri("report", UriKind.Relative));
+        }
     }
 }

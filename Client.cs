@@ -1,4 +1,7 @@
 using System;
+using System.Threading.Tasks;
+
+using Modio.Models;
 
 namespace Modio
 {
@@ -29,6 +32,15 @@ namespace Modio
             Auth = new AuthClient(connection);
             Games = new GamesClient(connection);
             User = new UserClient(connection);
+        }
+
+        public async Task SubmitReport(NewReport report)
+        {
+            var (method, path) = Routes.SubmitReport();
+            var req = new Request(method, connection.BaseAddress, path);
+            req.Body = report.ToContent();
+
+            await connection.Send<ApiMessage>(req);
         }
 
         static Uri FixBaseUrl(Uri uri)
