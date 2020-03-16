@@ -7,8 +7,6 @@ using Modio.Models;
 
 namespace Modio
 {
-    using Parameter = KeyValuePair<string, string>;
-
     public class DependenciesClient : ApiClient
     {
         public uint GameId { get; private set; }
@@ -38,8 +36,7 @@ namespace Modio
             var (method, path) = Routes.AddModDependencies(GameId, ModId);
             var req = new Request(method, Connection.BaseAddress, path);
 
-            var parameters = mods.Select(m => new Parameter("dependencies[]", m.ToString()));
-            req.Body = new FormUrlEncodedContent(parameters);
+            req.Body = mods.Select(m => ("dependencies[]", m.ToString())).ToContent();
 
             await Connection.Send<ApiMessage>(req);
         }
@@ -54,8 +51,7 @@ namespace Modio
             var (method, path) = Routes.DeleteModDependencies(GameId, ModId);
             var req = new Request(method, Connection.BaseAddress, path);
 
-            var parameters = mods.Select(m => new Parameter("dependencies[]", m.ToString()));
-            req.Body = new FormUrlEncodedContent(parameters);
+            req.Body = mods.Select(m => ("dependencies[]", m.ToString())).ToContent();
 
             await Connection.Send<ApiMessage>(req);
         }

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 using Modio.Filters;
@@ -7,8 +5,6 @@ using Modio.Models;
 
 namespace Modio
 {
-    using Parameter = KeyValuePair<string, string>;
-
     public class TeamsClient : ApiClient
     {
         public uint GameId { get; private set; }
@@ -34,15 +30,15 @@ namespace Modio
             var (method, path) = Routes.AddTeamMember(GameId, ModId);
             var req = new Request(method, Connection.BaseAddress, path);
 
-            var parameters = new List<Parameter> {
-                new Parameter("email", email),
-                new Parameter("level", level.ToString()),
+            var parameters = new Parameters {
+                {"email", email},
+                {"level", level.ToString()},
             };
             if (position != null)
             {
-                parameters.Add(new Parameter("position", position));
+                parameters.Add("position", position);
             }
-            req.Body = new FormUrlEncodedContent(parameters);
+            req.Body = parameters.ToContent();
             await Connection.Send<ApiMessage>(req);
         }
 
@@ -51,14 +47,14 @@ namespace Modio
             var (method, path) = Routes.EditTeamMember(GameId, ModId, member);
             var req = new Request(method, Connection.BaseAddress, path);
 
-            var parameters = new List<Parameter> {
-                new Parameter("level", level.ToString()),
+            var parameters = new Parameters {
+                {"level", level.ToString()},
             };
             if (position != null)
             {
-                parameters.Add(new Parameter("position", position));
+                parameters.Add("position", position);
             }
-            req.Body = new FormUrlEncodedContent(parameters);
+            req.Body = parameters.ToContent();
             await Connection.Send<ApiMessage>(req);
         }
 

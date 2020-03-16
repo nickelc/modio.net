@@ -1,10 +1,7 @@
-using System.Collections.Generic;
 using System.Net.Http;
 
 namespace Modio
 {
-    using Parameter = KeyValuePair<string, string>;
-
     public class EditFile
     {
         public string? Version { get; set; }
@@ -17,24 +14,24 @@ namespace Modio
 
         internal HttpContent ToContent()
         {
-            var parameters = new List<Parameter>();
+            var parameters = new Parameters();
             if (Version is string version)
             {
-                parameters.Add(new Parameter("version", version));
+                parameters.Add("version", version);
             }
             if (Changelog is string changelog)
             {
-                parameters.Add(new Parameter("changelog", changelog));
+                parameters.Add("changelog", changelog);
             }
             if (Active is bool active)
             {
-                parameters.Add(new Parameter("active", active ? "true" : "false"));
+                parameters.Add("active", active ? "true" : "false");
             }
             if (MetadataBlob is string metadata)
             {
-                parameters.Add(new Parameter("metadata_blob", metadata));
+                parameters.Add("metadata_blob", metadata);
             }
-            return new FormUrlEncodedContent(parameters);
+            return parameters.ToContent();
         }
     }
 }

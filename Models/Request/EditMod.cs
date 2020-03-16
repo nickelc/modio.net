@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 
 using Modio.Models;
 
 namespace Modio
 {
-    using Parameter = KeyValuePair<string, string>;
-
     public class EditMod
     {
         public Status? Status { get; set; }
@@ -32,48 +29,48 @@ namespace Modio
 
         internal HttpContent ToContent()
         {
-            var parameters = new List<Parameter>();
+            var parameters = new Parameters();
             if (Name is string name)
             {
-                parameters.Add(new Parameter("name", name));
+                parameters.Add("name", name);
             }
             if (NameId is string nameId)
             {
-                parameters.Add(new Parameter("name_id", nameId));
+                parameters.Add("name_id", nameId);
             }
             if (Status is Status status)
             {
-                parameters.Add(new Parameter("status", status.ToString()));
+                parameters.Add("status", status.ToString());
             }
             if (Visible is Visibility visible)
             {
-                parameters.Add(new Parameter("visible", visible.ToString()));
+                parameters.Add("visible", visible.ToString());
             }
             if (Summary is string summary)
             {
-                parameters.Add(new Parameter("summary", summary));
+                parameters.Add("summary", summary);
             }
             if (Description is string desc)
             {
-                parameters.Add(new Parameter("description", desc));
+                parameters.Add("description", desc);
             }
             if (HomepageUrl is Uri uri)
             {
-                parameters.Add(new Parameter("homepage_url", uri.ToString()));
+                parameters.Add("homepage_url", uri.ToString());
             }
             if (Stock is uint stock)
             {
-                parameters.Add(new Parameter("stock", stock.ToString()));
+                parameters.Add("stock", stock.ToString());
             }
             if (MaturityOption is MaturityOption maturityOption)
             {
-                parameters.Add(new Parameter("maturity_option", maturityOption.ToString()));
+                parameters.Add("maturity_option", maturityOption.ToString());
             }
             if (MetadataBlob is string metadata)
             {
-                parameters.Add(new Parameter("metadata_blob", metadata));
+                parameters.Add("metadata_blob", metadata);
             }
-            return new FormUrlEncodedContent(parameters);
+            return parameters.ToContent();
         }
     }
 }

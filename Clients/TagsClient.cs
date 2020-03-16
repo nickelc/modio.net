@@ -1,14 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 using Modio.Models;
 
 namespace Modio
 {
-    using Parameter = KeyValuePair<string, string>;
-
     public class TagsClient : ApiClient
     {
         public uint GameId { get; private set; }
@@ -38,8 +35,7 @@ namespace Modio
             var (method, path) = Routes.AddModTags(GameId, ModId);
             var req = new Request(method, Connection.BaseAddress, path);
 
-            var parameters = tags.Select(t => new Parameter("tags[]", t));
-            req.Body = new FormUrlEncodedContent(parameters);
+            req.Body = tags.Select(t => ("tags[]", t)).ToContent();
 
             await Connection.Send<ApiMessage>(req);
         }
@@ -54,8 +50,7 @@ namespace Modio
             var (method, path) = Routes.DeleteModTags(GameId, ModId);
             var req = new Request(method, Connection.BaseAddress, path);
 
-            var parameters = tags.Select(t => new Parameter("tags[]", t));
-            req.Body = new FormUrlEncodedContent(parameters);
+            req.Body = tags.Select(t => ("tags[]", t)).ToContent();
 
             await Connection.Send<ApiMessage>(req);
         }

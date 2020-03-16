@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -7,8 +6,6 @@ using Modio.Models;
 
 namespace Modio
 {
-    using Parameter = KeyValuePair<string, string>;
-
     public class MetadataClient : ApiClient
     {
         public uint GameId { get; private set; }
@@ -65,13 +62,13 @@ namespace Modio
             var name = "metadata[]";
             var parameters = metadata.SelectMany(kvp => kvp.Value.Count switch
                 {
-                    0 => new[] { new Parameter(name, kvp.Key) },
+                    0 => new[] { (name, kvp.Key) },
                     _ => kvp.Value
                         .Select(v => string.Format("{0}:{1}", kvp.Key, v))
-                        .Select(v => new Parameter(name, v)),
+                        .Select(v => (name, v)),
                 }
             );
-            return new FormUrlEncodedContent(parameters);
+            return parameters.ToContent();
         }
     }
 }

@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 
 using Modio.Models;
 
 namespace Modio
 {
-    using Parameter = KeyValuePair<string, string>;
-
     public class EditGame
     {
         public Status? Status { get; set; }
@@ -40,64 +37,64 @@ namespace Modio
 
         internal HttpContent ToContent()
         {
-            var parameters = new List<Parameter>();
+            var parameters = new Parameters();
             if (Status is Status status)
             {
-                parameters.Add(new Parameter("status", status.ToString()));
+                parameters.Add("status", status.ToString());
             }
             if (Name is string name)
             {
-                parameters.Add(new Parameter("name", name));
+                parameters.Add("name", name);
             }
             if (NameId is string nameId)
             {
-                parameters.Add(new Parameter("name_id", nameId));
+                parameters.Add("name_id", nameId);
             }
             if (Summary is string summary)
             {
-                parameters.Add(new Parameter("summary", summary));
+                parameters.Add("summary", summary);
             }
             if (Instructions is string instructions)
             {
-                parameters.Add(new Parameter("instructions", instructions));
+                parameters.Add("instructions", instructions);
             }
             if (InstructionsUrl is Uri uri)
             {
-                parameters.Add(new Parameter("instructions_url", uri.ToString()));
+                parameters.Add("instructions_url", uri.ToString());
             }
             if (UgcName is string ugcName)
             {
-                parameters.Add(new Parameter("ugc_name", ugcName));
+                parameters.Add("ugc_name", ugcName);
             }
             if (PresentationOption is PresentationOption presentation)
             {
-                parameters.Add(new Parameter("presentation_option", presentation.ToString()));
+                parameters.Add("presentation_option", presentation.ToString());
             }
             if (SubmissionOption is SubmissionOption submission)
             {
-                parameters.Add(new Parameter("submission_option", submission.ToString()));
+                parameters.Add("submission_option", submission.ToString());
             }
             if (CurationOption is CurationOption curation)
             {
-                parameters.Add(new Parameter("curation_option", curation.ToString()));
+                parameters.Add("curation_option", curation.ToString());
             }
             if (CommunityOptions is CommunityOptions community)
             {
-                parameters.Add(new Parameter("community_options", community.ToString()));
+                parameters.Add("community_options", community.ToString());
             }
             if (RevenueOptions is RevenueOptions revenue)
             {
-                parameters.Add(new Parameter("revenue_options", revenue.ToString()));
+                parameters.Add("revenue_options", revenue.ToString());
             }
             if (ApiAccessOptions is ApiAccessOptions apiAccess)
             {
-                parameters.Add(new Parameter("api_access_options", apiAccess.ToString()));
+                parameters.Add("api_access_options", apiAccess.ToString());
             }
             if (MaturityOptions is MaturityOptions maturity)
             {
-                parameters.Add(new Parameter("maturity_options", maturity.ToString()));
+                parameters.Add("maturity_options", maturity.ToString());
             }
-            return new FormUrlEncodedContent(parameters);
+            return parameters.ToContent();
         }
     }
 }
