@@ -36,5 +36,17 @@ namespace Modio
                 return resp.Body!;
             }
         }
+
+        public async Task AddMedia(NewGameMedia media)
+        {
+            using (var content = media.ToContent())
+            {
+                var (method, path) = Routes.AddGameMedia(GameId);
+                var req = new Request(method, Connection.BaseAddress, path);
+                req.Body = content;
+
+                await Connection.Send<ApiMessage>(req);
+            }
+        }
     }
 }

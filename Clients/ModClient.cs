@@ -64,6 +64,30 @@ namespace Modio
             await Connection.Send<ApiMessage>(req);
         }
 
+        public async Task AddMedia(NewModMedia media)
+        {
+            using (var content = media.ToContent())
+            {
+                var (method, path) = Routes.AddModMedia(GameId, ModId);
+                var req = new Request(method, Connection.BaseAddress, path);
+                req.Body = content;
+
+                await Connection.Send<ApiMessage>(req);
+            }
+        }
+
+        public async Task DeleteMedia(DeleteModMedia media)
+        {
+            using (var content = media.ToContent())
+            {
+                var (method, path) = Routes.DeleteModMedia(GameId, ModId);
+                var req = new Request(method, Connection.BaseAddress, path);
+                req.Body = content;
+
+                await Connection.Send<ApiMessage>(req);
+            }
+        }
+
         public SearchClient<ModEvent> GetEvents(Filter? filter = null)
         {
             var route = Routes.GetModEvents(GameId, ModId);
