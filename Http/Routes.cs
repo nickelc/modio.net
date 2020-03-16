@@ -5,6 +5,38 @@ namespace Modio
 {
     internal partial class Routes
     {
+        #region Auth
+        public static (HttpMethod, Uri) AuthEmailRequest()
+        {
+            return (HttpMethod.Post, new Uri("oauth/emailrequest", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) AuthEmailExchange()
+        {
+            return (HttpMethod.Post, new Uri("oauth/emailexchange", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) ExternalSteam()
+        {
+            return (HttpMethod.Post, new Uri("external/steamauth", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) ExternalGalaxy()
+        {
+            return (HttpMethod.Post, new Uri("external/galaxyauth", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) ExternalItchio()
+        {
+            return (HttpMethod.Post, new Uri("external/itchioauth", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) ExternalOculus()
+        {
+            return (HttpMethod.Post, new Uri("external/oculusauth", UriKind.Relative));
+        }
+        #endregion
+
         #region Game
         public static (HttpMethod, Uri) GetGames()
         {

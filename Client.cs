@@ -9,6 +9,8 @@ namespace Modio
 
         private IConnection connection;
 
+        public AuthClient Auth { get; private set; }
+
         public GamesClient Games { get; private set; }
 
         public UserClient User { get; private set; }
@@ -24,6 +26,7 @@ namespace Modio
         private Client(IConnection connection)
         {
             this.connection = connection;
+            Auth = new AuthClient(connection);
             Games = new GamesClient(connection);
             User = new UserClient(connection);
         }
