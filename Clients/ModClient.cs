@@ -16,6 +16,8 @@ namespace Modio
 
         public DependenciesClient Dependencies { get; private set; }
 
+        public MetadataClient Metadata { get; private set; }
+
         public FilesClient Files { get; private set; }
 
         public CommentsClient Comments { get; private set; }
@@ -28,6 +30,7 @@ namespace Modio
             ModId = mod;
             Tags = new TagsClient(connection, game, mod);
             Dependencies = new DependenciesClient(connection, game, mod);
+            Metadata = new MetadataClient(connection, game, mod);
             Files = new FilesClient(connection, game, mod);
             Comments = new CommentsClient(connection, game, mod);
             Team = new TeamsClient(connection, game, mod);
