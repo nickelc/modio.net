@@ -40,7 +40,7 @@ namespace Modio
             var parameters = new Parameters();
             if (Status is Status status)
             {
-                parameters.Add("status", status.ToString());
+                parameters.Add("status", ((int)status).ToString());
             }
             if (Name is string name)
             {
@@ -68,31 +68,31 @@ namespace Modio
             }
             if (PresentationOption is PresentationOption presentation)
             {
-                parameters.Add("presentation_option", presentation.ToString());
+                parameters.Add("presentation_option", ((int)presentation).ToString());
             }
             if (SubmissionOption is SubmissionOption submission)
             {
-                parameters.Add("submission_option", submission.ToString());
+                parameters.Add("submission_option", ((int)submission).ToString());
             }
             if (CurationOption is CurationOption curation)
             {
-                parameters.Add("curation_option", curation.ToString());
+                parameters.Add("curation_option", ((int)curation).ToString());
             }
             if (CommunityOptions is CommunityOptions community)
             {
-                parameters.Add("community_options", community.ToString());
+                parameters.Add("community_options", ((int)community).ToString());
             }
             if (RevenueOptions is RevenueOptions revenue)
             {
-                parameters.Add("revenue_options", revenue.ToString());
+                parameters.Add("revenue_options", ((int)revenue).ToString());
             }
             if (ApiAccessOptions is ApiAccessOptions apiAccess)
             {
-                parameters.Add("api_access_options", apiAccess.ToString());
+                parameters.Add("api_access_options", ((int)apiAccess).ToString());
             }
             if (MaturityOptions is MaturityOptions maturity)
             {
-                parameters.Add("maturity_options", maturity.ToString());
+                parameters.Add("maturity_options", ((int)maturity).ToString());
             }
             return parameters.ToContent();
         }

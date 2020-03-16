@@ -41,7 +41,7 @@ namespace Modio
             }
             if (Active is bool active)
             {
-                form.Add(active.ToString().ToContent(), "active");
+                form.Add((active ? "true" : "false").ToContent(), "active");
             }
             if (Filehash is string filehash)
             {

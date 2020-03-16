@@ -40,11 +40,11 @@ namespace Modio
             }
             if (Status is Status status)
             {
-                parameters.Add("status", status.ToString());
+                parameters.Add("status", ((int)status).ToString());
             }
             if (Visible is Visibility visible)
             {
-                parameters.Add("visible", visible.ToString());
+                parameters.Add("visible", ((int)visible).ToString());
             }
             if (Summary is string summary)
             {
@@ -64,7 +64,7 @@ namespace Modio
             }
             if (MaturityOption is MaturityOption maturityOption)
             {
-                parameters.Add("maturity_option", maturityOption.ToString());
+                parameters.Add("maturity_option", ((int)maturityOption).ToString());
             }
             if (MetadataBlob is string metadata)
             {

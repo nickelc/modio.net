@@ -64,7 +64,7 @@ namespace Modio
             }
             if (Visible is Visibility visible)
             {
-                form.Add(visible.ToString().ToContent(), "visible");
+                form.Add(((int)visible).ToString().ToContent(), "visible");
             }
             if (HomepageUrl is Uri uri)
             {
@@ -76,7 +76,7 @@ namespace Modio
             }
             if (MaturityOption is MaturityOption maturity)
             {
-                form.Add(maturity.ToString().ToContent(), "maturity_option");
+                form.Add(((int)maturity).ToString().ToContent(), "maturity_option");
             }
             if (MetadataBlob is string metadata)
             {
