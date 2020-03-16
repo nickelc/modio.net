@@ -33,10 +33,10 @@ namespace Modio
 
         public async Task Add(IEnumerable<uint> mods)
         {
-            var (method, path) = Routes.AddModDependencies(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var content = mods.Select(m => ("dependencies[]", m.ToString())).ToContent();
 
-            req.Body = mods.Select(m => ("dependencies[]", m.ToString())).ToContent();
+            var (method, path) = Routes.AddModDependencies(GameId, ModId);
+            var req = new Request(method, path, content);
 
             await Connection.Send<ApiMessage>(req);
         }
@@ -48,10 +48,10 @@ namespace Modio
 
         public async Task Delete(IEnumerable<uint> mods)
         {
-            var (method, path) = Routes.DeleteModDependencies(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var content = mods.Select(m => ("dependencies[]", m.ToString())).ToContent();
 
-            req.Body = mods.Select(m => ("dependencies[]", m.ToString())).ToContent();
+            var (method, path) = Routes.DeleteModDependencies(GameId, ModId);
+            var req = new Request(method, path, content);
 
             await Connection.Send<ApiMessage>(req);
         }

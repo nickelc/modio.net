@@ -32,10 +32,10 @@ namespace Modio
 
         public async Task Add(IEnumerable<string> tags)
         {
-            var (method, path) = Routes.AddModTags(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var content = tags.Select(t => ("tags[]", t)).ToContent();
 
-            req.Body = tags.Select(t => ("tags[]", t)).ToContent();
+            var (method, path) = Routes.AddModTags(GameId, ModId);
+            var req = new Request(method, path, content);
 
             await Connection.Send<ApiMessage>(req);
         }
@@ -47,10 +47,10 @@ namespace Modio
 
         public async Task Delete(IEnumerable<string> tags)
         {
-            var (method, path) = Routes.DeleteModTags(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var content = tags.Select(t => ("tags[]", t)).ToContent();
 
-            req.Body = tags.Select(t => ("tags[]", t)).ToContent();
+            var (method, path) = Routes.DeleteModTags(GameId, ModId);
+            var req = new Request(method, path, content);
 
             await Connection.Send<ApiMessage>(req);
         }

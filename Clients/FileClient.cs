@@ -22,7 +22,7 @@ namespace Modio
         public async Task<File> Get()
         {
             var (method, path) = Routes.GetFile(GameId, ModId, FileId);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var req = new Request(method, path);
             var resp = await Connection.Send<File>(req);
             return resp.Body!;
         }
@@ -32,8 +32,7 @@ namespace Modio
             using (var content = editFile.ToContent())
             {
                 var (method, path) = Routes.EditFile(GameId, ModId, FileId);
-                var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = content;
+                var req = new Request(method, path, content);
 
                 var resp = await Connection.Send<File>(req);
                 return resp.Body!;
@@ -43,7 +42,7 @@ namespace Modio
         public async Task Delete()
         {
             var (method, path) = Routes.DeleteFile(GameId, ModId, FileId);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var req = new Request(method, path);
             await Connection.Send<ApiMessage>(req);
         }
     }

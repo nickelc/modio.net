@@ -63,7 +63,7 @@ namespace Modio
             uint? remaining = null;
             do
             {
-                var req = new Request(method, Connection.BaseAddress, path);
+                var req = new Request(method, path);
                 if (filter != null)
                 {
                     req.Parameters.Extend(filter.ToParameters());

@@ -26,8 +26,7 @@ namespace Modio
             using (var content = tag.ToContent())
             {
                 var (method, path) = Routes.AddGameTags(GameId);
-                var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = content;
+                var req = new Request(method, path, content);
 
                 await Connection.Send<ApiMessage>(req);
             }
@@ -38,8 +37,7 @@ namespace Modio
             using (var content = tag.ToContent())
             {
                 var (method, path) = Routes.DeleteGameTags(GameId);
-                var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = content;
+                var req = new Request(method, path, content);
 
                 await Connection.Send<ApiMessage>(req);
             }

@@ -13,8 +13,6 @@ namespace Modio
 
     internal interface IConnection
     {
-        Uri BaseAddress { get; }
-
         Task<Response<T>> Send<T>(Request request) where T : class;
     }
 
@@ -55,7 +53,7 @@ namespace Modio
                 {
                     ["api_key"] = Credentials.ApiKey,
                 };
-                var uri = new Uri(request.BaseAddress, request.Endpoint)
+                var uri = new Uri(BaseAddress, request.Endpoint)
                     .ApplyParameters(parameters);
 
                 req = new HttpRequestMessage(request.Method, uri);

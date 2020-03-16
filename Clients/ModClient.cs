@@ -39,7 +39,7 @@ namespace Modio
         public async Task<Mod> Get()
         {
             var (method, path) = Routes.GetMod(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var req = new Request(method, path);
             var resp = await Connection.Send<Mod>(req);
             return resp.Body!;
         }
@@ -49,8 +49,7 @@ namespace Modio
             using (var content = editMod.ToContent())
             {
                 var (method, path) = Routes.EditMod(GameId, ModId);
-                var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = content;
+                var req = new Request(method, path, content);
 
                 var resp = await Connection.Send<Mod>(req);
                 return resp.Body!;
@@ -60,7 +59,7 @@ namespace Modio
         public async Task Delete()
         {
             var (method, path) = Routes.DeleteMod(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var req = new Request(method, path);
             await Connection.Send<ApiMessage>(req);
         }
 
@@ -69,8 +68,7 @@ namespace Modio
             using (var content = media.ToContent())
             {
                 var (method, path) = Routes.AddModMedia(GameId, ModId);
-                var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = content;
+                var req = new Request(method, path, content);
 
                 await Connection.Send<ApiMessage>(req);
             }
@@ -81,8 +79,7 @@ namespace Modio
             using (var content = media.ToContent())
             {
                 var (method, path) = Routes.DeleteModMedia(GameId, ModId);
-                var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = content;
+                var req = new Request(method, path, content);
 
                 await Connection.Send<ApiMessage>(req);
             }
@@ -97,7 +94,7 @@ namespace Modio
         public async Task<Statistics> GetStatistics()
         {
             var (method, path) = Routes.GetModStats(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var req = new Request(method, path);
             var resp = await Connection.Send<Statistics>(req);
             return resp.Body!;
         }
@@ -105,8 +102,8 @@ namespace Modio
         public async Task Subscribe()
         {
             var (method, path) = Routes.Subscribe(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
-            req.Body = new NoHttpContent();
+            var req = new Request(method, path, new NoHttpContent());
+
             try
             {
                 await Connection.Send<Mod>(req);
@@ -124,8 +121,8 @@ namespace Modio
         public async Task Unsubscribe()
         {
             var (method, path) = Routes.Unsubscribe(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
-            req.Body = new NoHttpContent();
+            var req = new Request(method, path, new NoHttpContent());
+
             try
             {
                 await Connection.Send<ApiMessage>(req);
@@ -145,8 +142,8 @@ namespace Modio
             using (var content = rating.ToContent())
             {
                 var (method, path) = Routes.RateMod(GameId, ModId);
-                var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = content;
+                var req = new Request(method, path, content);
+
                 try
                 {
                     await Connection.Send<ApiMessage>(req);

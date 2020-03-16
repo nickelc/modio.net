@@ -12,7 +12,7 @@ namespace Modio
         public async Task<User> GetCurrentUser()
         {
             var (method, path) = Routes.CurrentUser();
-            var req = new Request(method, Connection.BaseAddress, path);
+            var req = new Request(method, path);
 
             var resp = await Connection.Send<User>(req);
             return resp.Body!;

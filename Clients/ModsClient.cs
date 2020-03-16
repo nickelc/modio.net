@@ -40,8 +40,7 @@ namespace Modio
             using (var content = newMod.ToContent())
             {
                 var (method, path) = Routes.AddMod(GameId);
-                var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = content;
+                var req = new Request(method, path, content);
 
                 var resp = await Connection.Send<Mod>(req);
                 return resp.Body!;

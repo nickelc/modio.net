@@ -26,7 +26,7 @@ namespace Modio
         public async Task<Comment> Get(uint id)
         {
             var (method, path) = Routes.GetComment(GameId, ModId, id);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var req = new Request(method, path);
             var resp = await Connection.Send<Comment>(req);
             return resp.Body!;
         }
@@ -34,7 +34,7 @@ namespace Modio
         public async Task Delete(uint id)
         {
             var (method, path) = Routes.DeleteComment(GameId, ModId, id);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var req = new Request(method, path);
             await Connection.Send<ApiMessage>(req);
         }
     }

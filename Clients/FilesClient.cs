@@ -30,8 +30,7 @@ namespace Modio
             using (var content = newFile.ToContent())
             {
                 var (method, path) = Routes.AddFile(GameId, ModId);
-                var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = content;
+                var req = new Request(method, path, content);
 
                 var resp = await Connection.Send<File>(req);
                 return resp.Body!;

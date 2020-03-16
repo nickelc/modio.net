@@ -17,8 +17,7 @@ namespace Modio
                 {"email", email},
             };
             var (method, path) = Routes.AuthEmailRequest();
-            var req = new Request(method, Connection.BaseAddress, path);
-            req.Body = parameters.ToContent();
+            var req = new Request(method, path, parameters.ToContent());
 
             await Connection.Send<ApiMessage>(req);
         }
@@ -60,9 +59,7 @@ namespace Modio
         private async Task<AccessToken> RequestToken((HttpMethod, Uri) route, HttpContent content)
         {
             var (method, path) = route;
-            var req = new Request(method, Connection.BaseAddress, path);
-            req.Body = content;
-
+            var req = new Request(method, path, content);
             var resp = await Connection.Send<AccessToken>(req);
             return resp.Body!;
         }

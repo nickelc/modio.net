@@ -39,8 +39,7 @@ namespace Modio
         public async Task Add(Metadata metadata)
         {
             var (method, path) = Routes.AddModMetadata(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
-            req.Body = metadata.ToContent();
+            var req = new Request(method, path, metadata.ToContent());
 
             await Connection.Send<ApiMessage>(req);
         }
@@ -48,8 +47,7 @@ namespace Modio
         public async Task Delete(Metadata metadata)
         {
             var (method, path) = Routes.DeleteModMetadata(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
-            req.Body = metadata.ToContent();
+            var req = new Request(method, path, metadata.ToContent());
 
             await Connection.Send<ApiMessage>(req);
         }

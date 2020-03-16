@@ -27,9 +27,6 @@ namespace Modio
         {
             Ensure.ArgumentNotNull(email, nameof(email));
 
-            var (method, path) = Routes.AddTeamMember(GameId, ModId);
-            var req = new Request(method, Connection.BaseAddress, path);
-
             var parameters = new Parameters {
                 {"email", email},
                 {"level", level.ToString()},
@@ -38,15 +35,15 @@ namespace Modio
             {
                 parameters.Add("position", position);
             }
-            req.Body = parameters.ToContent();
+
+            var (method, path) = Routes.AddTeamMember(GameId, ModId);
+            var req = new Request(method, path, parameters.ToContent());
+
             await Connection.Send<ApiMessage>(req);
         }
 
         public async Task Edit(uint member, TeamLevel level, string? position = null)
         {
-            var (method, path) = Routes.EditTeamMember(GameId, ModId, member);
-            var req = new Request(method, Connection.BaseAddress, path);
-
             var parameters = new Parameters {
                 {"level", level.ToString()},
             };
@@ -54,14 +51,17 @@ namespace Modio
             {
                 parameters.Add("position", position);
             }
-            req.Body = parameters.ToContent();
+
+            var (method, path) = Routes.EditTeamMember(GameId, ModId, member);
+            var req = new Request(method, path, parameters.ToContent());
+
             await Connection.Send<ApiMessage>(req);
         }
 
         public async Task Delete(uint member)
         {
             var (method, path) = Routes.DeleteTeamMember(GameId, ModId, member);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var req = new Request(method, path);
 
             await Connection.Send<ApiMessage>(req);
         }

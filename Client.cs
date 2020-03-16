@@ -37,8 +37,7 @@ namespace Modio
         public async Task SubmitReport(NewReport report)
         {
             var (method, path) = Routes.SubmitReport();
-            var req = new Request(method, connection.BaseAddress, path);
-            req.Body = report.ToContent();
+            var req = new Request(method, path, report.ToContent());
 
             await connection.Send<ApiMessage>(req);
         }

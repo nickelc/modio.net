@@ -22,7 +22,7 @@ namespace Modio
         public async Task<Game> Get()
         {
             var (method, path) = Routes.GetGame(GameId);
-            var req = new Request(method, Connection.BaseAddress, path);
+            var req = new Request(method, path);
             var resp = await Connection.Send<Game>(req);
             return resp.Body!;
         }
@@ -32,8 +32,7 @@ namespace Modio
             using (var content = editGame.ToContent())
             {
                 var (method, path) = Routes.EditGame(GameId);
-                var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = content;
+                var req = new Request(method, path, content);
 
                 var resp = await Connection.Send<Game>(req);
                 return resp.Body!;
@@ -45,8 +44,7 @@ namespace Modio
             using (var content = media.ToContent())
             {
                 var (method, path) = Routes.AddGameMedia(GameId);
-                var req = new Request(method, Connection.BaseAddress, path);
-                req.Body = content;
+                var req = new Request(method, path, content);
 
                 await Connection.Send<ApiMessage>(req);
             }
