@@ -10,10 +10,13 @@ namespace Modio
 
         public Mods Mods { get; private set; }
 
+        public GameTagsClient Tags { get; private set; }
+
         internal GameClient(IConnection connection, uint game) : base(connection)
         {
             GameId = game;
             Mods = new Mods(connection, game);
+            Tags = new GameTagsClient(connection, game);
         }
 
         public async Task<Game> Get()
