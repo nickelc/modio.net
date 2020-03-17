@@ -6,11 +6,11 @@ using Modio.Models;
 namespace Modio
 {
 
-    public class Mods : ApiClient
+    public class ModsClient : ApiClient
     {
         public uint GameId { get; private set; }
 
-        internal Mods(IConnection connection, uint game) : base(connection)
+        internal ModsClient(IConnection connection, uint game) : base(connection)
         {
             GameId = game;
         }

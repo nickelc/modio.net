@@ -8,14 +8,14 @@ namespace Modio
     {
         public uint GameId { get; private set; }
 
-        public Mods Mods { get; private set; }
+        public ModsClient Mods { get; private set; }
 
         public GameTagsClient Tags { get; private set; }
 
         internal GameClient(IConnection connection, uint game) : base(connection)
         {
             GameId = game;
-            Mods = new Mods(connection, game);
+            Mods = new ModsClient(connection, game);
             Tags = new GameTagsClient(connection, game);
         }
 
