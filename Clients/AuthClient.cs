@@ -10,7 +10,7 @@ namespace Modio
     {
         internal AuthClient(IConnection connection) : base(connection) { }
 
-        public async Task RequestEmail(string api_key, string email)
+        public async Task RequestCode(string api_key, string email)
         {
             var parameters = new Parameters {
                 {"api_key", api_key},
