@@ -168,6 +168,9 @@ namespace Modio.Models
         [JsonPropertyName("ratings_weighted_aggregate")]
         public float WeightedAggregate { get; set; }
 
+        [JsonPropertyName("ratings_display_text")]
+        public string? DisplayText { get; set; }
+
         [JsonPropertyName("date_expires")]
         public long ExpiredAt { get; set; }
     }
