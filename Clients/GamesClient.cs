@@ -17,7 +17,7 @@ namespace Modio
             return new SearchClient<Game>(Connection, route, filter);
         }
 
-        public async Task<Game> Edit(uint game, EditGame editGame)
+        public async Task<Game?> Edit(uint game, EditGame editGame)
         {
             return await this[game].Edit(editGame);
         }

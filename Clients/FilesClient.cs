@@ -37,7 +37,7 @@ namespace Modio
             }
         }
 
-        public async Task<File> Edit(uint file, EditFile editFile)
+        public async Task<File?> Edit(uint file, EditFile editFile)
         {
             return await this[file].Edit(editFile);
         }

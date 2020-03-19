@@ -44,15 +44,15 @@ namespace Modio
             return resp.Body!;
         }
 
-        public async Task<Mod> Edit(EditMod editMod)
+        public async Task<Mod?> Edit(EditMod editMod)
         {
             using (var content = editMod.ToContent())
             {
                 var (method, path) = Routes.EditMod(GameId, ModId);
                 var req = new Request(method, path, content);
 
-                var resp = await Connection.Send<Mod>(req);
-                return resp.Body!;
+                var resp = await Connection.Send<EditResult<Mod>>(req);
+                return resp.Body!.Object;
             }
         }
 

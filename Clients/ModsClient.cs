@@ -47,7 +47,7 @@ namespace Modio
             }
         }
 
-        public async Task<Mod> Edit(uint mod, EditMod editMod)
+        public async Task<Mod?> Edit(uint mod, EditMod editMod)
         {
             return await this[mod].Edit(editMod);
         }

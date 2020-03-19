@@ -27,15 +27,15 @@ namespace Modio
             return resp.Body!;
         }
 
-        public async Task<File> Edit(EditFile editFile)
+        public async Task<File?> Edit(EditFile editFile)
         {
             using (var content = editFile.ToContent())
             {
                 var (method, path) = Routes.EditFile(GameId, ModId, FileId);
                 var req = new Request(method, path, content);
 
-                var resp = await Connection.Send<File>(req);
-                return resp.Body!;
+                var resp = await Connection.Send<EditResult<File>>(req);
+                return resp.Body!.Object;
             }
         }
 
