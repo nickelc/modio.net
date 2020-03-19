@@ -66,6 +66,9 @@ namespace Modio.Models
         [JsonPropertyName("community_options")]
         public CommunityOptions CommunityOptions { get; set; }
 
+        [JsonPropertyName("maturity_options")]
+        public MaturityOptions MaturityOptions { get; set; }
+
         [JsonPropertyName("revenue_options")]
         public RevenueOptions RevenueOptions { get; set; }
 
@@ -121,6 +124,7 @@ namespace Modio.Models
         Paid = 1,
         Full = 2,
     }
+
     public enum MaturityOptions
     {
         NotAllowed = 0,
