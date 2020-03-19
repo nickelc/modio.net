@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace Modio.Models
 {
+    /// <remarks>
+    /// https://docs.mod.io/#error-object
+    /// </remarks>
     public class ApiError
     {
         internal ApiError(string? message)
@@ -10,9 +13,15 @@ namespace Modio.Models
             Message = message;
         }
 
+        /// <summary>
+        /// Error message returned by the mod.io API.
+        /// </summary>
         [JsonPropertyName("message")]
         public string? Message { get; set; }
 
+        /// <summary>
+        /// Validation errors
+        /// </summary>
         [JsonPropertyName("errors")]
         public IDictionary<string, string>? Errors { get; set; }
     }

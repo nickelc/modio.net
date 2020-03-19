@@ -2,9 +2,19 @@ using System.Net.Http;
 
 namespace Modio
 {
+    /// <summary>
+    /// Used to rate a Mod.
+    /// </summary>
     public enum NewRating
     {
+        /// <summary>
+        /// Submits a positive rating.
+        /// </summary>
         Positive = 1,
+
+        /// <summary>
+        /// Submits a negative rating.
+        /// </summary>
         Negative = -1,
     }
 

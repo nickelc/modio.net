@@ -9,6 +9,9 @@ using Modio.Models;
 
 namespace Modio
 {
+    /// <summary>
+    /// Client to retrieve search results from various API endpoints.
+    /// </summary>
     public class SearchClient<T> : ApiClient where T : class
     {
         private (HttpMethod, Uri) route;
@@ -20,6 +23,9 @@ namespace Modio
             this.filter = filter;
         }
 
+        /// <summary>
+        /// Returns the first result of the search.
+        /// </summary>
         public async Task<T?> First()
         {
             filter = filter != null ? filter.Limit(1) : Filter.WithLimit(1);
@@ -27,6 +33,9 @@ namespace Modio
             return page.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Returns the first page of the search result.
+        /// </summary>
         public async Task<IReadOnlyList<T>> FirstPage()
         {
             await using (var enumerator = ToPagedEnumerable().GetAsyncEnumerator())
@@ -36,6 +45,9 @@ namespace Modio
             }
         }
 
+        /// <summary>
+        /// Returns the complete search result as <see cref="IReadOnlyList{T}"/>.
+        /// </summary>
         public async Task<IReadOnlyList<T>> ToList()
         {
             var list = new List<T>();
@@ -46,6 +58,9 @@ namespace Modio
             return list.AsReadOnly();
         }
 
+        /// <summary>
+        /// Returns the complete search result as <see cref="IAsyncEnumerable{T}"/>.
+        /// </summary>
         public async IAsyncEnumerable<T> ToEnumerable()
         {
             await foreach (var page in ToPagedEnumerable())
@@ -57,6 +72,9 @@ namespace Modio
             }
         }
 
+        /// <summary>
+        /// Returns the complete search result by page as <see cref="IAsyncEnumerable{T}"/>.
+        /// </summary>
         public async IAsyncEnumerable<IReadOnlyList<T>> ToPagedEnumerable()
         {
             var (method, path) = this.route;

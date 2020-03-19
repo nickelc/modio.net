@@ -4,12 +4,24 @@ using Modio.Models;
 
 namespace Modio
 {
+    /// <summary>
+    /// Client for a specific modfile.
+    /// </summary>
     public class FileClient : ApiClient
     {
+        /// <summary>
+        /// The game id of the endpoint.
+        /// </summary>
         public uint GameId { get; private set; }
 
+        /// <summary>
+        /// The mod id of the endpoint.
+        /// </summary>
         public uint ModId { get; private set; }
 
+        /// <summary>
+        /// The file id of the endpoint.
+        /// </summary>
         public uint FileId { get; private set; }
 
         internal FileClient(IConnection connection, uint game, uint mod, uint file) : base(connection)
@@ -19,6 +31,9 @@ namespace Modio
             FileId = file;
         }
 
+        /// <summary>
+        /// Get a file.
+        /// </summary>
         public async Task<File> Get()
         {
             var (method, path) = Routes.GetFile(GameId, ModId, FileId);
@@ -27,6 +42,9 @@ namespace Modio
             return resp.Body!;
         }
 
+        /// <summary>
+        /// Edit the details of a published file.
+        /// </summary>
         public async Task<File?> Edit(EditFile editFile)
         {
             using (var content = editFile.ToContent())
@@ -39,6 +57,9 @@ namespace Modio
             }
         }
 
+        /// <summary>
+        /// Delete a modfile.
+        /// </summary>
         public async Task Delete()
         {
             var (method, path) = Routes.DeleteFile(GameId, ModId, FileId);

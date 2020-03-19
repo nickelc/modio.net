@@ -6,22 +6,49 @@ using Modio.Models;
 
 namespace Modio
 {
+    /// <summary>
+    /// Client for a specific mod.
+    /// </summary>
     public class ModClient : ApiClient
     {
+        /// <summary>
+        /// The game id of the endpoint.
+        /// </summary>
         public uint GameId { get; private set; }
 
+        /// <summary>
+        /// The mod id of the endpoint.
+        /// </summary>
         public uint ModId { get; private set; }
 
+        /// <summary>
+        /// Client for the Tags API.
+        /// </summary>
         public TagsClient Tags { get; private set; }
 
+        /// <summary>
+        /// Client for the Dependencies API.
+        /// </summary>
         public DependenciesClient Dependencies { get; private set; }
 
+        /// <summary>
+        /// Client for the Metadata API.
+        /// </summary>
         public MetadataClient Metadata { get; private set; }
 
+        /// <summary>
+        /// Client for the Modfiles API.
+        /// </summary>
         public FilesClient Files { get; private set; }
 
+        /// <summary>
+        /// Client for the Comments API.
+        /// </summary>
         public CommentsClient Comments { get; private set; }
 
+        /// <summary>
+        /// Client for the Team API.
+        /// </summary>
         public TeamsClient Team { get; private set; }
 
         internal ModClient(IConnection connection, uint game, uint mod) : base(connection)
@@ -36,6 +63,9 @@ namespace Modio
             Team = new TeamsClient(connection, game, mod);
         }
 
+        /// <summary>
+        /// Get a mod.
+        /// </summary>
         public async Task<Mod> Get()
         {
             var (method, path) = Routes.GetMod(GameId, ModId);
@@ -44,6 +74,9 @@ namespace Modio
             return resp.Body!;
         }
 
+        /// <summary>
+        /// Edit details for a mod.
+        /// </summary>
         public async Task<Mod?> Edit(EditMod editMod)
         {
             using (var content = editMod.ToContent())
@@ -56,6 +89,9 @@ namespace Modio
             }
         }
 
+        /// <summary>
+        /// Delete a mod.
+        /// </summary>
         public async Task Delete()
         {
             var (method, path) = Routes.DeleteMod(GameId, ModId);
@@ -63,6 +99,9 @@ namespace Modio
             await Connection.Send<ApiMessage>(req);
         }
 
+        /// <summary>
+        /// Upload new media to a mod.
+        /// </summary>
         public async Task AddMedia(NewModMedia media)
         {
             using (var content = media.ToContent())
@@ -74,6 +113,9 @@ namespace Modio
             }
         }
 
+        /// <summary>
+        /// Delete media from a mod.
+        /// </summary>
         public async Task DeleteMedia(DeleteModMedia media)
         {
             using (var content = media.ToContent())
@@ -85,12 +127,18 @@ namespace Modio
             }
         }
 
+        /// <summary>
+        /// Get the event log for the mod, showing changes made sorted by latest event first.
+        /// </summary>
         public SearchClient<ModEvent> GetEvents(Filter? filter = null)
         {
             var route = Routes.GetModEvents(GameId, ModId);
             return new SearchClient<ModEvent>(Connection, route, filter);
         }
 
+        /// <summary>
+        /// Get mod stats for the corresponding mod.
+        /// </summary>
         public async Task<Statistics> GetStatistics()
         {
             var (method, path) = Routes.GetModStats(GameId, ModId);
@@ -99,6 +147,9 @@ namespace Modio
             return resp.Body!;
         }
 
+        /// <summary>
+        /// Subscribe the authenticated user to the corresponding mod.
+        /// </summary>
         public async Task Subscribe()
         {
             var (method, path) = Routes.Subscribe(GameId, ModId);
@@ -118,6 +169,9 @@ namespace Modio
             }
         }
 
+        /// <summary>
+        /// Unsubscribe the authenticated user from the corresponding mod.
+        /// </summary>
         public async Task Unsubscribe()
         {
             var (method, path) = Routes.Unsubscribe(GameId, ModId);
@@ -137,6 +191,9 @@ namespace Modio
             }
         }
 
+        /// <summary>
+        /// Submit a positive or negative rating for the mod.
+        /// </summary>
         public async Task Rate(NewRating rating)
         {
             using (var content = rating.ToContent())

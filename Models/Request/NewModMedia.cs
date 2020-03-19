@@ -6,16 +6,34 @@ using System.Net.Http;
 
 namespace Modio
 {
+    /// <summary>
+    /// Used to upload new media to a mod.
+    /// </summary>
     public class NewModMedia
     {
+        /// <summary>
+        /// Image file which will represent the mods logo.
+        /// </summary>
         public FileInfo? Logo { get; set; }
 
+        /// <summary>
+        /// Zip archive of images to add to the mods gallery.
+        /// </summary>
         public FileInfo? ImagesZip { get; set; }
 
+        /// <summary>
+        /// Images to add to the mods gallery.
+        /// </summary>
         public IEnumerable<FileInfo>? Images { get; set; }
 
+        /// <summary>
+        /// YouTube links to add to the mod.
+        /// </summary>
         public IEnumerable<Uri>? YouTube { get; set; }
 
+        /// <summary>
+        /// Sketchfab links to add to the mod.
+        /// </summary>
         public IEnumerable<Uri>? Sketchfab { get; set; }
 
         internal HttpContent ToContent()

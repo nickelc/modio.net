@@ -3,12 +3,24 @@ using System.Net.Http;
 
 namespace Modio
 {
+    /// <summary>
+    /// Used to upload new media to a game.
+    /// </summary>
     public class NewGameMedia
     {
+        /// <summary>
+        /// Logo file to upload.
+        /// </summary>
         public FileInfo? Logo { get; set; }
 
+        /// <summary>
+        /// Icon file to upload.
+        /// </summary>
         public FileInfo? Icon { get; set; }
 
+        /// <summary>
+        /// Header image file to upload.
+        /// </summary>
         public FileInfo? Header { get; set; }
 
         internal HttpContent ToContent()

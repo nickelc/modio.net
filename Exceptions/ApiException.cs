@@ -7,11 +7,24 @@ using Modio.Models;
 
 namespace Modio
 {
+    /// <summary>
+    /// Represents errors that occur from the mod.io API.
+    /// </summary>
     public class ApiException : Exception
     {
+        /// <summary>
+        /// The HTTP status code associated with the response.
+        /// </summary>
         public HttpStatusCode StatusCode { get; private set; }
+
+        /// <summary>
+        /// The raw exception payload from the response.
+        /// </summary>
         public ApiError ApiError { get; private set; }
 
+        /// <summary>
+        /// Creates a new instance of ApiException.
+        /// </summary>
         public ApiException(HttpResponseMessage response)
         {
             Ensure.ArgumentNotNull(response, nameof(response));
@@ -20,6 +33,7 @@ namespace Modio
             ApiError = GetApiError(response);
         }
 
+        /// <inheritdoc/>
         public override string Message
         {
             get

@@ -2,14 +2,31 @@ using System.Net.Http;
 
 namespace Modio
 {
+    /// <summary>
+    /// See <see cref="AuthClient.External(SteamAuth)"/>.
+    /// </summary>
+    ///
+    /// <seealso>https://docs.mod.io/#authenticate-via-steam</seealso>
     public class SteamAuth
     {
+        /// <summary>
+        /// base64-encoded string of Steam's Encrypted App Ticket
+        /// </summary>
         public string AppData { get; private set; }
 
+        /// <summary>
+        /// The users email address.
+        /// </summary>
         public string? Email { get; set; }
 
+        /// <summary>
+        /// Unix timestamp of date in which the returned token will expire.
+        /// </summary>
         public long? ExpiredAt { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="SteamAuth"/> with the required Encrypted App Ticket.
+        /// </summary>
         public SteamAuth(string appData)
         {
             AppData = appData;

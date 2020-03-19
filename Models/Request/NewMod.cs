@@ -7,30 +7,69 @@ using Modio.Models;
 
 namespace Modio
 {
+    /// <summary>
+    /// Used to create a new Mod.
+    /// </summary>
     public class NewMod
     {
+        /// <summary>
+        /// Name of the mod.
+        /// </summary>
         public string Name { get; private set; }
 
+        /// <summary>
+        /// Summary for the mod, giving a brief overview of what it's about.
+        /// </summary>
         public string Summary { get; private set; }
 
+        /// <summary>
+        /// Image file which will represent your mods logo.
+        /// </summary>
         public FileInfo Logo { get; private set; }
 
+        /// <summary>
+        /// Visibility of the mod.
+        /// </summary>
         public Visibility? Visible { get; set; }
 
+        /// <summary>
+        /// Path for the mod on mod.io. For example: https://gamename.mod.io/mod-name-id-here.
+        /// </summary>
         public string? NameId { get; set; }
 
+        /// <summary>
+        /// Description of the mod.
+        /// </summary>
         public string? Description { get; set; }
 
+        /// <summary>
+        /// Official homepage for your mod. Must be a valid URL.
+        /// </summary>
         public Uri? HomepageUrl { get; set; }
 
+        /// <summary>
+        /// Maximium number of subscribers for this mod.
+        /// </summary>
         public uint? Stock { get; set; }
 
+        /// <summary>
+        /// MaturityOption of the mod.
+        /// </summary>
         public MaturityOption? MaturityOption { get; set; }
 
+        /// <summary>
+        /// Metadata blob of the mod.
+        /// </summary>
         public string? MetadataBlob { get; set; }
 
-        public List<string> Tags { get; set; } = new List<string>();
+        /// <summary>
+        /// An array of strings that represent what the mod has been tagged as.
+        /// </summary>
+        public List<string> Tags { get; private set; } = new List<string>();
 
+        /// <summary>
+        /// Creates a new mod.
+        /// </summary>
         public NewMod(string name, string summary, FileInfo logo)
         {
             Ensure.ArgumentNotNullOrEmptyString(name, nameof(name));

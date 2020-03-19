@@ -4,12 +4,24 @@ using System.Net.Http;
 
 namespace Modio
 {
+    /// <summary>
+    /// Used to delete media from a mod.
+    /// </summary>
     public class DeleteModMedia
     {
+        /// <summary>
+        /// Images to delete.
+        /// </summary>
         public IEnumerable<string>? Images { get; set; }
 
+        /// <summary>
+        /// YouTube links to delete.
+        /// </summary>
         public IEnumerable<Uri>? YouTube { get; set; }
 
+        /// <summary>
+        /// Sketchfab links to delete.
+        /// </summary>
         public IEnumerable<Uri>? Sketchfab { get; set; }
 
         internal HttpContent ToContent()

@@ -5,6 +5,9 @@ using System.Text.Json.Serialization;
 
 namespace Modio.Models
 {
+    /// <remarks>
+    /// https://docs.mod.io/#metadata-kvp-object
+    /// </remarks>
     [JsonConverter(typeof(MetadataConverter))]
     public class Metadata : Dictionary<string, List<string>> { }
 

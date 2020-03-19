@@ -4,6 +4,9 @@ namespace Modio.Filters
 {
     using Parameters = IDictionary<string, string>;
 
+    /// <summary>
+    /// Used to filter search results for several endpoints.
+    /// </summary>
     public class Filter
     {
         private Parameters parameters;
@@ -23,16 +26,25 @@ namespace Modio.Filters
             parameters[name] = value;
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="Filter"/> with <paramref name="limit"/>.
+        /// </summary>
         public static Filter WithLimit(uint limit)
         {
             return new Filter("_limit", limit.ToString());
         }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="Filter"/> with <paramref name="offset"/>.
+        /// </summary>
         public static Filter WithOffset(uint offset)
         {
             return new Filter("_offset", offset.ToString());
         }
 
+        /// <summary>
+        /// Returns a new filter that combines this filter and <paramref name="other"/>.
+        /// </summary>
         public Filter And(Filter other)
         {
             var filter = new Filter(this.parameters);
@@ -40,6 +52,9 @@ namespace Modio.Filters
             return filter;
         }
 
+        /// <summary>
+        /// Sets the limit for the filter.
+        /// </summary>
         public Filter Limit(uint limit)
         {
             var filter = new Filter(this.parameters);
@@ -47,6 +62,9 @@ namespace Modio.Filters
             return filter;
         }
 
+        /// <summary>
+        /// Sets the offset for the filter.
+        /// </summary>
         public Filter Offset(uint offset)
         {
             var filter = new Filter(this.parameters);
@@ -60,8 +78,14 @@ namespace Modio.Filters
         }
     }
 
+    /// <summary>
+    /// Base class for the different types of filters.
+    /// </summary>
     public abstract class FilterField
     {
+        /// <summary>
+        /// Name of the filter.
+        /// </summary>
         protected readonly string Field;
 
         internal FilterField(string field)
@@ -69,17 +93,26 @@ namespace Modio.Filters
             Field = field;
         }
 
+        /// <summary>
+        /// Returns a new sorting filter in ascending order.
+        /// </summary>
         protected Filter Asc()
         {
             return new Filter("_sort", Field);
         }
 
+        /// <summary>
+        /// Returns a new sorting filter in descending order.
+        /// </summary>
         protected Filter Desc()
         {
             return new Filter("_sort", "-" + Field);
         }
     }
 
+    /// <summary>
+    /// Represents a special sorting field.
+    /// </summary>
     public sealed class SortField
     {
 
@@ -90,90 +123,135 @@ namespace Modio.Filters
             Field = field;
         }
 
+        /// <summary>
+        /// Returns a new sorting filter in ascending order.
+        /// </summary>
         public Filter Asc()
         {
             return new Filter("_sort", "-" + Field);
         }
 
+        /// <summary>
+        /// Returns a new sorting filter in descending order.
+        /// </summary>
         public Filter Desc()
         {
             return new Filter("_sort", Field);
         }
     }
 
+    /// <summary>
+    /// Specialized field for numeric filters.
+    /// </summary>
     public sealed class NumericField<T> : FilterField
     {
         internal NumericField(string field) : base(field) { }
 
+        /// <inheritdoc/>
         public new Filter Asc()
         {
             return base.Asc();
         }
 
+        /// <inheritdoc/>
         public new Filter Desc()
         {
             return base.Desc();
         }
 
+        /// <summary>
+        /// Returns a new filter that <b>equals</b> to <paramref name="value"/>.
+        /// </summary>
         public Filter Eq(T value)
         {
             var name = Operator.Equal.ToName(Field);
             return new Filter(name, value?.ToString()!);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>not</b> <paramref name="value"/>.
+        /// </summary>
         public Filter Not(T value)
         {
             var name = Operator.NotEqual.ToName(Field);
             return new Filter(name, value?.ToString()!);
         }
+
+        /// <summary>
+        /// Returns a new filter that is <b>in</b> <paramref name="values"/>.
+        /// </summary>
         public Filter In(IEnumerable<T[]> values)
         {
             var name = Operator.In.ToName(Field);
             return new Filter(name, string.Join(",", values));
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>not in</b> <paramref name="values"/>.
+        /// </summary>
         public Filter NotIn(IEnumerable<T> values)
         {
             var name = Operator.NotIn.ToName(Field);
             return new Filter(name, string.Join(",", values));
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>in</b> <paramref name="values"/>.
+        /// </summary>
         public Filter In(params T[] values)
         {
             var name = Operator.In.ToName(Field);
             return new Filter(name, string.Join(",", values));
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>not in</b> <paramref name="values"/>.
+        /// </summary>
         public Filter NotIn(params T[] values)
         {
             var name = Operator.NotIn.ToName(Field);
             return new Filter(name, string.Join(",", values));
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>less than</b> <paramref name="value"/>.
+        /// </summary>
         public Filter LessThan(T value)
         {
             var name = Operator.LessThan.ToName(Field);
             return new Filter(name, value?.ToString()!);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>less or equal</b> to <paramref name="value"/>.
+        /// </summary>
         public Filter LessOrEqual(T value)
         {
             var name = Operator.LessOrEqual.ToName(Field);
             return new Filter(name, value?.ToString()!);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>greater than</b> <paramref name="value"/>.
+        /// </summary>
         public Filter GreaterThan(T value)
         {
             var name = Operator.GreaterThan.ToName(Field);
             return new Filter(name, value?.ToString()!);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>greater or equal</b> to <paramref name="value"/>.
+        /// </summary>
         public Filter GreaterOrEqual(T value)
         {
             var name = Operator.GreaterOrEqual.ToName(Field);
             return new Filter(name, value?.ToString()!);
         }
 
+        /// <summary>
+        /// Returns a new filter that <b>bitwise and</b> checks to <paramref name="value"/>.
+        /// </summary>
         public Filter BitwiseAnd(T value)
         {
             var name = Operator.BitwiseAnd.ToName(Field);
@@ -181,10 +259,17 @@ namespace Modio.Filters
         }
     }
 
+    /// <summary>
+    /// Specialized field for the fulltext filter.
+    /// </summary>
     public sealed class FullTextField : FilterField
     {
         internal FullTextField() : base("_q") { }
 
+        /// <summary>
+        /// Returns a new filter that is a lenient search filter that is only available
+        /// if the endpoint you are querying contains a <c>name</c> column.
+        /// </summary>
         public Filter Eq(string value)
         {
             var name = Operator.Equal.ToName(Field);
@@ -192,62 +277,91 @@ namespace Modio.Filters
         }
     }
 
+    /// <summary>
+    /// Specialized field for text filters.
+    /// </summary>
     public sealed class TextField : FilterField
     {
         internal TextField(string field) : base(field) { }
 
+        /// <inheritdoc/>
         public new Filter Asc()
         {
             return base.Asc();
         }
 
+        /// <inheritdoc/>
         public new Filter Desc()
         {
             return base.Desc();
         }
 
+        /// <summary>
+        /// Returns a new filter that <b>equals</b> to <paramref name="value"/>.
+        /// </summary>
         public Filter Eq(string value)
         {
             var name = Operator.Equal.ToName(Field);
             return new Filter(name, value);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>not</b> <paramref name="value"/>.
+        /// </summary>
         public Filter Not(string value)
         {
             var name = Operator.NotEqual.ToName(Field);
             return new Filter(name, value);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>like</b> <paramref name="value"/>.
+        /// </summary>
         public Filter Like(string value)
         {
             var name = Operator.Like.ToName(Field);
             return new Filter(name, value);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>not like</b> <paramref name="value"/>.
+        /// </summary>
         public Filter NotLike(string value)
         {
             var name = Operator.NotLike.ToName(Field);
             return new Filter(name, value);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>in</b> <paramref name="values"/>.
+        /// </summary>
         public Filter In(IEnumerable<string> values)
         {
             var name = Operator.In.ToName(Field);
             return new Filter(name, string.Join(",", values));
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>not in</b> <paramref name="values"/>.
+        /// </summary>
         public Filter NotIn(IEnumerable<string> values)
         {
             var name = Operator.NotIn.ToName(Field);
             return new Filter(name, string.Join(",", values));
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>in</b> <paramref name="values"/>.
+        /// </summary>
         public Filter In(params string[] values)
         {
             var name = Operator.In.ToName(Field);
             return new Filter(name, string.Join(",", values));
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>not in</b> <paramref name="values"/>.
+        /// </summary>
         public Filter NotIn(params string[] values)
         {
             var name = Operator.NotIn.ToName(Field);
@@ -255,53 +369,80 @@ namespace Modio.Filters
         }
     }
 
+    /// <summary>
+    /// Specialized field for generic text filters.
+    /// </summary>
     public class GenericTextField<T> : FilterField
         where T : notnull
     {
         internal GenericTextField(string field) : base(field) { }
 
+        /// <summary>
+        /// Returns a new filter that <b>equals</b> to <paramref name="value"/>.
+        /// </summary>
         public Filter Eq(T value)
         {
             var name = Operator.Equal.ToName(Field);
             return new Filter(name, value.ToString()!);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>not</b> <paramref name="value"/>.
+        /// </summary>
         public Filter Not(T value)
         {
             var name = Operator.NotEqual.ToName(Field);
             return new Filter(name, value.ToString()!);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>like</b> <paramref name="value"/>.
+        /// </summary>
         public Filter Like(T value)
         {
             var name = Operator.Like.ToName(Field);
             return new Filter(name, value.ToString()!);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>not like</b> <paramref name="value"/>.
+        /// </summary>
         public Filter NotLike(T value)
         {
             var name = Operator.NotLike.ToName(Field);
             return new Filter(name, value.ToString()!);
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>in</b> <paramref name="values"/>.
+        /// </summary>
         public Filter In(IEnumerable<T> values)
         {
             var name = Operator.In.ToName(Field);
             return new Filter(name, string.Join(",", values));
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>in not</b> <paramref name="values"/>.
+        /// </summary>
         public Filter NotIn(IEnumerable<T> values)
         {
             var name = Operator.NotIn.ToName(Field);
             return new Filter(name, string.Join(",", values));
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>in</b> <paramref name="values"/>.
+        /// </summary>
         public Filter In(params T[] values)
         {
             var name = Operator.In.ToName(Field);
             return new Filter(name, string.Join(",", new List<T>(values)));
         }
 
+        /// <summary>
+        /// Returns a new filter that is <b>not in</b> <paramref name="values"/>.
+        /// </summary>
         public Filter NotIn(params T[] values)
         {
             var name = Operator.NotIn.ToName(Field);

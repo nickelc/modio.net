@@ -6,10 +6,16 @@ using Modio.Models;
 
 namespace Modio
 {
+    /// <summary>
+    /// Auth client to request OAuth access tokens.
+    /// </summary>
     public class AuthClient : ApiClient
     {
         internal AuthClient(IConnection connection) : base(connection) { }
 
+        /// <summary>
+        /// Request a security code be sent to the email of the user.
+        /// </summary>
         public async Task RequestCode(string api_key, string email)
         {
             var parameters = new Parameters {
@@ -22,6 +28,9 @@ namespace Modio
             await Connection.Send<ApiMessage>(req);
         }
 
+        /// <summary>
+        /// Request an acccess token from for a security code.
+        /// </summary>
         public async Task<AccessToken> SecurityCode(string api_key, string code)
         {
             var parameters = new Parameters {
@@ -32,24 +41,36 @@ namespace Modio
             return await RequestToken(route, parameters.ToContent());
         }
 
+        /// <summary>
+        /// Request an access token on behalf of a Steam user.
+        /// </summary>
         public async Task<AccessToken> External(SteamAuth options)
         {
             var route = Routes.ExternalSteam();
             return await RequestToken(route, options.ToContent());
         }
 
+        /// <summary>
+        /// Request an access token on behalf of a GOG Galaxy user.
+        /// </summary>
         public async Task<AccessToken> External(GalaxyAuth options)
         {
             var route = Routes.ExternalGalaxy();
             return await RequestToken(route, options.ToContent());
         }
 
+        /// <summary>
+        /// Request an access token on behalf of an itch.io user via the itch.io desktop app.
+        /// </summary>
         public async Task<AccessToken> External(ItchioAuth options)
         {
             var route = Routes.ExternalItchio();
             return await RequestToken(route, options.ToContent());
         }
 
+        /// <summary>
+        /// Request an access token on behalf of an Oculus user.
+        /// </summary>
         public async Task<AccessToken> External(OculusAuth options)
         {
             var route = Routes.ExternalOculus();

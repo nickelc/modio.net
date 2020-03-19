@@ -5,26 +5,59 @@ using Modio.Models;
 
 namespace Modio
 {
+    /// <summary>
+    /// Used to edit a Mod.
+    /// </summary>
     public class EditMod
     {
+        /// <summary>
+        /// Status of the mod.
+        /// </summary>
         public Status? Status { get; set; }
 
+        /// <summary>
+        /// Visibility of the mod.
+        /// </summary>
         public Visibility? Visible { get; set; }
 
+        /// <summary>
+        /// Name of the mod.
+        /// </summary>
         public string? Name { get; set; }
 
+        /// <summary>
+        /// Path for the mod on mod.io. For example: https://gamename.mod.io/mod-name-id-here.
+        /// </summary>
         public string? NameId { get; set; }
 
+        /// <summary>
+        /// Summary for the mod, giving a brief overview of what it's about.
+        /// </summary>
         public string? Summary { get; set; }
 
+        /// <summary>
+        /// Description of the mod.
+        /// </summary>
         public string? Description { get; set; }
 
+        /// <summary>
+        /// Official homepage for the mod.
+        /// </summary>
         public Uri? HomepageUrl { get; set; }
 
+        /// <summary>
+        /// Maximium number of subscribers for this mod.
+        /// </summary>
         public uint? Stock { get; set; }
 
+        /// <summary>
+        /// Maturity options of the mod.
+        /// </summary>
         public MaturityOption? MaturityOption { get; set; }
 
+        /// <summary>
+        /// Metadata blob of the mod.
+        /// </summary>
         public string? MetadataBlob { get; set; }
 
         internal HttpContent ToContent()

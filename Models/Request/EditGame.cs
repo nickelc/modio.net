@@ -5,34 +5,80 @@ using Modio.Models;
 
 namespace Modio
 {
+    /// <summary>
+    /// Used to edit a Game.
+    /// </summary>
     public class EditGame
     {
+        /// <summary>
+        /// Status of the game.
+        /// </summary>
         public Status? Status { get; set; }
 
+        /// <summary>
+        /// Name of the game. Cannot exceed 80 characters.
+        /// </summary>
         public string? Name { get; set; }
 
+        /// <summary>
+        /// Subdomain for the game on mod.io. For example: https://gamename.mod.io.
+        /// </summary>
         public string? NameId { get; set; }
 
+        /// <summary>
+        /// Summary of the game.
+        /// </summary>
         public string? Summary { get; set; }
 
+        /// <summary>
+        /// Instructions and links creators should follow to upload mods.
+        /// </summary>
         public string? Instructions { get; set; }
 
+        /// <summary>
+        /// Link to a mod.io guide, the modding wiki or a page where modders can learn
+        /// how to make and submit mods to the games profile.
+        /// </summary>
         public Uri? InstructionsUrl { get; set; }
 
+        /// <summary>
+        /// Word used to describe user-generated content (mods, items, addons etc).
+        /// </summary>
         public string? UgcName { get; set; }
 
+        /// <summary>
+        /// Presentation style of the game on the mod.io website.
+        /// </summary>
         public PresentationOption? PresentationOption { get; set; }
 
+        /// <summary>
+        /// Submission process the modders must follow.
+        /// </summary>
         public SubmissionOption? SubmissionOption { get; set; }
 
+        /// <summary>
+        /// Curation process the team follows to approve mods.
+        /// </summary>
         public CurationOption? CurationOption { get; set; }
 
+        /// <summary>
+        /// Community features enabled on the mod.io website.
+        /// </summary>
         public CommunityOptions? CommunityOptions { get; set; }
 
+        /// <summary>
+        /// Revenue capabilities mods can enable.
+        /// </summary>
         public RevenueOptions? RevenueOptions { get; set; }
 
+        /// <summary>
+        /// Level of API access the game allows.
+        /// </summary>
         public ApiAccessOptions? ApiAccessOptions { get; set; }
 
+        /// <summary>
+        /// Enable the maturity options mods can choose.
+        /// </summary>
         public MaturityOptions? MaturityOptions { get; set; }
 
         internal HttpContent ToContent()
