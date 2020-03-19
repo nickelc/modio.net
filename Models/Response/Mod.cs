@@ -11,6 +11,9 @@ namespace Modio.Models
         [JsonPropertyName("id")]
         public uint Id { get; set; }
 
+        [JsonPropertyName("game_id")]
+        public uint GameId { get; set; }
+
         [JsonPropertyName("status")]
         public Status Status { get; set; }
 
