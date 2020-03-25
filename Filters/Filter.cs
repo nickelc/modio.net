@@ -129,25 +129,25 @@ namespace Modio.Filters
         public Filter In(IEnumerable<T[]> values)
         {
             var name = Operator.In.ToName(Field);
-            return new Filter(name, string.Join(',', values));
+            return new Filter(name, string.Join(",", values));
         }
 
         public Filter NotIn(IEnumerable<T> values)
         {
             var name = Operator.NotIn.ToName(Field);
-            return new Filter(name, string.Join(',', values));
+            return new Filter(name, string.Join(",", values));
         }
 
         public Filter In(params T[] values)
         {
             var name = Operator.In.ToName(Field);
-            return new Filter(name, string.Join(',', values));
+            return new Filter(name, string.Join(",", values));
         }
 
         public Filter NotIn(params T[] values)
         {
             var name = Operator.NotIn.ToName(Field);
-            return new Filter(name, string.Join(',', values));
+            return new Filter(name, string.Join(",", values));
         }
 
         public Filter LessThan(T value)
@@ -233,25 +233,25 @@ namespace Modio.Filters
         public Filter In(IEnumerable<string> values)
         {
             var name = Operator.In.ToName(Field);
-            return new Filter(name, string.Join(',', values));
+            return new Filter(name, string.Join(",", values));
         }
 
         public Filter NotIn(IEnumerable<string> values)
         {
             var name = Operator.NotIn.ToName(Field);
-            return new Filter(name, string.Join(',', values));
+            return new Filter(name, string.Join(",", values));
         }
 
         public Filter In(params string[] values)
         {
             var name = Operator.In.ToName(Field);
-            return new Filter(name, string.Join(',', values));
+            return new Filter(name, string.Join(",", values));
         }
 
         public Filter NotIn(params string[] values)
         {
             var name = Operator.NotIn.ToName(Field);
-            return new Filter(name, string.Join(',', values));
+            return new Filter(name, string.Join(",", values));
         }
     }
 
@@ -287,25 +287,25 @@ namespace Modio.Filters
         public Filter In(IEnumerable<T> values)
         {
             var name = Operator.In.ToName(Field);
-            return new Filter(name, string.Join(',', values));
+            return new Filter(name, string.Join(",", values));
         }
 
         public Filter NotIn(IEnumerable<T> values)
         {
             var name = Operator.NotIn.ToName(Field);
-            return new Filter(name, string.Join(',', values));
+            return new Filter(name, string.Join(",", values));
         }
 
         public Filter In(params T[] values)
         {
             var name = Operator.In.ToName(Field);
-            return new Filter(name, string.Join(',', new List<T>(values)));
+            return new Filter(name, string.Join(",", new List<T>(values)));
         }
 
         public Filter NotIn(params T[] values)
         {
             var name = Operator.NotIn.ToName(Field);
-            return new Filter(name, string.Join(',', new List<T>(values)));
+            return new Filter(name, string.Join(",", new List<T>(values)));
         }
     }
 

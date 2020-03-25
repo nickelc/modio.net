@@ -44,6 +44,17 @@ namespace Modio
         }
     }
 
+    internal static class KeyValuePairExtensions
+    {
+        #if NETSTANDARD2_0
+        public static void Deconstruct<T, V>(this KeyValuePair<T, V> kvp, out T key, out V value)
+        {
+            key = kvp.Key;
+            value = kvp.Value;
+        }
+        #endif
+    }
+
     internal static class StringExtensions
     {
         public static Uri FormatUri(this string pattern, params object[] args)
@@ -67,7 +78,7 @@ namespace Modio
 
             IDictionary<string, string> p = new Dictionary<string, string>(parameters);
 
-            var hasQueryString = uri.OriginalString.IndexOf('?', StringComparison.Ordinal);
+            var hasQueryString = uri.OriginalString.IndexOf("?", StringComparison.Ordinal);
 
             string uriWithoutQuery = hasQueryString == -1
                     ? uri.ToString()
@@ -86,7 +97,7 @@ namespace Modio
             }
 
             var values = queryString.Replace("?", "")
-                                    .Split('&', StringSplitOptions.RemoveEmptyEntries);
+                                    .Split(new []{"&"}, StringSplitOptions.RemoveEmptyEntries);
 
             var existingParameters = values.ToDictionary(
                         key => key.Substring(0, key.IndexOf('=')),
@@ -100,7 +111,7 @@ namespace Modio
                 }
             }
 
-            string query = string.Join('&', p.Select(kvp => kvp.Key + '=' + Uri.EscapeDataString(kvp.Value)));
+            string query = string.Join("&", p.Select(kvp => kvp.Key + '=' + Uri.EscapeDataString(kvp.Value)));
             if (uri.IsAbsoluteUri)
             {
                 var uriBuilder = new UriBuilder(uri)

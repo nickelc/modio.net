@@ -107,8 +107,13 @@ namespace Modio
             {HttpStatusCode.Unauthorized, resp => new UnauthorizedException(resp)},
             {HttpStatusCode.Forbidden, resp => new ForbiddenException(resp)},
             {HttpStatusCode.NotFound, resp => new NotFoundException(resp)},
+            #if NETSTANDARD2_0
+            {(HttpStatusCode)422, resp => new ApiValidationException(resp)},
+            {(HttpStatusCode)429, resp => new RateLimitExceededException(resp)}
+            #else
             {HttpStatusCode.UnprocessableEntity, resp => new ApiValidationException(resp)},
             {HttpStatusCode.TooManyRequests, resp => new RateLimitExceededException(resp)}
+            #endif
         };
 
         static void HandleErrors(HttpResponseMessage response)
