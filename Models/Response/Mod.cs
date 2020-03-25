@@ -122,8 +122,10 @@ namespace Modio.Models
 
     public class Dependency
     {
+        [JsonPropertyName("mod_id")]
         public uint ModId { get; set; }
 
+        [JsonPropertyName("date_added")]
         public long DateAdded { get; set; }
     }
 
