@@ -46,13 +46,13 @@ namespace Modio
 
     internal static class KeyValuePairExtensions
     {
-        #if NETSTANDARD2_0
+#if NETSTANDARD2_0
         public static void Deconstruct<T, V>(this KeyValuePair<T, V> kvp, out T key, out V value)
         {
             key = kvp.Key;
             value = kvp.Value;
         }
-        #endif
+#endif
     }
 
     internal static class StringExtensions
@@ -97,7 +97,7 @@ namespace Modio
             }
 
             var values = queryString.Replace("?", "")
-                                    .Split(new []{"&"}, StringSplitOptions.RemoveEmptyEntries);
+                                    .Split(new[] { "&" }, StringSplitOptions.RemoveEmptyEntries);
 
             var existingParameters = values.ToDictionary(
                         key => key.Substring(0, key.IndexOf('=')),
