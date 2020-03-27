@@ -10,7 +10,6 @@ namespace Modio
     public class ApiException : Exception
     {
         public HttpStatusCode StatusCode { get; private set; }
-        public HttpResponseMessage? HttpResponse { get; private set; }
         public ApiError? ApiError { get; private set; }
 
         public ApiException(HttpResponseMessage response)
@@ -18,7 +17,6 @@ namespace Modio
             Ensure.ArgumentNotNull(response, nameof(response));
 
             StatusCode = response.StatusCode;
-            HttpResponse = response;
             ApiError = GetApiError(response);
         }
 
