@@ -5,9 +5,7 @@ namespace Modio.Models
 {
     public class ApiError
     {
-        public ApiError() { }
-
-        public ApiError(string? message)
+        internal ApiError(string? message)
         {
             Message = message;
         }

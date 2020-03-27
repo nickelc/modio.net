@@ -10,7 +10,7 @@ namespace Modio
     public class ApiException : Exception
     {
         public HttpStatusCode StatusCode { get; private set; }
-        public ApiError? ApiError { get; private set; }
+        public ApiError ApiError { get; private set; }
 
         public ApiException(HttpResponseMessage response)
         {
@@ -24,9 +24,9 @@ namespace Modio
         {
             get
             {
-                if (!string.IsNullOrWhiteSpace(ApiError?.Message))
+                if (!string.IsNullOrWhiteSpace(ApiError.Message))
                 {
-                    return ApiError.Message;
+                    return ApiError.Message!;
                 }
                 return "An error occurred with this API request";
             }
