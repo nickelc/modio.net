@@ -54,7 +54,7 @@ namespace Modio.Filters
             return filter;
         }
 
-        public IDictionary<string, string> ToParameters()
+        internal IDictionary<string, string> ToParameters()
         {
             return new SortedDictionary<string, string>(parameters);
         }
