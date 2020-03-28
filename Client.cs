@@ -8,7 +8,7 @@ namespace Modio
     /// <summary>
     /// A Client for the mod.io API v1.
     /// </summary>
-    public class Client
+    public partial class Client
     {
         /// <summary>
         /// Default host url for the mod.io API v1.
