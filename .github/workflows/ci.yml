@@ -4,7 +4,7 @@ on: [pull_request, push]
 
 jobs:
   build:
-    name: build
+    name: Build
 
     runs-on: ${{ matrix.os }}
 
@@ -19,7 +19,7 @@ jobs:
       - name: Setup .NET Core 3.1
         uses: actions/setup-dotnet@v1
         with:
-            dotnet-version: '3.1.102'
+            dotnet-version: '3.1.101'
 
       - name: Build
         run: dotnet build

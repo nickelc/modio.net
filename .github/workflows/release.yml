@@ -1,0 +1,56 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    name: Publish
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.101'
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v1
+
+      - name: Setup NuGet source
+        run: |
+          nuget sources add -name github \
+                            -source https://nuget.pkg.github.com/nickelc/index.json \
+                            -username nickelc -password ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build -c Release --no-restore -p:Version=${GITHUB_REF##*/v}
+
+      - name: Package
+        run: |
+          dotnet pack -c Release --no-build -o nupkgs \
+                      -p:PackageVersion=${GITHUB_REF##*/v} \
+                      -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+
+      - name: Upload
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            nupkgs/*.nupkg
+            nupkgs/*.snupkg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish
+        run: dotnet nuget push nupkgs/*.nupkg -source github
+
+      - name: Publish snupkg
+        run: dotnet nuget push nupkgs/*.snupkg -source github
