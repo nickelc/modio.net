@@ -3,9 +3,14 @@
   <PropertyGroup>
     <Description>An async-based mod.io API client library for .NET</Description>
     <AssemblyTitle>Modio</AssemblyTitle>
-    <Version>0.1.0-dev</Version>
+    <Version>0.0.0-dev</Version>
     <AssemblyName>Modio</AssemblyName>
     <PackageId>Modio</PackageId>
+    <RepositoryUrl>https://github.com/nickelc/modio.net</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/nickelc/modio.net</PackageProjectUrl>
+    <PackageLicenseExpression>MIT/Apache-2.0</PackageLicenseExpression>
+    <PackageTags>modio API modding dotnetcore</PackageTags>
+
     <LangVersion>8.0</LangVersion>
     <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1</TargetFrameworks>
     <Nullable>enable</Nullable>
