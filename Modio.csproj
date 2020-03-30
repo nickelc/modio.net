@@ -3,12 +3,14 @@
   <PropertyGroup>
     <Description>An async-based mod.io API client library for .NET</Description>
     <AssemblyTitle>Modio</AssemblyTitle>
+    <Authors>nickelc</Authors>
     <Version>0.0.0-dev</Version>
     <AssemblyName>Modio</AssemblyName>
     <PackageId>Modio</PackageId>
+    <PackageIcon>modio.png</PackageIcon>
     <RepositoryUrl>https://github.com/nickelc/modio.net</RepositoryUrl>
     <PackageProjectUrl>https://github.com/nickelc/modio.net</PackageProjectUrl>
-    <PackageLicenseExpression>MIT/Apache-2.0</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT OR Apache-2.0</PackageLicenseExpression>
     <PackageTags>modio API modding dotnetcore</PackageTags>
 
     <LangVersion>8.0</LangVersion>
@@ -17,6 +19,12 @@
     <NullableContextOptions>enable</NullableContextOptions>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="LICENSE-APACHE" Pack="true" PackagePath="" />
+    <None Include="LICENSE-MIT" Pack="true" PackagePath="" />
+    <None Include="modio.png" Pack="true" PackagePath="" />
+  </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="System.Text.Json" Version="4.7.1" />
