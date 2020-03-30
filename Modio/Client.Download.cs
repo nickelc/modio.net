@@ -93,11 +93,15 @@ namespace Modio
         public async Task Download(File file, Stream stream)
         {
             var client = new HttpClient();
-            try {
-                using (var input = await client.GetStreamAsync(file.Download?.BinaryUrl)) {
+            try
+            {
+                using (var input = await client.GetStreamAsync(file.Download?.BinaryUrl))
+                {
                     await input.CopyToAsync(stream);
                 }
-            } catch (NotFoundException ex) {
+            }
+            catch (NotFoundException ex)
+            {
                 throw new DownloadException("Failed to download the file.", ex);
             }
         }
