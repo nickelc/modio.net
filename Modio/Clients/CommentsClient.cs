@@ -47,6 +47,35 @@ namespace Modio
         }
 
         /// <summary>
+        /// Add a mod comment.
+        /// </summary>
+        public async Task<Comment> Add(string content, uint replyId = 0)
+        {
+            var parameters = new Parameters() {
+                {"content", content},
+                {"reply_id", replyId.ToString()},
+            };
+            var (method, path) = Routes.AddComment(GameId, ModId);
+            var req = new Request(method, path, parameters.ToContent());
+            var resp = await Connection.Send<Comment>(req);
+            return resp.Body!;
+        }
+
+        /// <summary>
+        /// Edit a mod comment.
+        /// </summary>
+        public async Task<Comment> Edit(uint id, string content)
+        {
+            var parameters = new Parameters() {
+                {"content", content},
+            };
+            var (method, path) = Routes.EditComment(GameId, ModId, id);
+            var req = new Request(method, path, parameters.ToContent());
+            var resp = await Connection.Send<Comment>(req);
+            return resp.Body!;
+        }
+
+        /// <summary>
         /// Delete a comment from a mod profile.
         /// </summary>
         public async Task Delete(uint id)

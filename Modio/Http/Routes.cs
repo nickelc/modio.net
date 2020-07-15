@@ -225,6 +225,18 @@ namespace Modio
             return (HttpMethod.Get, uri);
         }
 
+        public static (HttpMethod, Uri) AddComment(uint game, uint mod)
+        {
+            var uri = "games/{0}/mods/{1}/comments".FormatUri(game, mod);
+            return (HttpMethod.Post, uri);
+        }
+
+        public static (HttpMethod, Uri) EditComment(uint game, uint mod, uint comment)
+        {
+            var uri = "games/{0}/mods/{1}/comments/{2}".FormatUri(game, mod, comment);
+            return (HttpMethod.Put, uri);
+        }
+
         public static (HttpMethod, Uri) DeleteComment(uint game, uint mod, uint comment)
         {
             var uri = "games/{0}/mods/{1}/comments/{2}".FormatUri(game, mod, comment);
