@@ -77,6 +77,24 @@ namespace Modio
             return await RequestToken(route, options.ToContent());
         }
 
+        /// <summary>
+        /// Request an access token on behalf of an Xbox Live user.
+        /// </summary>
+        public async Task<AccessToken> External(XboxAuth options)
+        {
+            var route = Routes.ExternalXbox();
+            return await RequestToken(route, options.ToContent());
+        }
+
+        /// <summary>
+        /// Request an access token on behalf of a Discord user.
+        /// </summary>
+        public async Task<AccessToken> External(DiscordAuth options)
+        {
+            var route = Routes.ExternalDiscord();
+            return await RequestToken(route, options.ToContent());
+        }
+
         private async Task<AccessToken> RequestToken((HttpMethod, Uri) route, HttpContent content)
         {
             var (method, path) = route;

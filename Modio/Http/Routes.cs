@@ -35,6 +35,16 @@ namespace Modio
         {
             return (HttpMethod.Post, new Uri("external/oculusauth", UriKind.Relative));
         }
+
+        public static (HttpMethod, Uri) ExternalXbox()
+        {
+            return (HttpMethod.Post, new Uri("external/xboxauth", UriKind.Relative));
+        }
+
+        public static (HttpMethod, Uri) ExternalDiscord()
+        {
+            return (HttpMethod.Post, new Uri("external/discordauth", UriKind.Relative));
+        }
         #endregion
 
         #region Game
