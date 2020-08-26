@@ -14,6 +14,12 @@ namespace Modio.Models
         }
 
         /// <summary>
+        /// The mod.io error code.
+        /// </summary>
+        [JsonPropertyName("error_ref")]
+        public int ErrorRef { get; set; }
+
+        /// <summary>
         /// Error message returned by the mod.io API.
         /// </summary>
         [JsonPropertyName("message")]
