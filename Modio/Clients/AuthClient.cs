@@ -87,6 +87,15 @@ namespace Modio
         }
 
         /// <summary>
+        /// Request an access token on behalf of a Nintendo Switch user.
+        /// </summary>
+        public async Task<AccessToken> External(SwitchAuth options)
+        {
+            var route = Routes.ExternalSwitch();
+            return await RequestToken(route, options.ToContent());
+        }
+
+        /// <summary>
         /// Request an access token on behalf of a Discord user.
         /// </summary>
         public async Task<AccessToken> External(DiscordAuth options)
