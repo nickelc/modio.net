@@ -46,6 +46,11 @@ namespace Modio
             }
         }
 
+        internal bool Is(HttpStatusCode status, int errorRef)
+        {
+            return StatusCode == status && ApiError.ErrorRef == errorRef;
+        }
+
         static ApiError GetApiError(HttpResponseMessage response)
         {
             string? content = response?.Content.ReadAsStringAsync().Result;

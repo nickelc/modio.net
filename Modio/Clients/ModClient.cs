@@ -161,8 +161,9 @@ namespace Modio
             }
             catch (ApiException e)
             {
-                // The endpoint returns 400 if the user is already subscribed
-                if (e.StatusCode != HttpStatusCode.BadRequest)
+                // The endpoint returns 400 & error_ref=15004 if the user
+                // is already subscribed
+                if (!e.Is(HttpStatusCode.BadRequest, 15004))
                 {
                     throw;
                 }
@@ -183,8 +184,9 @@ namespace Modio
             }
             catch (ApiException e)
             {
-                // The endpoint returns 400 if the user was not subscribed
-                if (e.StatusCode != HttpStatusCode.BadRequest)
+                // The endpoint returns 400 & error_ref=15005 if the user
+                // was not subscribed
+                if (!e.Is(HttpStatusCode.BadRequest, 15005))
                 {
                     throw;
                 }
@@ -207,9 +209,9 @@ namespace Modio
                 }
                 catch (ApiException e)
                 {
-                    // The endpoint returns 400 if the user already submitted
-                    // a positive or negative rating
-                    if (e.StatusCode != HttpStatusCode.BadRequest)
+                    // The endpoint returns 400 & error_ref=15028 if the user
+                    // already submitted a positive or negative rating
+                    if (!e.Is(HttpStatusCode.BadRequest, 15028))
                     {
                         throw;
                     }
