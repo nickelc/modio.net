@@ -290,7 +290,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#stats-object
+    /// https://docs.mod.io/#mod-stats-object
     /// </remarks>
     public class Statistics
     {
