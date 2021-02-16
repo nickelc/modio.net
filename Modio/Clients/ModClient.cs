@@ -211,7 +211,11 @@ namespace Modio
                 {
                     // The endpoint returns 400 & error_ref=15028 if the user
                     // already submitted a positive or negative rating
-                    if (!e.Is(HttpStatusCode.BadRequest, 15028))
+                    //
+                    // The endpoint returns 400 & error_ref=15043 if the user
+                    // is trying to revert a rating that doesn't exist
+                    if (!e.Is(HttpStatusCode.BadRequest, 15028)
+                        && !e.Is(HttpStatusCode.BadRequest, 15043))
                     {
                         throw;
                     }

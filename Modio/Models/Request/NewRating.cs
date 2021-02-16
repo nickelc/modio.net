@@ -16,6 +16,11 @@ namespace Modio
         /// Submits a negative rating.
         /// </summary>
         Negative = -1,
+
+        /// <summary>
+        /// Reset a rating.
+        /// </summary>
+        None = 0,
     }
 
     internal static class NewRatingMethods
