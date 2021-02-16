@@ -30,6 +30,11 @@ namespace Modio
         public string? Email { get; set; }
 
         /// <summary>
+        /// Has the user accepted the Terms of Use.
+        /// </summary>
+        public bool? TermsAccepted { get; set; }
+
+        /// <summary>
         /// Unix timestamp of date in which the returned token will expire.
         /// </summary>
         public long? ExpiredAt { get; set; }
@@ -54,6 +59,10 @@ namespace Modio
             if (Email is string email)
             {
                 parameters.Add("email", email);
+            }
+            if (TermsAccepted is bool termsAccepted)
+            {
+                parameters.Add("terms_agreed", (termsAccepted ? "true" : "false"));
             }
             if (ExpiredAt is long expiredAt)
             {

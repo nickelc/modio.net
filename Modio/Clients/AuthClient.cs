@@ -42,6 +42,21 @@ namespace Modio
         }
 
         /// <summary>
+        /// Get a current Terms of Use.
+        /// </summary>
+        public async Task<Terms> Terms(AuthService? service = null)
+        {
+            var (method, path) = Routes.Terms();
+            var req = new Request(method, path);
+            if (service is AuthService s)
+            {
+                req.Parameters.Add("service", s.ToValue());
+            }
+            var resp = await Connection.Send<Terms>(req);
+            return resp.Body!;
+        }
+
+        /// <summary>
         /// Request an access token on behalf of a Steam user.
         /// </summary>
         public async Task<AccessToken> External(SteamAuth options)

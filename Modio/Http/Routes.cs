@@ -16,6 +16,11 @@ namespace Modio
             return (HttpMethod.Post, new Uri("oauth/emailexchange", UriKind.Relative));
         }
 
+        public static (HttpMethod, Uri) Terms()
+        {
+            return (HttpMethod.Get, new Uri("authenticate/terms", UriKind.Relative));
+        }
+
         public static (HttpMethod, Uri) ExternalSteam()
         {
             return (HttpMethod.Post, new Uri("external/steamauth", UriKind.Relative));

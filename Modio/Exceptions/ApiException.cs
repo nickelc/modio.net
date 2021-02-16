@@ -33,6 +33,12 @@ namespace Modio
             ApiError = GetApiError(response);
         }
 
+        internal ApiException(HttpStatusCode status, ApiError error)
+        {
+            StatusCode = status;
+            ApiError = error;
+        }
+
         /// <inheritdoc/>
         public override string Message
         {

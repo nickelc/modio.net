@@ -126,7 +126,12 @@ namespace Modio
 
             if ((int)response.StatusCode >= 400)
             {
-                throw new ApiException(response);
+                var ex = new ApiException(response);
+                if ((int)ex.StatusCode == 400 && ex.ApiError.ErrorRef == 11051)
+                {
+                    ex = new TermsAcceptanceRequiredException(ex.StatusCode, ex.ApiError);
+                }
+                throw ex;
             }
         }
     }
