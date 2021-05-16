@@ -15,7 +15,7 @@ namespace Modio
             Headers.ContentType = new MediaTypeHeaderValue(mediaType);
         }
 
-        protected override Task SerializeToStreamAsync(Stream stream, TransportContext context)
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
         {
             return Task.CompletedTask;
         }

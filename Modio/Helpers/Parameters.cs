@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace Modio
 {
-    internal class Parameters : List<KeyValuePair<string, string>>
+    internal class Parameters : List<KeyValuePair<string?, string?>>
     {
         public Parameters() { }
 
@@ -17,7 +17,7 @@ namespace Modio
 
         public void Add(string name, string value)
         {
-            Add(new KeyValuePair<string, string>(name, value));
+            Add(new KeyValuePair<string?, string?>(name, value));
         }
 
         public HttpContent ToContent()

@@ -47,14 +47,14 @@ namespace Modio
                 var restore = reader;
 
                 var msg = JsonSerializer.Deserialize<ApiMessage>(ref reader, options);
-                if (msg.Code != null && msg.Message != null)
+                if (msg!.Code != null && msg.Message != null)
                 {
                     return new EditResult<T>(null);
                 }
 
                 reader = restore;
                 var entityType = typeToConvert.GetGenericArguments()[0];
-                var entity = (T)JsonSerializer.Deserialize(ref reader, entityType, options);
+                var entity = (T?)JsonSerializer.Deserialize(ref reader, entityType, options);
                 return new EditResult<T>(entity);
             }
 

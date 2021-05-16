@@ -39,7 +39,7 @@ namespace Modio.Models
 
                 var kvp = JsonSerializer.Deserialize<KVP>(ref reader);
 
-                if (kvp.Key == null || kvp.Value == null)
+                if (kvp!.Key == null || kvp.Value == null)
                 {
                     throw new JsonException("invalid metadata kvp entry");
                 }

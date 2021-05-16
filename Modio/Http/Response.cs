@@ -22,7 +22,7 @@ namespace Modio
             Headers = headers;
         }
 
-        public Response(HttpStatusCode statusCode, IReadOnlyDictionary<string, string> headers, object? httpContent, T body)
+        public Response(HttpStatusCode statusCode, IReadOnlyDictionary<string, string> headers, object? httpContent, T? body)
         {
             StatusCode = statusCode;
             Headers = headers;
