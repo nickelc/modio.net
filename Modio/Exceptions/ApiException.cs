@@ -69,7 +69,7 @@ namespace Modio
             {
                 if (!string.IsNullOrEmpty(message))
                 {
-                    var error = JsonSerializer.Deserialize<ApiErrorResponse>(message);
+                    var error = JsonSerializer.Deserialize<ApiErrorResponse>(message!);
                     return error!.Error ?? new ApiError(message);
                 }
             }
