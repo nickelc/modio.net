@@ -27,6 +27,14 @@ namespace Modio.Filters
         }
 
         /// <summary>
+        /// Initializes a new custom instance of <see cref="Filter"/>.
+        /// </summary>
+        public static Filter Custom(string name, Operator op, string value)
+        {
+            return new Filter(op.ToName(name), value);
+        }
+
+        /// <summary>
         /// Initializes a new instance of <see cref="Filter"/> with <paramref name="limit"/>.
         /// </summary>
         public static Filter WithLimit(uint limit)
@@ -450,18 +458,56 @@ namespace Modio.Filters
         }
     }
 
-    internal enum Operator
+    /// <summary>
+    /// Filter operators of mod.io
+    /// </summary>
+    ///
+    /// <seealso>https://docs.mod.io/#filtering</seealso>
+    public enum Operator
     {
+        /// <summary>
+        /// Equal to (`id=1`)
+        /// </summary>
         Equal,
+        /// <summary>
+        /// Equal to (`id-not=1`)
+        /// </summary>
         NotEqual,
+        /// <summary>
+        /// Equivalent to SQL's `LIKE`. `*` is equivalent to SQL's `%`. (`name-lk=foo*`)
+        /// </summary>
         Like,
+        /// <summary>
+        /// Equivalent to SQL's `NOT LIKE` (`name-not-lk=foo*`)
+        /// </summary>
         NotLike,
+        /// <summary>
+        /// Equivalent to SQL's `IN` (`id-in=1,3,5`)
+        /// </summary>
         In,
+        /// <summary>
+        /// Equivalent to SQL's `NOT IN` (`id-not-in=1,3,5`)
+        /// </summary>
         NotIn,
+        /// <summary>
+        /// Less than (`id-st=10`)
+        /// </summary>
         LessThan,
+        /// <summary>
+        /// Less than or equal to (`id-max=10`)
+        /// </summary>
         LessOrEqual,
+        /// <summary>
+        /// Greater than (`id-gt=5`)
+        /// </summary>
         GreaterThan,
+        /// <summary>
+        /// Greater than or equal to (`id-min=5`)
+        /// </summary>
         GreaterOrEqual,
+        /// <summary>
+        /// Match bits (`maturity_option-bitwise-and=5`)
+        /// </summary>
         BitwiseAnd,
     }
 
