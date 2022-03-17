@@ -1,4 +1,7 @@
-﻿namespace Modio.Filters
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Modio.Filters
 {
     /// <summary>
     /// Used to filter mods.
@@ -93,7 +96,7 @@
         /// <summary>
         /// Filter for metadata_kvp.
         /// </summary>
-        public static readonly TextField MetadataKeyValue = new TextField("metadata_kvp");
+        public static readonly MetadataField MetadataKeyValue = new MetadataField();
 
         /// <summary>
         /// Filter for tags.
@@ -119,5 +122,42 @@
         /// Sort results by most subscribers.
         /// </summary>
         public static readonly SortField Subscribers = new SortField("subscribers");
+    }
+
+    /// <summary>
+    /// Specialized field for the `metadata_kvp` filter.
+    /// </summary>
+    public sealed class MetadataField : FilterField
+    {
+        internal MetadataField() : base("metadata_kvp") {}
+
+        /// <summary>
+        /// Returns a new Filter for <paramref name="key"/> and <paramref name="value"/>.
+        /// </summary>
+        public Filter HasKeyValue(string key, string value)
+        {
+            var name = Operator.Equal.ToName(Field);
+            return new Filter(name, $"{key}:{value}");
+        }
+
+        /// <summary>
+        /// Returns a new Filter for the tuples.
+        /// </summary>
+        public Filter HasKeyValue(IEnumerable<(string Key, string Value)> pairs)
+        {
+            var name = Operator.Equal.ToName(Field);
+            var values = pairs.Select(kvp => string.Format("{0}:{1}", kvp.Key, kvp.Value));
+            return new Filter(name, string.Join(",", values));
+        }
+
+        /// <summary>
+        /// Returns a new Filter for entries of the dictionary.
+        /// </summary>
+        public Filter HasKeyValue(IDictionary<string, string> pairs)
+        {
+            var name = Operator.Equal.ToName(Field);
+            var values = pairs.Select(kvp => string.Format("{0}:{1}", kvp.Key, kvp.Value));
+            return new Filter(name, string.Join(",", values));
+        }
     }
 }
