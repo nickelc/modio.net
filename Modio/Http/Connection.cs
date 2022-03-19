@@ -70,6 +70,11 @@ namespace Modio
                 {
                     req.Content = content;
                 }
+                else
+                {
+                    // It's safe to always set the content type to `x-www-form-urlencoded` if no content is set.
+                    req.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                }
             }
             catch (Exception)
             {
