@@ -129,7 +129,7 @@ namespace Modio.Filters
     /// </summary>
     public sealed class MetadataField : FilterField
     {
-        internal MetadataField() : base("metadata_kvp") {}
+        internal MetadataField() : base("metadata_kvp") { }
 
         /// <summary>
         /// Returns a new Filter for <paramref name="key"/> and <paramref name="value"/>.

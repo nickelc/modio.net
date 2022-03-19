@@ -6,7 +6,8 @@ namespace Modio
     /// The 3rd party authentication service that will be used after
     /// the user agrees to the terms of use and consent to an account being created.
     /// </summary>
-    public enum AuthService {
+    public enum AuthService
+    {
         ///
         Steam,
 
