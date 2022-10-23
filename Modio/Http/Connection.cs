@@ -70,7 +70,7 @@ namespace Modio
                 {
                     req.Content = content;
                 }
-                else
+                else if (request.Method != HttpMethod.Get)
                 {
                     // It's safe to always set the content type to `x-www-form-urlencoded` if no content is set.
                     req.Content = new FormUrlEncodedContent(Enumerable.Empty<KeyValuePair<string?, string?>>());
