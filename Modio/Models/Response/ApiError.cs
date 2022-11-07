@@ -8,6 +8,9 @@ namespace Modio.Models
     /// </remarks>
     public class ApiError
     {
+        /// Creates a new instance of ApiError.
+        public ApiError() { }
+
         internal ApiError(string? message)
         {
             Message = message;
