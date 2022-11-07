@@ -41,7 +41,7 @@ namespace Modio
             var form = new MultipartFormDataContent();
             if (Logo is FileInfo logo)
             {
-                form.Add(logo.ToContent(), "logo");
+                form.Add(logo.ToContent(), "logo", Logo.Name);
             }
             if (ImagesZip is FileInfo imagesZip)
             {
