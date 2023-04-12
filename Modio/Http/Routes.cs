@@ -173,7 +173,7 @@ namespace Modio
         #endregion
 
         #region Dependencies
-        public static (HttpMethod, Uri) GetModDependencies(uint game, uint mod, bool recursive = false)
+        public static (HttpMethod, Uri) GetModDependencies(uint game, uint mod, bool recursive)
         {
             var uri = "games/{0}/mods/{1}/dependencies?recursive={2}".FormatUri(game, mod, recursive);
             return (HttpMethod.Get, uri);
