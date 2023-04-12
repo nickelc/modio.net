@@ -31,9 +31,9 @@ namespace Modio
         /// <summary>
         /// Get all dependencies the mod has selected.
         /// </summary>
-        public async Task<IReadOnlyList<Dependency>> Get()
+        public async Task<IReadOnlyList<Dependency>> Get(bool recursive = false)
         {
-            var route = Routes.GetModDependencies(GameId, ModId);
+            var route = Routes.GetModDependencies(GameId, ModId, recursive);
             var search = new SearchClient<Dependency>(Connection, route, null);
             return await search.ToList();
         }
