@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using Modio.Models;
@@ -48,6 +49,13 @@ namespace Modio
         /// Initializes a new instance of <see cref="Client"/> with a custom host and <paramref name="credentials"/>.
         /// </summary>
         public Client(Uri baseUrl, Credentials credentials) : this(new Connection(FixBaseUrl(baseUrl), credentials))
+        {
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of <see cref="Client"/> with a custom host, custom <paramref name="credentials"/>, and a custom <paramref name="httpClient"/>.
+        /// </summary>
+        public Client(Uri baseUrl, Credentials credentials, HttpClient httpClient) : this(new Connection(FixBaseUrl(baseUrl), credentials, httpClient))
         {
         }
 
