@@ -24,9 +24,13 @@ namespace Modio
 
         public Credentials Credentials { get; set; }
 
-        public Connection(Uri baseAddress, Credentials credentials)
+        public Connection(Uri baseAddress, Credentials credentials) : this(baseAddress, credentials, new HttpClient())
         {
-            http = new HttpClient();
+        }
+
+        public Connection(Uri baseAddress, Credentials credentials, HttpClient httpClient)
+        {
+            http = httpClient;
             BaseAddress = baseAddress;
             Credentials = credentials;
         }
