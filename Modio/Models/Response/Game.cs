@@ -281,7 +281,7 @@ namespace Modio.Models
     /// Community features enabled on the mod.io website.
     /// </summary>
     [Flags]
-    public enum CommunityOptions : byte
+    public enum CommunityOptions : UInt16
     {
         /// <summary>
         /// All of the options below are disabled.
@@ -291,17 +291,80 @@ namespace Modio.Models
         /// <summary>
         /// Enable comments.
         /// </summary>
+        [Obsolete("Flag is replaced by `ALLOW_COMMENTS`.")]
         COMMENTS = 0b0001,
+
+        /// <summary>
+        /// Allow comments on mods.
+        /// </summary>
+        ALLOW_COMMENTS = 1,
 
         /// <summary>
         /// Enable guides.
         /// </summary>
+        [Obsolete("Flag is replaced by `ALLOW_GUIDES`.")]
         GUIDES = 0b0010,
+
+        /// <summary>
+        /// Allow guides.
+        /// </summary>
+        ALLOW_GUIDES = 2,
 
         /// <summary>
         /// Disable website "subscribe to install" text.
         /// </summary>
+        [Obsolete("Flag is replaced by `PIN_ON_HOMEPAGE`.")]
         DISABLE_SUBSCRIBE = 0b0100,
+
+        /// <summary>
+        /// Pin on homepage.
+        /// </summary>
+        PIN_ON_HOMEPAGE = 4,
+
+        /// <summary>
+        /// Show on homepage.
+        /// </summary>
+        SHOW_ON_HOMEPAGE = 8,
+
+        /// <summary>
+        /// Show more on homepage.
+        /// </summary>
+        SHOW_MORE_ON_HOMEPAGE = 16,
+
+        /// <summary>
+        /// Allow change status.
+        /// </summary>
+        ALLOW_CHANGE_STATUS = 32,
+
+        /// <summary>
+        /// Enable previews (Game must be hidden).
+        /// </summary>
+        ENABLE_PREVIEWS = 64,
+
+        /// <summary>
+        /// Enable preview URLs (preview must be enabled).
+        /// </summary>
+        ENABLE_PREVIEW_URLS = 128,
+
+        /// <summary>
+        /// Allow negative mod ratings.
+        /// </summary>
+        ALLOW_NEGATIVE_RATINGS = 256,
+
+        /// <summary>
+        /// Allow mods to be edited via web.
+        /// </summary>
+        ALLOW_WEB_EDIT_MODS = 512,
+
+        /// <summary>
+        /// Allow mod dependencies.
+        /// </summary>
+        ALLOW_MOD_DEPENDENCIES = 1024,
+
+        /// <summary>
+        /// Allow comments on guides.
+        /// </summary>
+        ALLOW_GUIDES_COMMENTS = 2048,
     }
 
     /// <summary>
