@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace Modio.Models
 {
     /// <remarks>
-    /// https://docs.mod.io/#game-object
+    /// https://docs.mod.io/restapiref/#game-object
     /// </remarks>
     public class Game
     {
@@ -155,7 +155,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#icon-object
+    /// https://docs.mod.io/restapiref/#icon-object
     /// </remarks>
     public class Icon
     {
@@ -191,7 +191,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#header-image-object
+    /// https://docs.mod.io/restapiref/#header-image-object
     /// </remarks>
     public class Header
     {
@@ -359,7 +359,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#game-tag-option-object
+    /// https://docs.mod.io/restapiref/#game-tag-option-object
     /// </remarks>
     public class TagOption
     {

@@ -6,7 +6,7 @@ namespace Modio
     /// See <see cref="AuthClient.External(GalaxyAuth)"/>.
     /// </summary>
     ///
-    /// <seealso>https://docs.mod.io/#authenticate-via-gog-galaxy</seealso>
+    /// <seealso>https://docs.mod.io/restapiref/#gog-galaxy</seealso>
     public class GalaxyAuth
     {
         /// <summary>

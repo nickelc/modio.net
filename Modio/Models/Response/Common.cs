@@ -25,7 +25,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#user-object
+    /// https://docs.mod.io/restapiref/#user-object
     /// </remarks>
     public class User
     {
@@ -65,7 +65,7 @@ namespace Modio.Models
     /// The user's avatar data.
     /// </summary>
     /// <remarks>
-    /// https://docs.mod.io/#avatar-object
+    /// https://docs.mod.io/restapiref/#avatar-object
     /// </remarks>
     public class Avatar
     {
@@ -95,7 +95,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#logo-object
+    /// https://docs.mod.io/restapiref/#logo-object
     /// </remarks>
     public class Logo
     {

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Modio.Models
 {
     /// <remarks>
-    /// https://docs.mod.io/#team-member-object
+    /// https://docs.mod.io/restapiref/#team-member-object
     /// </remarks>
     public class TeamMember
     {

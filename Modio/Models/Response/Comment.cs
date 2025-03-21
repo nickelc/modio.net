@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Modio.Models
 {
     /// <remarks>
-    /// https://docs.mod.io/#comment-object
+    /// https://docs.mod.io/restapiref/#comment-object
     /// </remarks>
     public class Comment
     {

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Modio.Models
 {
     /// <remarks>
-    /// https://docs.mod.io/#error-object
+    /// https://docs.mod.io/restapiref/#error-object
     /// </remarks>
     public class ApiError
     {

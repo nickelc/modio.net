@@ -6,7 +6,7 @@ namespace Modio
     /// See <see cref="AuthClient.External(SteamAuth)"/>.
     /// </summary>
     ///
-    /// <seealso>https://docs.mod.io/#authenticate-via-steam</seealso>
+    /// <seealso>https://docs.mod.io/restapiref/#steam</seealso>
     public class SteamAuth
     {
         /// <summary>

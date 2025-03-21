@@ -6,7 +6,7 @@ namespace Modio
     /// See <see cref="AuthClient.External(SwitchAuth)"/>.
     /// </summary>
     ///
-    /// <seealso>https://docs.mod.io/#authenticate-via-switch</seealso>
+    /// <seealso>https://docs.mod.io/restapiref/#nintendo-switch</seealso>
     public class SwitchAuth
     {
         /// <summary>

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Modio.Models
 {
     /// <remarks>
-    /// https://docs.mod.io/#modfile-object
+    /// https://docs.mod.io/restapiref/#modfile-object
     /// </remarks>
     public class File
     {
@@ -94,7 +94,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#filehash-object
+    /// https://docs.mod.io/restapiref/#filehash-object
     /// </remarks>
     public class FileHash
     {
@@ -106,7 +106,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#download-object
+    /// https://docs.mod.io/restapiref/#download-object
     /// </remarks>
     public class Download
     {

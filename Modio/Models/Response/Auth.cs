@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Modio.Models
 {
     /// <remarks>
-    /// https://docs.mod.io/#terms-object
+    /// https://docs.mod.io/restapiref/#terms-object
     /// </remarks>
     public class Terms
     {
@@ -28,7 +28,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#terms-object
+    /// https://docs.mod.io/restapiref/#terms-object
     /// </remarks>
     public class Links
     {
@@ -58,7 +58,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#terms-object
+    /// https://docs.mod.io/restapiref/#terms-object
     /// </remarks>
     public class Link
     {

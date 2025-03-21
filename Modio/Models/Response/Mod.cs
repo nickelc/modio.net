@@ -7,7 +7,7 @@ using Modio.Models.Converters;
 namespace Modio.Models
 {
     /// <remarks>
-    /// https://docs.mod.io/#mod-object
+    /// https://docs.mod.io/restapiref/#mod-object
     /// </remarks>
     public class Mod
     {
@@ -203,7 +203,7 @@ namespace Modio.Models
     /// The mod's media links.
     /// </summary>
     /// <remarks>
-    /// https://docs.mod.io/#mod-media-object
+    /// https://docs.mod.io/restapiref/#mod-media-object
     /// </remarks>
     public class Media
     {
@@ -230,7 +230,7 @@ namespace Modio.Models
     /// The mod's image object (a gallery).
     /// </summary>
     /// <remarks>
-    /// https://docs.mod.io/#image-object
+    /// https://docs.mod.io/restapiref/#image-object
     /// </remarks>
     public class Image
     {
@@ -254,7 +254,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#mod-dependencies-object
+    /// https://docs.mod.io/restapiref/#mod-dependencies-object
     /// </remarks>
     public class Dependency
     {
@@ -272,7 +272,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#mod-tag-object
+    /// https://docs.mod.io/restapiref/#mod-tag-object
     /// </remarks>
     public class Tag
     {
@@ -290,7 +290,7 @@ namespace Modio.Models
     }
 
     /// <remarks>
-    /// https://docs.mod.io/#mod-stats-object
+    /// https://docs.mod.io/restapiref/#mod-stats-object
     /// </remarks>
     public class Statistics
     {

@@ -6,7 +6,7 @@ namespace Modio
     /// See <see cref="AuthClient.External(DiscordAuth)"/>.
     /// </summary>
     ///
-    /// <seealso>https://docs.mod.io/#authenticate-via-discord</seealso>
+    /// <seealso>https://docs.mod.io/restapiref/#discord</seealso>
     public class DiscordAuth
     {
         /// <summary>

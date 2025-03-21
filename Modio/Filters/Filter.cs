@@ -462,7 +462,7 @@ namespace Modio.Filters
     /// Filter operators of mod.io
     /// </summary>
     ///
-    /// <seealso>https://docs.mod.io/#filtering</seealso>
+    /// <seealso>https://docs.mod.io/restapiref/#filtering</seealso>
     public enum Operator
     {
         /// <summary>

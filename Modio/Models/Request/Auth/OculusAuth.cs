@@ -6,7 +6,7 @@ namespace Modio
     /// See <see cref="AuthClient.External(OculusAuth)"/>.
     /// </summary>
     ///
-    /// <seealso>https://docs.mod.io/#authenticate-via-oculus</seealso>
+    /// <seealso>https://docs.mod.io/restapiref/#meta-quest</seealso>
     public class OculusAuth
     {
         /// <summary>

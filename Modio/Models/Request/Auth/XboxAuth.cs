@@ -6,7 +6,7 @@ namespace Modio
     /// See <see cref="AuthClient.External(XboxAuth)"/>.
     /// </summary>
     ///
-    /// <seealso>https://docs.mod.io/#authenticate-via-xbox-live</seealso>
+    /// <seealso>https://docs.mod.io/restapiref/#xbox-live</seealso>
     public class XboxAuth
     {
         /// <summary>

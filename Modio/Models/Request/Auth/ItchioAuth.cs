@@ -6,7 +6,7 @@ namespace Modio
     /// See <see cref="AuthClient.External(ItchioAuth)"/>.
     /// </summary>
     ///
-    /// <seealso>https://docs.mod.io/#authenticate-via-itch-io</seealso>
+    /// <seealso>https://docs.mod.io/restapiref/#itch-io</seealso>
     public class ItchioAuth
     {
         /// <summary>
