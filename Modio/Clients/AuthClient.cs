@@ -111,6 +111,15 @@ namespace Modio
         }
 
         /// <summary>
+        /// Request an access token on behalf of a Apple user.
+        /// </summary>
+        public async Task<AccessToken> External(AppleAuth options)
+        {
+            var route = Routes.ExternalApple();
+            return await RequestToken(route, options.ToContent());
+        }
+
+        /// <summary>
         /// Request an access token on behalf of a Discord user.
         /// </summary>
         public async Task<AccessToken> External(DiscordAuth options)

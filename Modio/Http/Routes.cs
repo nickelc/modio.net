@@ -51,6 +51,11 @@ namespace Modio
             return (HttpMethod.Post, new Uri("external/switchauth", UriKind.Relative));
         }
 
+        public static (HttpMethod, Uri) ExternalApple()
+        {
+            return (HttpMethod.Post, new Uri("external/appleauth", UriKind.Relative));
+        }
+
         public static (HttpMethod, Uri) ExternalDiscord()
         {
             return (HttpMethod.Post, new Uri("external/discordauth", UriKind.Relative));

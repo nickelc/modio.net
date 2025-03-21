@@ -27,6 +27,9 @@ namespace Modio
         Oculus,
 
         ///
+        Apple,
+
+        ///
         Discord,
     }
 
@@ -48,6 +51,8 @@ namespace Modio
                     return "switch";
                 case AuthService.Oculus:
                     return "oculus";
+                case AuthService.Apple:
+                    return "apple";
                 case AuthService.Discord:
                     return "discord";
             }
