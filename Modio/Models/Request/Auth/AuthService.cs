@@ -12,6 +12,9 @@ namespace Modio
         Steam,
 
         ///
+        EpicGames,
+
+        ///
         Gog,
 
         ///
@@ -41,6 +44,8 @@ namespace Modio
             {
                 case AuthService.Steam:
                     return "steam";
+                case AuthService.EpicGames:
+                    return "epicgames";
                 case AuthService.Gog:
                     return "gog";
                 case AuthService.Itchio:

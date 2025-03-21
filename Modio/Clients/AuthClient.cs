@@ -66,6 +66,15 @@ namespace Modio
         }
 
         /// <summary>
+        /// Request an access token on behalf of a Epic Games user.
+        /// </summary>
+        public async Task<AccessToken> External(EpicGamesAuth options)
+        {
+            var route = Routes.ExternalEpicGames();
+            return await RequestToken(route, options.ToContent());
+        }
+
+        /// <summary>
         /// Request an access token on behalf of a GOG Galaxy user.
         /// </summary>
         public async Task<AccessToken> External(GalaxyAuth options)

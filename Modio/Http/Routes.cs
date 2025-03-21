@@ -26,6 +26,11 @@ namespace Modio
             return (HttpMethod.Post, new Uri("external/steamauth", UriKind.Relative));
         }
 
+        public static (HttpMethod, Uri) ExternalEpicGames()
+        {
+            return (HttpMethod.Post, new Uri("external/epicgamesauth", UriKind.Relative));
+        }
+
         public static (HttpMethod, Uri) ExternalGalaxy()
         {
             return (HttpMethod.Post, new Uri("external/galaxyauth", UriKind.Relative));
