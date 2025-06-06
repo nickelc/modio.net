@@ -281,7 +281,7 @@ namespace Modio.Models
     /// Community features enabled on the mod.io website.
     /// </summary>
     [Flags]
-    public enum CommunityOptions : UInt16
+    public enum CommunityOptions : UInt32
     {
         /// <summary>
         /// All of the options below are disabled.
