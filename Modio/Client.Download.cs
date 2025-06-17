@@ -1,4 +1,5 @@
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 using FileInfo = System.IO.FileInfo;
@@ -13,73 +14,73 @@ namespace Modio
         /// <summary>
         /// Downloads the mod's primary file to <paramref name="dest"/>.
         /// </summary>
-        public async Task Download(uint gameId, uint modId, FileInfo dest)
+        public async Task Download(uint gameId, uint modId, FileInfo dest, CancellationToken cancellationToken = default(CancellationToken))
         {
             var mod = await GetModForDownload(gameId, modId);
-            await Download(mod, dest);
+            await Download(mod, dest, cancellationToken);
         }
 
         /// <summary>
         /// Downloads the mod's primary file to <paramref name="stream"/>.
         /// </summary>
-        public async Task Download(uint gameId, uint modId, Stream stream)
+        public async Task Download(uint gameId, uint modId, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
         {
             var mod = await GetModForDownload(gameId, modId);
-            await Download(mod, stream);
+            await Download(mod, stream, cancellationToken);
         }
 
         /// <summary>
         /// Downloads the mod file to <paramref name="dest"/>.
         /// </summary>
-        public async Task Download(uint gameId, uint modId, uint fileId, FileInfo dest)
+        public async Task Download(uint gameId, uint modId, uint fileId, FileInfo dest, CancellationToken cancellationToken = default(CancellationToken))
         {
             var file = await Games[gameId].Mods[modId].Files[fileId].Get();
-            await Download(file, dest);
+            await Download(file, dest, cancellationToken);
         }
 
         /// <summary>
         /// Downloads the mod file to <paramref name="stream"/>.
         /// </summary>
-        public async Task Download(uint gameId, uint modId, uint fileId, Stream stream)
+        public async Task Download(uint gameId, uint modId, uint fileId, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
         {
             var file = await GetFileForDownload(gameId, modId, fileId);
-            await Download(file, stream);
+            await Download(file, stream, cancellationToken);
         }
 
         /// <summary>
         /// Downloads the mod's primary file to <paramref name="dest"/>.
         /// </summary>
-        public async Task Download(Mod mod, FileInfo dest)
+        public async Task Download(Mod mod, FileInfo dest, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (mod.Modfile is File file)
             {
-                await Download(file, dest);
+                await Download(file, dest, cancellationToken);
             }
             else
             {
-                await Download(mod.GameId, mod.Id, dest);
+                await Download(mod.GameId, mod.Id, dest, cancellationToken);
             }
         }
 
         /// <summary>
         /// Downloads the mod's primary file to <paramref name="stream"/>.
         /// </summary>
-        public async Task Download(Mod mod, Stream stream)
+        public async Task Download(Mod mod, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (mod.Modfile is File file)
             {
-                await Download(file, stream);
+                await Download(file, stream, cancellationToken);
             }
             else
             {
-                await Download(mod.GameId, mod.Id, stream);
+                await Download(mod.GameId, mod.Id, stream, cancellationToken);
             }
         }
 
         /// <summary>
         /// Downloads the mod file to <paramref name="dest"/>.
         /// </summary>
-        public async Task Download(File file, FileInfo dest)
+        public async Task Download(File file, FileInfo dest, CancellationToken cancellationToken = default(CancellationToken))
         {
             using (var fs = dest.Create())
             {
@@ -90,14 +91,14 @@ namespace Modio
         /// <summary>
         /// Downloads the mod file to <paramref name="stream"/>.
         /// </summary>
-        public async Task Download(File file, Stream stream)
+        public async Task Download(File file, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
         {
             var client = new HttpClient();
             try
             {
                 using (var input = await client.GetStreamAsync(file.Download?.BinaryUrl))
                 {
-                    await input.CopyToAsync(stream);
+                    await input.CopyToAsync(stream, 81920 /* default buffer size */, cancellationToken);
                 }
             }
             catch (NotFoundException ex)

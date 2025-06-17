@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 
 using Modio.Filters;
@@ -43,14 +44,14 @@ namespace Modio
         /// <summary>
         /// Upload a file for the corresponding mod.
         /// </summary>
-        public async Task<File> Add(NewFile newFile)
+        public async Task<File> Add(NewFile newFile, CancellationToken cancellationToken = default(CancellationToken))
         {
             using (var content = newFile.ToContent())
             {
                 var (method, path) = Routes.AddFile(GameId, ModId);
                 var req = new Request(method, path, content);
 
-                var resp = await Connection.Send<File>(req);
+                var resp = await Connection.Send<File>(req, cancellationToken);
                 return resp.Body!;
             }
         }
