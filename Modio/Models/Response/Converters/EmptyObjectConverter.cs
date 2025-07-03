@@ -31,7 +31,7 @@ namespace Modio.Models.Converters
 
         public override void Write(Utf8JsonWriter writer, object? value, JsonSerializerOptions options)
         {
-            throw new InvalidOperationException();
+            JsonSerializer.Serialize(writer, value, options);
         }
     }
 }
