@@ -4,6 +4,13 @@ using System.Text.Json.Serialization;
 
 namespace Modio.Models.Converters
 {
+    /// Deserialize empty objects for optional properties as `null`.
+    ///
+    /// The mod.io API returns `"field": {}` for some optional properties instead of
+    /// returning `"field": null` or omitting the field.
+    ///
+    /// This behaviour results in deserialization issues with mods without files
+    /// and user profiles without avatars.
     internal class EmptyObjectConverter : JsonConverter<object?>
     {
         public override bool CanConvert(Type typeToConvert)
