@@ -135,7 +135,7 @@ namespace Modio.Models
         /// List of tags assigned to the mod.
         /// </summary>
         [JsonPropertyName("tags")]
-        public List<Tag> Tags { get; set; } = new List<Tag>();
+        public List<Tag> Tags { get; set; } = [];
 
         /// <summary>
         /// The mod's statistics.
@@ -211,19 +211,19 @@ namespace Modio.Models
         /// List of YouTube links.
         /// </summary>
         [JsonPropertyName("youtube")]
-        public List<String> YouTube { get; set; } = new List<string>();
+        public List<String> YouTube { get; set; } = [];
 
         /// <summary>
         /// List of SketchFab links.
         /// </summary>
         [JsonPropertyName("sketchfab")]
-        public List<String> Sketchfab { get; set; } = new List<string>();
+        public List<String> Sketchfab { get; set; } = [];
 
         /// <summary>
         /// List of image objects (a gallery).
         /// </summary>
         [JsonPropertyName("images")]
-        public List<Image> Images { get; set; } = new List<Image>();
+        public List<Image> Images { get; set; } = [];
     }
 
     /// <summary>

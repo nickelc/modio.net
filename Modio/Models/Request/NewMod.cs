@@ -65,7 +65,7 @@ namespace Modio
         /// <summary>
         /// An array of strings that represent what the mod has been tagged as.
         /// </summary>
-        public List<string> Tags { get; private set; } = new List<string>();
+        public List<string> Tags { get; private set; } = [];
 
         /// <summary>
         /// Creates a new mod.
@@ -88,10 +88,12 @@ namespace Modio
 
         internal HttpContent ToContent()
         {
-            var form = new MultipartFormDataContent();
-            form.Add(Name.ToContent(), "name");
-            form.Add(Summary.ToContent(), "summary");
-            form.Add(Logo.ToContent(), "logo", Logo.Name);
+            var form = new MultipartFormDataContent
+            {
+                { Name.ToContent(), "name" },
+                { Summary.ToContent(), "summary" },
+                { Logo.ToContent(), "logo", Logo.Name }
+            };
 
             if (NameId is string nameId)
             {

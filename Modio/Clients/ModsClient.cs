@@ -24,7 +24,7 @@ namespace Modio
         /// <summary>
         /// Gets the client for a specific mod.
         /// </summary>
-        public ModClient this[uint mod] => new ModClient(Connection, GameId, mod);
+        public ModClient this[uint mod] => new(Connection, GameId, mod);
 
         /// <summary>
         /// Get all mods for the corresponding game.

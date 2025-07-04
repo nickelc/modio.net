@@ -31,7 +31,7 @@ namespace Modio
         /// </summary>
         public static DeleteTagOption All(string name)
         {
-            return new DeleteTagOption(name, new string[0]);
+            return new DeleteTagOption(name, []);
         }
 
         /// <summary>

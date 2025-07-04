@@ -8,16 +8,16 @@ namespace Modio.Filters
         /// <summary>
         /// Filter for comment id.
         /// </summary>
-        public static readonly NumericField<uint> Id = new NumericField<uint>("id");
+        public static readonly NumericField<uint> Id = new("id");
 
         /// <summary>
         /// Filter for user id.
         /// </summary>
-        public static readonly NumericField<uint> SubmittedBy = new NumericField<uint>("submitted_by");
+        public static readonly NumericField<uint> SubmittedBy = new("submitted_by");
 
         /// <summary>
         /// Filter for content of the comment.
         /// </summary>
-        public static readonly TextField Content = new TextField("content");
+        public static readonly TextField Content = new("content");
     }
 }

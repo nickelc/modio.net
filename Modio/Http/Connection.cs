@@ -14,7 +14,7 @@ namespace Modio
 
     internal interface IConnection
     {
-        Task<Response<T>> Send<T>(Request request, CancellationToken cancellationToken = default(CancellationToken)) where T : class;
+        Task<Response<T>> Send<T>(Request request, CancellationToken cancellationToken = default) where T : class;
     }
 
     internal class Connection : IConnection
@@ -36,7 +36,7 @@ namespace Modio
             Credentials = credentials;
         }
 
-        public async Task<Response<T>> Send<T>(Request request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<Response<T>> Send<T>(Request request, CancellationToken cancellationToken = default)
             where T : class
         {
             Ensure.ArgumentNotNull(request, nameof(request));
@@ -78,7 +78,7 @@ namespace Modio
                 else if (request.Method != HttpMethod.Get)
                 {
                     // It's safe to always set the content type to `x-www-form-urlencoded` if no content is set.
-                    req.Content = new FormUrlEncodedContent(Enumerable.Empty<KeyValuePair<string?, string?>>());
+                    req.Content = new FormUrlEncodedContent([]);
                 }
             }
             catch (Exception)

@@ -14,12 +14,12 @@ namespace Modio
         /// <summary>
         /// Default host url for the mod.io API v1.
         /// </summary>
-        public static readonly Uri ModioApiUrl = new Uri("https://api.mod.io/v1/");
+        public static readonly Uri ModioApiUrl = new("https://api.mod.io/v1/");
 
         /// <summary>
         /// Host url for the mod.io test environment API v1.
         /// </summary>
-        public static readonly Uri ModioApiTestUrl = new Uri("https://api.test.mod.io/v1/");
+        public static readonly Uri ModioApiTestUrl = new("https://api.test.mod.io/v1/");
 
         private IConnection connection;
 

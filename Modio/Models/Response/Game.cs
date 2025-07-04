@@ -151,7 +151,7 @@ namespace Modio.Models
         /// Groups of tags configured by the game developer, that mods can select.
         /// </summary>
         [JsonPropertyName("tag_options")]
-        public List<TagOption> TagOptions { get; set; } = new List<TagOption>();
+        public List<TagOption> TagOptions { get; set; } = [];
     }
 
     /// <remarks>
@@ -448,6 +448,6 @@ namespace Modio.Models
         /// List of tags in this group
         /// </summary>
         [JsonPropertyName("tags")]
-        public List<string> Tags { get; set; } = new List<string>();
+        public List<string> Tags { get; set; } = [];
     }
 }

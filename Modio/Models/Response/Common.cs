@@ -21,7 +21,7 @@ namespace Modio.Models
         public uint Total { get; set; }
 
         [JsonPropertyName("data")]
-        public List<T> Data { get; set; } = new List<T>();
+        public List<T> Data { get; set; } = [];
     }
 
     /// <remarks>

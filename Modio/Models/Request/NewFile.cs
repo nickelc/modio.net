@@ -53,8 +53,10 @@ namespace Modio
 
         internal HttpContent ToContent()
         {
-            var form = new MultipartFormDataContent();
-            form.Add(File.ToContent(), "filedata", File.Name);
+            var form = new MultipartFormDataContent
+            {
+                { File.ToContent(), "filedata", File.Name },
+            };
             if (Version is string version)
             {
                 form.Add(version.ToContent(), "version");

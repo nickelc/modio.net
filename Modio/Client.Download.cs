@@ -14,7 +14,7 @@ namespace Modio
         /// <summary>
         /// Downloads the mod's primary file to <paramref name="dest"/>.
         /// </summary>
-        public async Task Download(uint gameId, uint modId, FileInfo dest, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task Download(uint gameId, uint modId, FileInfo dest, CancellationToken cancellationToken = default)
         {
             var mod = await GetModForDownload(gameId, modId);
             await Download(mod, dest, cancellationToken);
@@ -23,7 +23,7 @@ namespace Modio
         /// <summary>
         /// Downloads the mod's primary file to <paramref name="stream"/>.
         /// </summary>
-        public async Task Download(uint gameId, uint modId, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task Download(uint gameId, uint modId, Stream stream, CancellationToken cancellationToken = default)
         {
             var mod = await GetModForDownload(gameId, modId);
             await Download(mod, stream, cancellationToken);
@@ -32,7 +32,7 @@ namespace Modio
         /// <summary>
         /// Downloads the mod file to <paramref name="dest"/>.
         /// </summary>
-        public async Task Download(uint gameId, uint modId, uint fileId, FileInfo dest, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task Download(uint gameId, uint modId, uint fileId, FileInfo dest, CancellationToken cancellationToken = default)
         {
             var file = await Games[gameId].Mods[modId].Files[fileId].Get();
             await Download(file, dest, cancellationToken);
@@ -41,7 +41,7 @@ namespace Modio
         /// <summary>
         /// Downloads the mod file to <paramref name="stream"/>.
         /// </summary>
-        public async Task Download(uint gameId, uint modId, uint fileId, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task Download(uint gameId, uint modId, uint fileId, Stream stream, CancellationToken cancellationToken = default)
         {
             var file = await GetFileForDownload(gameId, modId, fileId);
             await Download(file, stream, cancellationToken);
@@ -50,7 +50,7 @@ namespace Modio
         /// <summary>
         /// Downloads the mod's primary file to <paramref name="dest"/>.
         /// </summary>
-        public async Task Download(Mod mod, FileInfo dest, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task Download(Mod mod, FileInfo dest, CancellationToken cancellationToken = default)
         {
             if (mod.Modfile is File file)
             {
@@ -65,7 +65,7 @@ namespace Modio
         /// <summary>
         /// Downloads the mod's primary file to <paramref name="stream"/>.
         /// </summary>
-        public async Task Download(Mod mod, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task Download(Mod mod, Stream stream, CancellationToken cancellationToken = default)
         {
             if (mod.Modfile is File file)
             {
@@ -80,7 +80,7 @@ namespace Modio
         /// <summary>
         /// Downloads the mod file to <paramref name="dest"/>.
         /// </summary>
-        public async Task Download(File file, FileInfo dest, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task Download(File file, FileInfo dest, CancellationToken cancellationToken = default)
         {
             using (var fs = dest.Create())
             {
@@ -91,7 +91,7 @@ namespace Modio
         /// <summary>
         /// Downloads the mod file to <paramref name="stream"/>.
         /// </summary>
-        public async Task Download(File file, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task Download(File file, Stream stream, CancellationToken cancellationToken = default)
         {
             var client = new HttpClient();
             try

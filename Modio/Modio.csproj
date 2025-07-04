@@ -13,7 +13,7 @@
     <PackageLicenseExpression>MIT OR Apache-2.0</PackageLicenseExpression>
     <PackageTags>modio API modding dotnetcore</PackageTags>
 
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>12.0</LangVersion>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0;net9.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <NullableContextOptions>enable</NullableContextOptions>

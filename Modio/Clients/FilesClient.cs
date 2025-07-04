@@ -30,7 +30,7 @@ namespace Modio
         /// <summary>
         /// Gets the client for a specific modfile.
         /// </summary>
-        public FileClient this[uint file] => new FileClient(Connection, GameId, ModId, file);
+        public FileClient this[uint file] => new(Connection, GameId, ModId, file);
 
         /// <summary>
         /// Get all files that are published for the corresponding mod.
@@ -44,7 +44,7 @@ namespace Modio
         /// <summary>
         /// Upload a file for the corresponding mod.
         /// </summary>
-        public async Task<File> Add(NewFile newFile, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<File> Add(NewFile newFile, CancellationToken cancellationToken = default)
         {
             using (var content = newFile.ToContent())
             {

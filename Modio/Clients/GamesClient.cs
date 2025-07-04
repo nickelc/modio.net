@@ -15,7 +15,7 @@ namespace Modio
         /// <summary>
         /// Gets the client for a specific game.
         /// </summary>
-        public GameClient this[uint game] => new GameClient(Connection, game);
+        public GameClient this[uint game] => new(Connection, game);
 
         /// <summary>
         /// Get all games.

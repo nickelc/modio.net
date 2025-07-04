@@ -78,7 +78,7 @@ namespace Modio
             var name = "metadata[]";
             var parameters = metadata.SelectMany(kvp => kvp.Value.Count switch
                 {
-                    0 => new[] { (name, kvp.Key) },
+                    0 => [(name, kvp.Key)],
                     _ => kvp.Value
                         .Select(v => string.Format("{0}:{1}", kvp.Key, v))
                         .Select(v => (name, v)),
