@@ -84,7 +84,7 @@ namespace Modio
         {
             using (var fs = dest.Create())
             {
-                await Download(file, fs);
+                await Download(file, fs, cancellationToken);
             }
         }
 
