@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace Modio
 {
@@ -18,6 +19,14 @@ namespace Modio
             if (!string.IsNullOrWhiteSpace(value)) return;
 
             throw new ArgumentException("String cannot be empty");
+        }
+
+        public static void FileExists(FileInfo file, string message)
+        {
+            if (!file.Exists)
+            {
+                throw new ArgumentException(message);
+            }
         }
     }
 }

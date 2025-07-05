@@ -44,10 +44,8 @@ namespace Modio
         /// </summary>
         public NewFile(FileInfo file)
         {
-            if (!file.Exists)
-            {
-                throw new ArgumentException("File does not exist");
-            }
+            Ensure.FileExists(file, "File does not exist");
+
             File = file;
         }
 

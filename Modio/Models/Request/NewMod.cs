@@ -75,11 +75,7 @@ namespace Modio
             Ensure.ArgumentNotNullOrEmptyString(name, nameof(name));
             Ensure.ArgumentNotNullOrEmptyString(summary, nameof(summary));
             Ensure.ArgumentNotNull(logo, nameof(logo));
-
-            if (!logo.Exists)
-            {
-                throw new ArgumentException("Logo file does not exist");
-            }
+            Ensure.FileExists(logo, "Logo file does not exist");
 
             Name = name;
             Summary = summary;
