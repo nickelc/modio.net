@@ -1,15 +1,14 @@
 using System.Net.Http;
 
-namespace Modio
+namespace Modio;
+
+/// <summary>
+/// Represents a HTTP 404 - Not Found response returned from the API.
+/// </summary>
+public class NotFoundException : ApiException
 {
     /// <summary>
-    /// Represents a HTTP 404 - Not Found response returned from the API.
+    /// Initializes a new instance of NotFoundException.
     /// </summary>
-    public class NotFoundException : ApiException
-    {
-        /// <summary>
-        /// Initializes a new instance of NotFoundException.
-        /// </summary>
-        public NotFoundException(HttpResponseMessage response) : base(response) { }
-    }
+    public NotFoundException(HttpResponseMessage response) : base(response) { }
 }

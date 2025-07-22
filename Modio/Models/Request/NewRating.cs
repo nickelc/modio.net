@@ -1,36 +1,36 @@
 using System.Net.Http;
 
-namespace Modio
+namespace Modio;
+
+/// <summary>
+/// Used to rate a Mod.
+/// </summary>
+public enum NewRating
 {
     /// <summary>
-    /// Used to rate a Mod.
+    /// Submits a positive rating.
     /// </summary>
-    public enum NewRating
+    Positive = 1,
+
+    /// <summary>
+    /// Submits a negative rating.
+    /// </summary>
+    Negative = -1,
+
+    /// <summary>
+    /// Reset a rating.
+    /// </summary>
+    None = 0,
+}
+
+internal static class NewRatingMethods
+{
+    public static HttpContent ToContent(this NewRating rating)
     {
-        /// <summary>
-        /// Submits a positive rating.
-        /// </summary>
-        Positive = 1,
-
-        /// <summary>
-        /// Submits a negative rating.
-        /// </summary>
-        Negative = -1,
-
-        /// <summary>
-        /// Reset a rating.
-        /// </summary>
-        None = 0,
-    }
-
-    internal static class NewRatingMethods
-    {
-        public static HttpContent ToContent(this NewRating rating)
+        var parameters = new Parameters
         {
-            var parameters = new Parameters {
-                {"rating", ((int)rating).ToString()},
-            };
-            return parameters.ToContent();
-        }
+            {"rating", ((int)rating).ToString()},
+        };
+        return parameters.ToContent();
     }
 }

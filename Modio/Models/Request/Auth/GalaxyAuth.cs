@@ -39,7 +39,8 @@ namespace Modio
 
         internal HttpContent ToContent()
         {
-            var parameters = new Parameters {
+            var parameters = new Parameters
+            {
                 {"appdata", AppData},
             };
             if (Email is string email)

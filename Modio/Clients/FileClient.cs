@@ -2,69 +2,68 @@ using System.Threading.Tasks;
 
 using Modio.Models;
 
-namespace Modio
+namespace Modio;
+
+/// <summary>
+/// Client for a specific modfile.
+/// </summary>
+public class FileClient : ApiClient
 {
     /// <summary>
-    /// Client for a specific modfile.
+    /// The game id of the endpoint.
     /// </summary>
-    public class FileClient : ApiClient
+    public uint GameId { get; private set; }
+
+    /// <summary>
+    /// The mod id of the endpoint.
+    /// </summary>
+    public uint ModId { get; private set; }
+
+    /// <summary>
+    /// The file id of the endpoint.
+    /// </summary>
+    public uint FileId { get; private set; }
+
+    internal FileClient(IConnection connection, uint game, uint mod, uint file) : base(connection)
     {
-        /// <summary>
-        /// The game id of the endpoint.
-        /// </summary>
-        public uint GameId { get; private set; }
+        GameId = game;
+        ModId = mod;
+        FileId = file;
+    }
 
-        /// <summary>
-        /// The mod id of the endpoint.
-        /// </summary>
-        public uint ModId { get; private set; }
+    /// <summary>
+    /// Get a file.
+    /// </summary>
+    public async Task<File> Get()
+    {
+        var (method, path) = Routes.GetFile(GameId, ModId, FileId);
+        var req = new Request(method, path);
+        var resp = await Connection.Send<File>(req);
+        return resp.Body!;
+    }
 
-        /// <summary>
-        /// The file id of the endpoint.
-        /// </summary>
-        public uint FileId { get; private set; }
-
-        internal FileClient(IConnection connection, uint game, uint mod, uint file) : base(connection)
+    /// <summary>
+    /// Edit the details of a published file.
+    /// </summary>
+    public async Task<File?> Edit(EditFile editFile)
+    {
+        using (var content = editFile.ToContent())
         {
-            GameId = game;
-            ModId = mod;
-            FileId = file;
-        }
+            var (method, path) = Routes.EditFile(GameId, ModId, FileId);
+            var req = new Request(method, path, content);
 
-        /// <summary>
-        /// Get a file.
-        /// </summary>
-        public async Task<File> Get()
-        {
-            var (method, path) = Routes.GetFile(GameId, ModId, FileId);
-            var req = new Request(method, path);
-            var resp = await Connection.Send<File>(req);
-            return resp.Body!;
+            var resp = await Connection.Send<EditResult<File>>(req);
+            return resp.Body!.Object;
         }
+    }
 
-        /// <summary>
-        /// Edit the details of a published file.
-        /// </summary>
-        public async Task<File?> Edit(EditFile editFile)
-        {
-            using (var content = editFile.ToContent())
-            {
-                var (method, path) = Routes.EditFile(GameId, ModId, FileId);
-                var req = new Request(method, path, content);
-
-                var resp = await Connection.Send<EditResult<File>>(req);
-                return resp.Body!.Object;
-            }
-        }
-
-        /// <summary>
-        /// Delete a modfile.
-        /// </summary>
-        public async Task Delete()
-        {
-            var (method, path) = Routes.DeleteFile(GameId, ModId, FileId);
-            var req = new Request(method, path);
-            await Connection.Send<ApiMessage>(req);
-        }
+    /// <summary>
+    /// Delete a modfile.
+    /// </summary>
+    public async Task Delete()
+    {
+        var (method, path) = Routes.DeleteFile(GameId, ModId, FileId);
+        var req = new Request(method, path);
+        await Connection.Send<ApiMessage>(req);
     }
 }

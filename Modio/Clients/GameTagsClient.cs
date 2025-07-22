@@ -3,59 +3,58 @@ using System.Threading.Tasks;
 
 using Modio.Models;
 
-namespace Modio
+namespace Modio;
+
+/// <summary>
+/// Client for the Game Tags API.
+/// </summary>
+public class GameTagsClient : ApiClient
 {
     /// <summary>
-    /// Client for the Game Tags API.
+    /// The game id of the endpoint.
     /// </summary>
-    public class GameTagsClient : ApiClient
+    public uint GameId { get; private set; }
+
+    internal GameTagsClient(IConnection connection, uint game) : base(connection)
     {
-        /// <summary>
-        /// The game id of the endpoint.
-        /// </summary>
-        public uint GameId { get; private set; }
+        GameId = game;
+    }
 
-        internal GameTagsClient(IConnection connection, uint game) : base(connection)
+    /// <summary>
+    /// Returns all tag option of the game.
+    /// </summary>
+    public async Task<IReadOnlyList<TagOption>> Get()
+    {
+        var route = Routes.GetGameTags(GameId);
+        var search = new SearchClient<TagOption>(Connection, route, null);
+        return await search.ToList();
+    }
+
+    /// <summary>
+    /// Adds a new tag option to the game.
+    /// </summary>
+    public async Task Add(NewTagOption tag)
+    {
+        using (var content = tag.ToContent())
         {
-            GameId = game;
+            var (method, path) = Routes.AddGameTags(GameId);
+            var req = new Request(method, path, content);
+
+            await Connection.Send<ApiMessage>(req);
         }
+    }
 
-        /// <summary>
-        /// Returns all tag option of the game.
-        /// </summary>
-        public async Task<IReadOnlyList<TagOption>> Get()
+    /// <summary>
+    /// Deletes a tag option from the game.
+    /// </summary>
+    public async Task Delete(DeleteTagOption tag)
+    {
+        using (var content = tag.ToContent())
         {
-            var route = Routes.GetGameTags(GameId);
-            var search = new SearchClient<TagOption>(Connection, route, null);
-            return await search.ToList();
-        }
+            var (method, path) = Routes.DeleteGameTags(GameId);
+            var req = new Request(method, path, content);
 
-        /// <summary>
-        /// Adds a new tag option to the game.
-        /// </summary>
-        public async Task Add(NewTagOption tag)
-        {
-            using (var content = tag.ToContent())
-            {
-                var (method, path) = Routes.AddGameTags(GameId);
-                var req = new Request(method, path, content);
-
-                await Connection.Send<ApiMessage>(req);
-            }
-        }
-
-        /// <summary>
-        /// Deletes a tag option from the game.
-        /// </summary>
-        public async Task Delete(DeleteTagOption tag)
-        {
-            using (var content = tag.ToContent())
-            {
-                var (method, path) = Routes.DeleteGameTags(GameId);
-                var req = new Request(method, path, content);
-
-                await Connection.Send<ApiMessage>(req);
-            }
+            await Connection.Send<ApiMessage>(req);
         }
     }
 }

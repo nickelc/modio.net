@@ -1,74 +1,74 @@
 using System.Net.Http;
 
-namespace Modio
+namespace Modio;
+
+/// <summary>
+/// See <see cref="AuthClient.External(OculusAuth)"/>.
+/// </summary>
+///
+/// <seealso>https://docs.mod.io/restapiref/#meta-quest</seealso>
+public class OculusAuth
 {
     /// <summary>
-    /// See <see cref="AuthClient.External(OculusAuth)"/>.
+    /// The user's access token, providing by calling <c>ovr_User_GetAccessToken()</c> from the Oculus SDK.
     /// </summary>
-    ///
-    /// <seealso>https://docs.mod.io/restapiref/#meta-quest</seealso>
-    public class OculusAuth
+    public string Token { get; private set; }
+
+    /// <summary>
+    /// The user's Oculus id providing by calling <c>ovr_GetLoggedInUserID()</c> from the Oculus SDK.
+    /// </summary>
+    public uint UserId { get; private set; }
+
+    /// <summary>
+    /// The nonce provided by calling <c>ovr_User_GetUserProof()</c> from the Oculus SDK.
+    /// </summary>
+    public string Nonce { get; private set; }
+
+    /// <summary>
+    /// The users email address.
+    /// </summary>
+    public string? Email { get; set; }
+
+    /// <summary>
+    /// Has the user accepted the Terms of Use.
+    /// </summary>
+    public bool? TermsAccepted { get; set; }
+
+    /// <summary>
+    /// Unix timestamp of date in which the returned token will expire.
+    /// </summary>
+    public long? ExpiredAt { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of <see cref="OculusAuth"/> with the required data.
+    /// </summary>
+    public OculusAuth(string token, uint userId, string nonce)
     {
-        /// <summary>
-        /// The user's access token, providing by calling <c>ovr_User_GetAccessToken()</c> from the Oculus SDK.
-        /// </summary>
-        public string Token { get; private set; }
+        Token = token;
+        UserId = userId;
+        Nonce = nonce;
+    }
 
-        /// <summary>
-        /// The user's Oculus id providing by calling <c>ovr_GetLoggedInUserID()</c> from the Oculus SDK.
-        /// </summary>
-        public uint UserId { get; private set; }
-
-        /// <summary>
-        /// The nonce provided by calling <c>ovr_User_GetUserProof()</c> from the Oculus SDK.
-        /// </summary>
-        public string Nonce { get; private set; }
-
-        /// <summary>
-        /// The users email address.
-        /// </summary>
-        public string? Email { get; set; }
-
-        /// <summary>
-        /// Has the user accepted the Terms of Use.
-        /// </summary>
-        public bool? TermsAccepted { get; set; }
-
-        /// <summary>
-        /// Unix timestamp of date in which the returned token will expire.
-        /// </summary>
-        public long? ExpiredAt { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="OculusAuth"/> with the required data.
-        /// </summary>
-        public OculusAuth(string token, uint userId, string nonce)
+    internal HttpContent ToContent()
+    {
+        var parameters = new Parameters
         {
-            Token = token;
-            UserId = userId;
-            Nonce = nonce;
-        }
-
-        internal HttpContent ToContent()
+            {"access_token", Token},
+            {"user_id", UserId.ToString()},
+            {"nonce", Nonce},
+        };
+        if (Email is string email)
         {
-            var parameters = new Parameters {
-                {"access_token", Token},
-                {"user_id", UserId.ToString()},
-                {"nonce", Nonce},
-            };
-            if (Email is string email)
-            {
-                parameters.Add("email", email);
-            }
-            if (TermsAccepted is bool termsAccepted)
-            {
-                parameters.Add("terms_agreed", (termsAccepted ? "true" : "false"));
-            }
-            if (ExpiredAt is long expiredAt)
-            {
-                parameters.Add("date_expires", expiredAt.ToString());
-            }
-            return parameters.ToContent();
+            parameters.Add("email", email);
         }
+        if (TermsAccepted is bool termsAccepted)
+        {
+            parameters.Add("terms_agreed", (termsAccepted ? "true" : "false"));
+        }
+        if (ExpiredAt is long expiredAt)
+        {
+            parameters.Add("date_expires", expiredAt.ToString());
+        }
+        return parameters.ToContent();
     }
 }

@@ -4,26 +4,25 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace Modio
+namespace Modio;
+
+internal class NoHttpContent : HttpContent
 {
-    internal class NoHttpContent : HttpContent
+    public NoHttpContent() : this("application/x-www-form-urlencoded") { }
+
+    public NoHttpContent(string mediaType)
     {
-        public NoHttpContent() : this("application/x-www-form-urlencoded") { }
+        Headers.ContentType = new MediaTypeHeaderValue(mediaType);
+    }
 
-        public NoHttpContent(string mediaType)
-        {
-            Headers.ContentType = new MediaTypeHeaderValue(mediaType);
-        }
+    protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
+    {
+        return Task.CompletedTask;
+    }
 
-        protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
-        {
-            return Task.CompletedTask;
-        }
-
-        protected override bool TryComputeLength(out long length)
-        {
-            length = 0;
-            return true;
-        }
+    protected override bool TryComputeLength(out long length)
+    {
+        length = 0;
+        return true;
     }
 }

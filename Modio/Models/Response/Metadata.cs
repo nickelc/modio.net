@@ -3,65 +3,64 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Modio.Models
+namespace Modio.Models;
+
+/// <remarks>
+/// https://docs.mod.io/restapiref/#metadata-kvp-object
+/// </remarks>
+[JsonConverter(typeof(MetadataConverter))]
+public class Metadata : Dictionary<string, List<string>> { }
+
+internal class MetadataConverter : JsonConverter<Metadata>
 {
-    /// <remarks>
-    /// https://docs.mod.io/restapiref/#metadata-kvp-object
-    /// </remarks>
-    [JsonConverter(typeof(MetadataConverter))]
-    public class Metadata : Dictionary<string, List<string>> { }
-
-    internal class MetadataConverter : JsonConverter<Metadata>
+    class KVP
     {
-        class KVP
+        [JsonPropertyName("metakey")]
+        public string? Key { get; set; }
+        [JsonPropertyName("metavalue")]
+        public string? Value { get; set; }
+    }
+
+    public override Metadata Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        if (reader.TokenType != JsonTokenType.StartArray)
         {
-            [JsonPropertyName("metakey")]
-            public string? Key { get; set; }
-            [JsonPropertyName("metavalue")]
-            public string? Value { get; set; }
+            throw new JsonException("json array expected");
         }
 
-        public override Metadata Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        var value = new Metadata();
+
+        while (reader.Read())
         {
-            if (reader.TokenType != JsonTokenType.StartArray)
+            if (reader.TokenType == JsonTokenType.EndArray)
             {
-                throw new JsonException("json array expected");
+                return value;
             }
 
-            var value = new Metadata();
+            var kvp = JsonSerializer.Deserialize<KVP>(ref reader);
 
-            while (reader.Read())
+            if (kvp!.Key == null || kvp.Value == null)
             {
-                if (reader.TokenType == JsonTokenType.EndArray)
-                {
-                    return value;
-                }
-
-                var kvp = JsonSerializer.Deserialize<KVP>(ref reader);
-
-                if (kvp!.Key == null || kvp.Value == null)
-                {
-                    throw new JsonException("invalid metadata kvp entry");
-                }
-
-                value.GetOrCreate(kvp.Key).Add(kvp.Value);
+                throw new JsonException("invalid metadata kvp entry");
             }
 
-            throw new JsonException();
+            value.GetOrCreate(kvp.Key).Add(kvp.Value);
         }
 
-        public override void Write(Utf8JsonWriter writer, Metadata value, JsonSerializerOptions options)
+        throw new JsonException();
+    }
+
+    public override void Write(Utf8JsonWriter writer, Metadata value, JsonSerializerOptions options)
+    {
+        writer.WriteStartArray();
+        foreach (var (key, list) in value)
         {
-            writer.WriteStartArray();
-            foreach (var (key, list) in value)
+            foreach (var v in list)
             {
-                foreach (var v in list)
-                {
-                    var kvp = new KVP { Key = key, Value = v };
-                    JsonSerializer.Serialize<KVP>(writer, kvp, options);
-                }
+                var kvp = new KVP { Key = key, Value = v };
+                JsonSerializer.Serialize<KVP>(writer, kvp, options);
             }
-            writer.WriteEndArray();
         }
+        writer.WriteEndArray();
     }
 }

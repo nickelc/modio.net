@@ -1,24 +1,23 @@
 using System;
 
-namespace Modio
+namespace Modio;
+
+/// <summary>
+/// Represents errors that occur when downloading mod files.
+/// </summary>
+public class DownloadException : Exception
 {
     /// <summary>
-    /// Represents errors that occur when downloading mod files.
+    /// Creates a new instance of DownloadException.
     /// </summary>
-    public class DownloadException : Exception
+    public DownloadException()
     {
-        /// <summary>
-        /// Creates a new instance of DownloadException.
-        /// </summary>
-        public DownloadException()
-        {
-        }
+    }
 
-        /// <summary>
-        /// Creates a new instance of DownloadException.
-        /// </summary>
-        public DownloadException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+    /// <summary>
+    /// Creates a new instance of DownloadException.
+    /// </summary>
+    public DownloadException(string message, Exception innerException) : base(message, innerException)
+    {
     }
 }

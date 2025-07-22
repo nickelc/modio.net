@@ -7,98 +7,97 @@ using System.Threading.Tasks;
 using Modio.Filters;
 using Modio.Models;
 
-namespace Modio
+namespace Modio;
+
+/// <summary>
+/// Client to retrieve search results from various API endpoints.
+/// </summary>
+public class SearchClient<T> : ApiClient where T : class
 {
-    /// <summary>
-    /// Client to retrieve search results from various API endpoints.
-    /// </summary>
-    public class SearchClient<T> : ApiClient where T : class
+    private (HttpMethod, Uri) route;
+    private Filter? filter;
+
+    internal SearchClient(IConnection connection, (HttpMethod, Uri) route, Filter? filter) : base(connection)
     {
-        private (HttpMethod, Uri) route;
-        private Filter? filter;
+        this.route = route;
+        this.filter = filter;
+    }
 
-        internal SearchClient(IConnection connection, (HttpMethod, Uri) route, Filter? filter) : base(connection)
+    /// <summary>
+    /// Returns the first result of the search.
+    /// </summary>
+    public async Task<T?> First()
+    {
+        filter = filter != null ? filter.Limit(1) : Filter.WithLimit(1);
+        var page = await FirstPage();
+        return page.FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Returns the first page of the search result.
+    /// </summary>
+    public async Task<IReadOnlyList<T>> FirstPage()
+    {
+        await using (var enumerator = ToPagedEnumerable().GetAsyncEnumerator())
         {
-            this.route = route;
-            this.filter = filter;
+            await enumerator.MoveNextAsync();
+            return enumerator.Current ?? new List<T>().AsReadOnly();
         }
+    }
 
-        /// <summary>
-        /// Returns the first result of the search.
-        /// </summary>
-        public async Task<T?> First()
+    /// <summary>
+    /// Returns the complete search result as <see cref="IReadOnlyList{T}"/>.
+    /// </summary>
+    public async Task<IReadOnlyList<T>> ToList()
+    {
+        var list = new List<T>();
+        await foreach (var page in ToPagedEnumerable())
         {
-            filter = filter != null ? filter.Limit(1) : Filter.WithLimit(1);
-            var page = await FirstPage();
-            return page.FirstOrDefault();
+            list.AddRange(page);
         }
+        return list.AsReadOnly();
+    }
 
-        /// <summary>
-        /// Returns the first page of the search result.
-        /// </summary>
-        public async Task<IReadOnlyList<T>> FirstPage()
+    /// <summary>
+    /// Returns the complete search result as <see cref="IAsyncEnumerable{T}"/>.
+    /// </summary>
+    public async IAsyncEnumerable<T> ToEnumerable()
+    {
+        await foreach (var page in ToPagedEnumerable())
         {
-            await using (var enumerator = ToPagedEnumerable().GetAsyncEnumerator())
+            foreach (var item in page)
             {
-                await enumerator.MoveNextAsync();
-                return enumerator.Current ?? new List<T>().AsReadOnly();
+                yield return item;
             }
         }
+    }
 
-        /// <summary>
-        /// Returns the complete search result as <see cref="IReadOnlyList{T}"/>.
-        /// </summary>
-        public async Task<IReadOnlyList<T>> ToList()
+    /// <summary>
+    /// Returns the complete search result by page as <see cref="IAsyncEnumerable{T}"/>.
+    /// </summary>
+    public async IAsyncEnumerable<IReadOnlyList<T>> ToPagedEnumerable()
+    {
+        var (method, path) = this.route;
+        uint? remaining = null;
+        do
         {
-            var list = new List<T>();
-            await foreach (var page in ToPagedEnumerable())
+            var req = new Request(method, path);
+            if (filter != null)
             {
-                list.AddRange(page);
+                req.Parameters.Extend(filter.ToParameters());
             }
-            return list.AsReadOnly();
-        }
+            var resp = await Connection.Send<Result<T>>(req);
+            var result = resp.Body!;
 
-        /// <summary>
-        /// Returns the complete search result as <see cref="IAsyncEnumerable{T}"/>.
-        /// </summary>
-        public async IAsyncEnumerable<T> ToEnumerable()
-        {
-            await foreach (var page in ToPagedEnumerable())
-            {
-                foreach (var item in page)
-                {
-                    yield return item;
-                }
-            }
-        }
+            remaining ??= result.Total;
+            remaining -= result.Count;
 
-        /// <summary>
-        /// Returns the complete search result by page as <see cref="IAsyncEnumerable{T}"/>.
-        /// </summary>
-        public async IAsyncEnumerable<IReadOnlyList<T>> ToPagedEnumerable()
-        {
-            var (method, path) = this.route;
-            uint? remaining = null;
-            do
-            {
-                var req = new Request(method, path);
-                if (filter != null)
-                {
-                    req.Parameters.Extend(filter.ToParameters());
-                }
-                var resp = await Connection.Send<Result<T>>(req);
-                var result = resp.Body!;
+            var limit = result.Limit;
+            var offset = result.Offset;
 
-                remaining ??= result.Total;
-                remaining -= result.Count;
+            filter = (filter ?? Filter.WithLimit(limit)).Offset(offset + limit);
 
-                var limit = result.Limit;
-                var offset = result.Offset;
-
-                filter = (filter ?? Filter.WithLimit(limit)).Offset(offset + limit);
-
-                yield return result.Data.AsReadOnly();
-            } while (remaining > 0);
-        }
+            yield return result.Data.AsReadOnly();
+        } while (remaining > 0);
     }
 }

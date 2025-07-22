@@ -4,79 +4,78 @@ using System.Threading.Tasks;
 
 using Modio.Models;
 
-namespace Modio
+namespace Modio;
+
+/// <summary>
+/// Client for the Tags API.
+/// </summary>
+public class TagsClient : ApiClient
 {
     /// <summary>
-    /// Client for the Tags API.
+    /// The game id of the endpoint.
     /// </summary>
-    public class TagsClient : ApiClient
+    public uint GameId { get; private set; }
+
+    /// <summary>
+    /// The mod id of the endpoint.
+    /// </summary>
+    public uint ModId { get; private set; }
+
+    internal TagsClient(IConnection connection, uint game, uint mod) : base(connection)
     {
-        /// <summary>
-        /// The game id of the endpoint.
-        /// </summary>
-        public uint GameId { get; private set; }
+        GameId = game;
+        ModId = mod;
+    }
 
-        /// <summary>
-        /// The mod id of the endpoint.
-        /// </summary>
-        public uint ModId { get; private set; }
+    /// <summary>
+    /// Get all tags for the corresponding mod.
+    /// </summary>
+    public async Task<IReadOnlyList<Tag>> Get()
+    {
+        var route = Routes.GetModTags(GameId, ModId);
+        var search = new SearchClient<Tag>(Connection, route, null);
+        return await search.ToList();
+    }
 
-        internal TagsClient(IConnection connection, uint game, uint mod) : base(connection)
-        {
-            GameId = game;
-            ModId = mod;
-        }
+    /// <summary>
+    /// Add tags to a mod's profile.
+    /// </summary>
+    public async Task Add(params string[] tags)
+    {
+        await Add((IEnumerable<string>)tags);
+    }
 
-        /// <summary>
-        /// Get all tags for the corresponding mod.
-        /// </summary>
-        public async Task<IReadOnlyList<Tag>> Get()
-        {
-            var route = Routes.GetModTags(GameId, ModId);
-            var search = new SearchClient<Tag>(Connection, route, null);
-            return await search.ToList();
-        }
+    /// <summary>
+    /// Add tags to a mod's profile.
+    /// </summary>
+    public async Task Add(IEnumerable<string> tags)
+    {
+        var content = tags.Select(t => ("tags[]", t)).ToContent();
 
-        /// <summary>
-        /// Add tags to a mod's profile.
-        /// </summary>
-        public async Task Add(params string[] tags)
-        {
-            await Add((IEnumerable<string>)tags);
-        }
+        var (method, path) = Routes.AddModTags(GameId, ModId);
+        var req = new Request(method, path, content);
 
-        /// <summary>
-        /// Add tags to a mod's profile.
-        /// </summary>
-        public async Task Add(IEnumerable<string> tags)
-        {
-            var content = tags.Select(t => ("tags[]", t)).ToContent();
+        await Connection.Send<ApiMessage>(req);
+    }
 
-            var (method, path) = Routes.AddModTags(GameId, ModId);
-            var req = new Request(method, path, content);
+    /// <summary>
+    /// Delete tags from a mod's profile.
+    /// </summary>
+    public async Task Delete(params string[] tags)
+    {
+        await Delete((IEnumerable<string>)tags);
+    }
 
-            await Connection.Send<ApiMessage>(req);
-        }
+    /// <summary>
+    /// Delete tags from a mod's profile.
+    /// </summary>
+    public async Task Delete(IEnumerable<string> tags)
+    {
+        var content = tags.Select(t => ("tags[]", t)).ToContent();
 
-        /// <summary>
-        /// Delete tags from a mod's profile.
-        /// </summary>
-        public async Task Delete(params string[] tags)
-        {
-            await Delete((IEnumerable<string>)tags);
-        }
+        var (method, path) = Routes.DeleteModTags(GameId, ModId);
+        var req = new Request(method, path, content);
 
-        /// <summary>
-        /// Delete tags from a mod's profile.
-        /// </summary>
-        public async Task Delete(IEnumerable<string> tags)
-        {
-            var content = tags.Select(t => ("tags[]", t)).ToContent();
-
-            var (method, path) = Routes.DeleteModTags(GameId, ModId);
-            var req = new Request(method, path, content);
-
-            await Connection.Send<ApiMessage>(req);
-        }
+        await Connection.Send<ApiMessage>(req);
     }
 }
