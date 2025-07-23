@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 
@@ -57,11 +56,6 @@ internal static class KeyValuePairExtensions
 
 internal static class StringExtensions
 {
-    public static Uri FormatUri(this string pattern, params object[] args)
-    {
-        return new Uri(string.Format(CultureInfo.InvariantCulture, pattern, args), UriKind.Relative);
-    }
-
     public static StringContent ToContent(this string content)
     {
         return new StringContent(content);

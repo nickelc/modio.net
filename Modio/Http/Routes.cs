@@ -3,398 +3,360 @@ using System.Net.Http;
 
 namespace Modio;
 
-internal partial class Routes
+internal static partial class Routes
 {
+    static Uri Uri(string uriString)
+    {
+        return new Uri(uriString, UriKind.Relative);
+    }
+
     #region Auth
     public static (HttpMethod, Uri) AuthEmailRequest()
     {
-        return (HttpMethod.Post, new Uri("oauth/emailrequest", UriKind.Relative));
+        return (HttpMethod.Post, Uri("oauth/emailrequest"));
     }
 
     public static (HttpMethod, Uri) AuthEmailExchange()
     {
-        return (HttpMethod.Post, new Uri("oauth/emailexchange", UriKind.Relative));
+        return (HttpMethod.Post, Uri("oauth/emailexchange"));
     }
 
     public static (HttpMethod, Uri) Terms()
     {
-        return (HttpMethod.Get, new Uri("authenticate/terms", UriKind.Relative));
+        return (HttpMethod.Get, Uri("authenticate/terms"));
     }
 
     public static (HttpMethod, Uri) ExternalSteam()
     {
-        return (HttpMethod.Post, new Uri("external/steamauth", UriKind.Relative));
+        return (HttpMethod.Post, Uri("external/steamauth"));
     }
 
     public static (HttpMethod, Uri) ExternalEpicGames()
     {
-        return (HttpMethod.Post, new Uri("external/epicgamesauth", UriKind.Relative));
+        return (HttpMethod.Post, Uri("external/epicgamesauth"));
     }
 
     public static (HttpMethod, Uri) ExternalGalaxy()
     {
-        return (HttpMethod.Post, new Uri("external/galaxyauth", UriKind.Relative));
+        return (HttpMethod.Post, Uri("external/galaxyauth"));
     }
 
     public static (HttpMethod, Uri) ExternalItchio()
     {
-        return (HttpMethod.Post, new Uri("external/itchioauth", UriKind.Relative));
+        return (HttpMethod.Post, Uri("external/itchioauth"));
     }
 
     public static (HttpMethod, Uri) ExternalOculus()
     {
-        return (HttpMethod.Post, new Uri("external/oculusauth", UriKind.Relative));
+        return (HttpMethod.Post, Uri("external/oculusauth"));
     }
 
     public static (HttpMethod, Uri) ExternalXbox()
     {
-        return (HttpMethod.Post, new Uri("external/xboxauth", UriKind.Relative));
+        return (HttpMethod.Post, Uri("external/xboxauth"));
     }
 
     public static (HttpMethod, Uri) ExternalSwitch()
     {
-        return (HttpMethod.Post, new Uri("external/switchauth", UriKind.Relative));
+        return (HttpMethod.Post, Uri("external/switchauth"));
     }
 
     public static (HttpMethod, Uri) ExternalApple()
     {
-        return (HttpMethod.Post, new Uri("external/appleauth", UriKind.Relative));
+        return (HttpMethod.Post, Uri("external/appleauth"));
     }
 
     public static (HttpMethod, Uri) ExternalDiscord()
     {
-        return (HttpMethod.Post, new Uri("external/discordauth", UriKind.Relative));
+        return (HttpMethod.Post, Uri("external/discordauth"));
     }
     #endregion
 
     #region Game
     public static (HttpMethod, Uri) GetGames()
     {
-        return (HttpMethod.Get, new Uri("games", UriKind.Relative));
+        return (HttpMethod.Get, Uri("games"));
     }
 
     public static (HttpMethod, Uri) GetGame(uint game)
     {
-        var uri = "games/{0}".FormatUri(game);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}"));
     }
 
     public static (HttpMethod, Uri) EditGame(uint game)
     {
-        var uri = "games/{0}".FormatUri(game);
-        return (HttpMethod.Put, uri);
+        return (HttpMethod.Put, Uri($"games/{game}"));
     }
 
     public static (HttpMethod, Uri) AddGameMedia(uint game)
     {
-        var uri = "games/{0}".FormatUri(game);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}"));
     }
 
     public static (HttpMethod, Uri) GetGameTags(uint game)
     {
-        var uri = "games/{0}/tags".FormatUri(game);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/tags"));
     }
 
     public static (HttpMethod, Uri) AddGameTags(uint game)
     {
-        var uri = "games/{0}/tags".FormatUri(game);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}/tags"));
     }
 
     public static (HttpMethod, Uri) DeleteGameTags(uint game)
     {
-        var uri = "games/{0}/tags".FormatUri(game);
-        return (HttpMethod.Delete, uri);
+        return (HttpMethod.Delete, Uri($"games/{game}/tags"));
     }
     #endregion
 
     #region Mod
     public static (HttpMethod, Uri) GetMods(uint game)
     {
-        var uri = "games/{0}/mods".FormatUri(game);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods"));
     }
 
     public static (HttpMethod, Uri) GetMod(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}".FormatUri(game, mod);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}"));
     }
 
     public static (HttpMethod, Uri) AddMod(uint game)
     {
-        var uri = "games/{0}/mods".FormatUri(game);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}/mods"));
     }
 
     public static (HttpMethod, Uri) EditMod(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}".FormatUri(game, mod);
-        return (HttpMethod.Put, uri);
+        return (HttpMethod.Put, Uri($"games/{game}/mods/{mod}"));
     }
 
     public static (HttpMethod, Uri) DeleteMod(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}".FormatUri(game, mod);
-        return (HttpMethod.Delete, uri);
+        return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}"));
     }
     #endregion
 
     #region Tags
     public static (HttpMethod, Uri) GetModTags(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/tags".FormatUri(game, mod);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/tags"));
     }
 
     public static (HttpMethod, Uri) AddModTags(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/tags".FormatUri(game, mod);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/tags"));
     }
 
     public static (HttpMethod, Uri) DeleteModTags(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/tags".FormatUri(game, mod);
-        return (HttpMethod.Delete, uri);
+        return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}/tags"));
     }
     #endregion
 
     #region Metadata
     public static (HttpMethod, Uri) GetModMetadata(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/metadatakvp".FormatUri(game, mod);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/metadatakvp"));
     }
 
     public static (HttpMethod, Uri) AddModMetadata(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/metadatakvp".FormatUri(game, mod);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/metadatakvp"));
     }
 
     public static (HttpMethod, Uri) DeleteModMetadata(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/metadatakvp".FormatUri(game, mod);
-        return (HttpMethod.Delete, uri);
+        return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}/metadatakvp"));
     }
     #endregion
 
     #region Dependencies
     public static (HttpMethod, Uri) GetModDependencies(uint game, uint mod, bool recursive)
     {
-        var uri = "games/{0}/mods/{1}/dependencies?recursive={2}".FormatUri(game, mod, recursive);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/dependencies?recursive={recursive}"));
     }
 
     public static (HttpMethod, Uri) AddModDependencies(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/dependencies".FormatUri(game, mod);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/dependencies"));
     }
 
     public static (HttpMethod, Uri) DeleteModDependencies(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/dependencies".FormatUri(game, mod);
-        return (HttpMethod.Delete, uri);
+        return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}/dependencies"));
     }
     #endregion
 
     #region Media
     public static (HttpMethod, Uri) AddModMedia(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/media".FormatUri(game, mod);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/media"));
     }
 
     public static (HttpMethod, Uri) DeleteModMedia(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/media".FormatUri(game, mod);
-        return (HttpMethod.Delete, uri);
+        return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}/media"));
     }
     #endregion
 
     #region Team
     public static (HttpMethod, Uri) GetTeamMembers(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/team".FormatUri(game, mod);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/team"));
     }
 
     public static (HttpMethod, Uri) AddTeamMember(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/team".FormatUri(game, mod);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/team"));
     }
 
     public static (HttpMethod, Uri) EditTeamMember(uint game, uint mod, uint member)
     {
-        var uri = "games/{0}/mods/{1}/team/{2}".FormatUri(game, mod, member);
-        return (HttpMethod.Put, uri);
+        return (HttpMethod.Put, Uri($"games/{game}/mods/{mod}/team/{member}"));
     }
 
     public static (HttpMethod, Uri) DeleteTeamMember(uint game, uint mod, uint member)
     {
-        var uri = "games/{0}/mods/{1}/team/{2}".FormatUri(game, mod, member);
-        return (HttpMethod.Delete, uri);
+        return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}/team/{member}"));
     }
     #endregion
 
     #region Comments
     public static (HttpMethod, Uri) GetComments(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/comments".FormatUri(game, mod);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/comments"));
     }
 
     public static (HttpMethod, Uri) GetComment(uint game, uint mod, uint comment)
     {
-        var uri = "games/{0}/mods/{1}/comments/{2}".FormatUri(game, mod, comment);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/comments/{comment}"));
     }
 
     public static (HttpMethod, Uri) AddComment(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/comments".FormatUri(game, mod);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/comments"));
     }
 
     public static (HttpMethod, Uri) EditComment(uint game, uint mod, uint comment)
     {
-        var uri = "games/{0}/mods/{1}/comments/{2}".FormatUri(game, mod, comment);
-        return (HttpMethod.Put, uri);
+        return (HttpMethod.Put, Uri($"games/{game}/mods/{mod}/comments/{comment}"));
     }
 
     public static (HttpMethod, Uri) DeleteComment(uint game, uint mod, uint comment)
     {
-        var uri = "games/{0}/mods/{1}/comments/{2}".FormatUri(game, mod, comment);
-        return (HttpMethod.Delete, uri);
+        return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}/comments/{comment}"));
     }
     #endregion
 
     #region Events
     public static (HttpMethod, Uri) GetAllModEvents(uint game)
     {
-        var uri = "games/{0}/mods/events".FormatUri(game);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/events"));
     }
 
     public static (HttpMethod, Uri) GetModEvents(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/events".FormatUri(game, mod);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/events"));
     }
     #endregion
 
     #region Stats
     public static (HttpMethod, Uri) GetAllModStats(uint game)
     {
-        var uri = "games/{0}/mods/stats".FormatUri(game);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/stats"));
     }
 
     public static (HttpMethod, Uri) GetModStats(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/stats".FormatUri(game, mod);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/stats"));
     }
     #endregion
 
     #region Rate
     public static (HttpMethod, Uri) RateMod(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/ratings".FormatUri(game, mod);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/ratings"));
     }
     #endregion
 
     #region Subscribe
     public static (HttpMethod, Uri) Subscribe(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/subscribe".FormatUri(game, mod);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/subscribe"));
     }
 
     public static (HttpMethod, Uri) Unsubscribe(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/subscribe".FormatUri(game, mod);
-        return (HttpMethod.Delete, uri);
+        return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}/subscribe"));
     }
     #endregion
 
     #region Files
     public static (HttpMethod, Uri) GetFiles(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/files".FormatUri(game, mod);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/files"));
     }
 
     public static (HttpMethod, Uri) GetFile(uint game, uint mod, uint file)
     {
-        var uri = "games/{0}/mods/{1}/files/{2}".FormatUri(game, mod, file);
-        return (HttpMethod.Get, uri);
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/files/{file}"));
     }
 
     public static (HttpMethod, Uri) AddFile(uint game, uint mod)
     {
-        var uri = "games/{0}/mods/{1}/files".FormatUri(game, mod);
-        return (HttpMethod.Post, uri);
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/files"));
     }
 
     public static (HttpMethod, Uri) EditFile(uint game, uint mod, uint file)
     {
-        var uri = "games/{0}/mods/{1}/files/{2}".FormatUri(game, mod, file);
-        return (HttpMethod.Put, uri);
+        return (HttpMethod.Put, Uri($"games/{game}/mods/{mod}/files/{file}"));
     }
 
     public static (HttpMethod, Uri) DeleteFile(uint game, uint mod, uint file)
     {
-        var uri = "games/{0}/mods/{1}/files/{2}".FormatUri(game, mod, file);
-        return (HttpMethod.Delete, uri);
+        return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}/files/{file}"));
     }
     #endregion
 
     #region User
     public static (HttpMethod, Uri) CurrentUser()
     {
-        return (HttpMethod.Get, new Uri("me", UriKind.Relative));
+        return (HttpMethod.Get, Uri("me"));
     }
 
     public static (HttpMethod, Uri) UserSubscriptions()
     {
-        return (HttpMethod.Get, new Uri("me/subscribed", UriKind.Relative));
+        return (HttpMethod.Get, Uri("me/subscribed"));
     }
 
     public static (HttpMethod, Uri) UserEvents()
     {
-        return (HttpMethod.Get, new Uri("me/events", UriKind.Relative));
+        return (HttpMethod.Get, Uri("me/events"));
     }
 
     public static (HttpMethod, Uri) UserGames()
     {
-        return (HttpMethod.Get, new Uri("me/games", UriKind.Relative));
+        return (HttpMethod.Get, Uri("me/games"));
     }
 
     public static (HttpMethod, Uri) UserMods()
     {
-        return (HttpMethod.Get, new Uri("me/mods", UriKind.Relative));
+        return (HttpMethod.Get, Uri("me/mods"));
     }
 
     public static (HttpMethod, Uri) UserFiles()
     {
-        return (HttpMethod.Get, new Uri("me/files", UriKind.Relative));
+        return (HttpMethod.Get, Uri("me/files"));
     }
 
     public static (HttpMethod, Uri) UserRatings()
     {
-        return (HttpMethod.Get, new Uri("me/ratings", UriKind.Relative));
+        return (HttpMethod.Get, Uri("me/ratings"));
     }
     #endregion
 
     public static (HttpMethod, Uri) SubmitReport()
     {
-        return (HttpMethod.Post, new Uri("report", UriKind.Relative));
+        return (HttpMethod.Post, Uri("report"));
     }
 }
