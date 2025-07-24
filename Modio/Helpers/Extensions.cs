@@ -35,8 +35,13 @@ internal static class DictionaryExtensions
     }
 }
 
-internal static class FileInfoExtensions
+internal static class HttpContentExtensions
 {
+    public static StringContent ToContent(this string content)
+    {
+        return new StringContent(content);
+    }
+
     public static StreamContent ToContent(this FileInfo fileInfo)
     {
         return new StreamContent(fileInfo.OpenRead());
@@ -52,14 +57,6 @@ internal static class KeyValuePairExtensions
         value = kvp.Value;
     }
 #endif
-}
-
-internal static class StringExtensions
-{
-    public static StringContent ToContent(this string content)
-    {
-        return new StringContent(content);
-    }
 }
 
 internal static class UriExtensions
