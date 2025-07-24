@@ -17,6 +17,11 @@ internal static class HttpContentExtensions
     {
         return new StreamContent(fileInfo.OpenRead());
     }
+
+    public static FileContent ToContent(this FileInfo fileInfo, IProgress<long>? progress)
+    {
+        return new FileContent(fileInfo.OpenRead(), progress);
+    }
 }
 
 internal static class UriExtensions

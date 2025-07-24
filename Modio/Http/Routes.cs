@@ -316,6 +316,36 @@ internal static partial class Routes
     {
         return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}/files/{file}"));
     }
+
+    public static (HttpMethod, Uri) GetUploadSessions(uint game, uint mod)
+    {
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/files/multipart/sessions"));
+    }
+
+    public static (HttpMethod, Uri) CreateUploadSession(uint game, uint mod)
+    {
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/files/multipart"));
+    }
+
+    public static (HttpMethod, Uri) DeleteUploadSession(uint game, uint mod, Guid uploadId)
+    {
+        return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}/files/multipart?upload_id={uploadId}"));
+    }
+
+    public static (HttpMethod, Uri) CompleteUploadSession(uint game, uint mod, Guid uploadId)
+    {
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/files/multipart/complete?upload_id={uploadId}"));
+    }
+
+    public static (HttpMethod, Uri) GetUploadParts(uint game, uint mod, Guid uploadId)
+    {
+        return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/files/multipart?upload_id={uploadId}"));
+    }
+
+    public static (HttpMethod, Uri) AddUploadPart(uint game, uint mod, Guid uploadId)
+    {
+        return (HttpMethod.Put, Uri($"games/{game}/mods/{mod}/files/multipart?upload_id={uploadId}"));
+    }
     #endregion
 
     #region User
