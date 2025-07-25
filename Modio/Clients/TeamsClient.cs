@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 
 using Modio.Filters;
+using Modio.Http;
 using Modio.Models;
 
 namespace Modio;

@@ -2,6 +2,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using Modio.Http;
 using Modio.Models;
 
 namespace Modio;

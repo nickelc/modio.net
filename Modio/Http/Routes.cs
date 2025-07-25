@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 
-namespace Modio;
+namespace Modio.Http;
 
 internal static partial class Routes
 {

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Modio.Http;
 using Modio.Models;
 
 namespace Modio;

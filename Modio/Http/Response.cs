@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Net;
 
-namespace Modio;
+namespace Modio.Http;
 
 internal class Response<T>
     where T : class

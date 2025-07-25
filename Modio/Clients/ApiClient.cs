@@ -1,3 +1,5 @@
+using Modio.Http;
+
 namespace Modio;
 
 /// <summary>

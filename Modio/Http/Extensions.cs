@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 
-namespace Modio;
+namespace Modio.Http;
 
 internal static class HttpContentExtensions
 {

@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Modio;
+namespace Modio.Http;
 
 using ExceptionMap = Dictionary<HttpStatusCode, Func<HttpResponseMessage, ApiException>>;
 

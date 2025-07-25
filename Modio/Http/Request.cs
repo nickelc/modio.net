@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
-namespace Modio;
+namespace Modio.Http;
 
 internal class Request
 {
