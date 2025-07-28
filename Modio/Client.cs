@@ -42,21 +42,21 @@ public partial class Client
     /// <summary>
     /// Initializes a new instance of <see cref="Client"/> with <paramref name="credentials"/>.
     /// </summary>
-    public Client(Credentials credentials) : this(new Connection(ModioApiUrl, credentials))
+    public Client(Credentials credentials) : this(new Connection(ModioApiUrl, credentials.ApiKey, credentials.Token))
     {
     }
 
     /// <summary>
     /// Initializes a new instance of <see cref="Client"/> with a custom host and <paramref name="credentials"/>.
     /// </summary>
-    public Client(Uri baseUrl, Credentials credentials) : this(new Connection(FixBaseUrl(baseUrl), credentials))
+    public Client(Uri baseUrl, Credentials credentials) : this(new Connection(FixBaseUrl(baseUrl), credentials.ApiKey, credentials.Token))
     {
     }
 
     /// <summary>
     /// Initializes a new instance of <see cref="Client"/> with a custom host, custom <paramref name="credentials"/>, and a custom <paramref name="httpClient"/>.
     /// </summary>
-    public Client(Uri baseUrl, Credentials credentials, HttpClient httpClient) : this(new Connection(FixBaseUrl(baseUrl), credentials, httpClient))
+    public Client(Uri baseUrl, Credentials credentials, HttpClient httpClient) : this(new Connection(FixBaseUrl(baseUrl), credentials.ApiKey, credentials.Token, httpClient))
     {
     }
 

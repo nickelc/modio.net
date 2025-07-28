@@ -23,17 +23,20 @@ internal class Connection : IConnection
 
     public Uri BaseAddress { get; private set; }
 
-    public Credentials Credentials { get; set; }
+    public string ApiKey { get; set; }
 
-    public Connection(Uri baseAddress, Credentials credentials) : this(baseAddress, credentials, new HttpClient())
+    public string? Token { get; set; }
+
+    public Connection(Uri baseAddress, string apiKey, string? token) : this(baseAddress, apiKey, token, new HttpClient())
     {
     }
 
-    public Connection(Uri baseAddress, Credentials credentials, HttpClient httpClient)
+    public Connection(Uri baseAddress, string apiKey, string? token, HttpClient httpClient)
     {
         http = httpClient;
         BaseAddress = baseAddress;
-        Credentials = credentials;
+        ApiKey = apiKey;
+        Token = token;
     }
 
     public async Task<Response<T>> Send<T>(Request request, CancellationToken cancellationToken = default)
@@ -56,7 +59,7 @@ internal class Connection : IConnection
         {
             var parameters = new Dictionary<string, string>(request.Parameters)
             {
-                ["api_key"] = Credentials.ApiKey,
+                ["api_key"] = ApiKey,
             };
             var uri = new Uri(BaseAddress, request.Endpoint)
                 .ApplyParameters(parameters);
@@ -66,9 +69,9 @@ internal class Connection : IConnection
             {
                 req.Headers.Add(header.Key, header.Value);
             }
-            if (Credentials.Token != null)
+            if (Token != null)
             {
-                req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Credentials.Token);
+                req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             }
 
             if (request.Body is HttpContent content)
