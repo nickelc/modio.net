@@ -1,7 +1,4 @@
 using System.IO;
-using System.Net.Http;
-
-using Modio.Http;
 
 namespace Modio;
 
@@ -48,34 +45,5 @@ public class NewFile
         Ensure.FileExists(file, "File does not exist");
 
         File = file;
-    }
-
-    internal HttpContent ToContent()
-    {
-        var form = new MultipartFormDataContent
-        {
-            { File.ToContent(), "filedata", File.Name },
-        };
-        if (Version is string version)
-        {
-            form.Add(version.ToContent(), "version");
-        }
-        if (Changelog is string changelog)
-        {
-            form.Add(changelog.ToContent(), "changelog");
-        }
-        if (Active is bool active)
-        {
-            form.Add((active ? "true" : "false").ToContent(), "active");
-        }
-        if (Filehash is string filehash)
-        {
-            form.Add(filehash.ToContent(), "filehash");
-        }
-        if (MetadataBlob is string metadata)
-        {
-            form.Add(metadata.ToContent(), "metadata_blob");
-        }
-        return form;
     }
 }

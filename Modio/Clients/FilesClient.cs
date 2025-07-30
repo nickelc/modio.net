@@ -47,14 +47,17 @@ public class FilesClient : ApiClient
     /// </summary>
     public async Task<File> Add(NewFile newFile, CancellationToken cancellationToken = default)
     {
-        using (var content = newFile.ToContent())
-        {
-            var (method, path) = Routes.AddFile(GameId, ModId);
-            var req = new Request(method, path, content);
+        return await Add(newFile, default, cancellationToken);
+    }
 
-            var resp = await Connection.Send<File>(req, cancellationToken);
-            return resp.Body!;
-        }
+    /// <summary>
+    /// Upload a file for the corresponding mod.
+    /// </summary>
+    public async Task<File> Add(NewFile newFile, UploadOptions options = default, CancellationToken cancellationToken = default)
+    {
+        UploadClient client = new(Connection, GameId, ModId);
+
+        return await client.UploadFile(newFile, options, cancellationToken);
     }
 
     /// <summary>
