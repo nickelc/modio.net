@@ -40,8 +40,25 @@ public partial class Client
     public UserClient User { get; private set; }
 
     /// <summary>
+    /// Initializes a new instance of <see cref="Client"/> with <paramref name="options"/>.
+    /// </summary>
+    public Client(Options options)
+    {
+        var apiKey = options.ApiKey;
+        var token = options.Token;
+        var baseAddress = FixBaseUrl(options.BaseUrl);
+        var httpClient = options.HttpClient ?? new HttpClient();
+
+        connection = new Connection(baseAddress, apiKey, token, httpClient);
+        Auth = new AuthClient(connection);
+        Games = new GamesClient(connection);
+        User = new UserClient(connection);
+    }
+
+    /// <summary>
     /// Initializes a new instance of <see cref="Client"/> with <paramref name="credentials"/>.
     /// </summary>
+    [Obsolete("Use `Client(Client.Options)` or `Client.GetBuilder(apiKey)` instead")]
     public Client(Credentials credentials) : this(new Connection(ModioApiUrl, credentials.ApiKey, credentials.Token))
     {
     }
@@ -49,6 +66,7 @@ public partial class Client
     /// <summary>
     /// Initializes a new instance of <see cref="Client"/> with a custom host and <paramref name="credentials"/>.
     /// </summary>
+    [Obsolete("Use `Client(Client.Options)` or `Client.GetBuilder(apiKey)` instead")]
     public Client(Uri baseUrl, Credentials credentials) : this(new Connection(FixBaseUrl(baseUrl), credentials.ApiKey, credentials.Token))
     {
     }
@@ -56,6 +74,7 @@ public partial class Client
     /// <summary>
     /// Initializes a new instance of <see cref="Client"/> with a custom host, custom <paramref name="credentials"/>, and a custom <paramref name="httpClient"/>.
     /// </summary>
+    [Obsolete("Use `Client(Client.Options)` or `Client.GetBuilder(apiKey)` instead")]
     public Client(Uri baseUrl, Credentials credentials, HttpClient httpClient) : this(new Connection(FixBaseUrl(baseUrl), credentials.ApiKey, credentials.Token, httpClient))
     {
     }
@@ -79,10 +98,9 @@ public partial class Client
         await connection.Send<ApiMessage>(req);
     }
 
-    static Uri FixBaseUrl(Uri uri)
+    static Uri FixBaseUrl(Uri? uri)
     {
-        Ensure.ArgumentNotNull(uri, nameof(uri));
-        if (uri.Host.Equals("api.mod.io"))
+        if (uri is null || uri.Host.Equals("api.mod.io"))
         {
             return ModioApiUrl;
         }
