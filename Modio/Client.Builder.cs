@@ -67,6 +67,19 @@ public partial class Client
         }
 
         /// <summary>
+        /// Set the platform the API requests are originating from.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// https://docs.mod.io/restapiref/#targeting-a-platform
+        /// </remarks>
+        public Builder WithTargetPlatform(TargetPlatform platform)
+        {
+            options.TargetPlatform = platform;
+            return this;
+        }
+
+        /// <summary>
         /// Set custom <see cref="HttpClient"/> instance.
         /// </summary>
         public Builder WithHttpClient(HttpClient httpClient)

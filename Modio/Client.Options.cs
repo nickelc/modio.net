@@ -31,6 +31,15 @@ public partial class Client
         public HttpClient? HttpClient { get; set; }
 
         /// <summary>
+        /// Set the platform the API requests are originating from.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// https://docs.mod.io/restapiref/#targeting-a-platform
+        /// </remarks>
+        public TargetPlatform? TargetPlatform { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Options"/> class.
         /// </summary>
         public Options(string apiKey)

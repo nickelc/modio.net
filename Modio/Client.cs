@@ -22,6 +22,8 @@ public partial class Client
     /// </summary>
     public static readonly Uri ModioApiTestUrl = new("https://api.test.mod.io/v1/");
 
+    private static readonly string X_MODIO_PLATFORM_HDR = "X-Modio-Platform";
+
     private IConnection connection;
 
     /// <summary>
@@ -48,6 +50,10 @@ public partial class Client
         var token = options.Token;
         var baseAddress = FixBaseUrl(options.BaseUrl);
         var httpClient = options.HttpClient ?? new HttpClient();
+
+        if (options.TargetPlatform != null && !httpClient.DefaultRequestHeaders.Contains(X_MODIO_PLATFORM_HDR)) {
+            httpClient.DefaultRequestHeaders.Add(X_MODIO_PLATFORM_HDR, options.TargetPlatform.Value);
+        }
 
         connection = new Connection(baseAddress, apiKey, token, httpClient);
         Auth = new AuthClient(connection);
