@@ -152,6 +152,12 @@ public class Game
     /// </summary>
     [JsonPropertyName("tag_options")]
     public List<TagOption> TagOptions { get; set; } = [];
+
+    /// <summary>
+    /// Platforms that are supported by the game.
+    /// </summary>
+    [JsonPropertyName("platforms")]
+    public List<GamePlatform> Platforms { get; set; } = [];
 }
 
 /// <remarks>
@@ -449,4 +455,38 @@ public class TagOption
     /// </summary>
     [JsonPropertyName("tags")]
     public List<string> Tags { get; set; } = [];
+}
+
+/// <summary>
+/// Platform that is supported by a game.
+/// </summary>
+///
+/// <remarks>
+/// https://docs.mod.io/restapiref/#game-platforms-object
+/// </remarks>
+public class GamePlatform
+{
+    /// <summary>
+    /// The supported target platform.
+    /// </summary>
+    [JsonPropertyName("platform")]
+    public TargetPlatform? Platform { get; set; }
+
+    /// <summary>
+    /// Presentable label of the platform.
+    /// </summary>
+    [JsonPropertyName("label")]
+    public string? Label { get; set; }
+
+    /// <summary>
+    /// Is the platform moderated by game admins?
+    /// </summary>
+    [JsonPropertyName("moderated")]
+    public bool Moderated { get; set; }
+
+    /// <summary>
+    /// Are users able to upload files to the platform?
+    /// </summary>
+    [JsonPropertyName("locked")]
+    public bool Locked { get; set; }
 }

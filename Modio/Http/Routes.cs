@@ -317,6 +317,11 @@ internal static partial class Routes
         return (HttpMethod.Delete, Uri($"games/{game}/mods/{mod}/files/{file}"));
     }
 
+    public static (HttpMethod, Uri) EditPlatformStatus(uint game, uint mod, uint file)
+    {
+        return (HttpMethod.Post, Uri($"games/{game}/mods/{mod}/files/{file}/platforms"));
+    }
+
     public static (HttpMethod, Uri) GetUploadSessions(uint game, uint mod)
     {
         return (HttpMethod.Get, Uri($"games/{game}/mods/{mod}/files/multipart/sessions"));

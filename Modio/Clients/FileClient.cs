@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Modio.Http;
@@ -66,5 +68,21 @@ public class FileClient : ApiClient
         var (method, path) = Routes.DeleteFile(GameId, ModId, FileId);
         var req = new Request(method, path);
         await Connection.Send<ApiMessage>(req);
+    }
+
+    /// <summary>
+    /// Edit the platform status of a mod file.
+    /// </summary>
+    public async Task<File?> EditPlatformStatus(IEnumerable<TargetPlatform> approved, IEnumerable<TargetPlatform> denied)
+    {
+        var parameters = approved
+            .Select(platform => ("approved[]", platform.Value))
+            .Concat(denied.Select(platform => ("denied[]", platform.Value)));
+
+        var (method, path) = Routes.EditPlatformStatus(GameId, ModId, FileId);
+        var req = new Request(method, path, parameters.ToContent());
+        var resp = await Connection.Send<File>(req);
+
+        return resp.Body!;
     }
 }

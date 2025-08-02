@@ -51,7 +51,8 @@ public partial class Client
         var baseAddress = FixBaseUrl(options.BaseUrl);
         var httpClient = options.HttpClient ?? new HttpClient();
 
-        if (options.TargetPlatform != null && !httpClient.DefaultRequestHeaders.Contains(X_MODIO_PLATFORM_HDR)) {
+        if (options.TargetPlatform != null && !httpClient.DefaultRequestHeaders.Contains(X_MODIO_PLATFORM_HDR))
+        {
             httpClient.DefaultRequestHeaders.Add(X_MODIO_PLATFORM_HDR, options.TargetPlatform.Value);
         }
 

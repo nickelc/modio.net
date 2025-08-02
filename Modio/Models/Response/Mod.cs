@@ -144,6 +144,12 @@ public class Mod
     public Statistics? Stats { get; set; }
 
     /// <summary>
+    /// List of platform specific mod files that are currently live.
+    /// </summary>
+    [JsonPropertyName("platforms")]
+    public ModPlatform[] Platforms { get; set; } = [];
+
+    /// <summary>
     /// The mod's primary mod file.
     /// </summary>
     [JsonPropertyName("modfile")]
@@ -375,6 +381,28 @@ public class Statistics
     /// </summary>
     [JsonPropertyName("date_expires")]
     public long ExpiredAt { get; set; }
+}
+
+/// <summary>
+/// Platform specific file that is currently live.
+/// </summary>
+///
+/// <remarks>
+/// https://docs.mod.io/restapiref/#mod-platforms-object
+/// </remarks>
+public class ModPlatform
+{
+    /// <summary>
+    /// The supported target platform.
+    /// </summary>
+    [JsonPropertyName("platform")]
+    public TargetPlatform? Platform { get; set; }
+
+    /// <summary>
+    /// The unique id of the file that is currently live on the platform.
+    /// </summary>
+    [JsonPropertyName("modfile_live")]
+    public int FileId { get; set; }
 }
 
 /// See <see cref="ModClient.GetEvents(Filters.Filter?)"/>.

@@ -1,4 +1,5 @@
 using System.IO;
+using Modio.Models;
 
 namespace Modio;
 
@@ -36,6 +37,11 @@ public class NewFile
     /// Metadata blob of the file.
     /// </summary>
     public string? MetadataBlob { get; set; }
+
+    /// <summary>
+    /// List of platforms the file is targeting.
+    /// </summary>
+    public TargetPlatform[] Platforms { get; set; } = [];
 
     /// <summary>
     /// Create a new File.

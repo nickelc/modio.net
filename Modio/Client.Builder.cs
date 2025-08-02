@@ -1,5 +1,7 @@
 using System.Net.Http;
 
+using Modio.Models;
+
 namespace Modio;
 
 public partial class Client

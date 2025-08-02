@@ -91,6 +91,12 @@ public class File
     /// </summary>
     [JsonPropertyName("download")]
     public Download? Download { get; set; }
+
+    /// <summary>
+    /// List of target platforms and their approval status.
+    /// </summary>
+    [JsonPropertyName("platforms")]
+    public FilePlatform[] Platforms { get; set; } = [];
 }
 
 /// <remarks>
@@ -121,4 +127,56 @@ public class Download
     /// </summary>
     [JsonPropertyName("date_expires")]
     public long ExpiredAt { get; set; }
+}
+
+/// <summary>
+/// Platform that is support by a mod file.
+/// </summary>
+///
+/// <remarks>
+/// https://docs.mod.io/restapiref/#modfile-platform-object
+/// </remarks>
+public class FilePlatform
+{
+    /// <summary>
+    /// The supported target platform.
+    /// </summary>
+    [JsonPropertyName("platform")]
+    public TargetPlatform? Platform { get; set; }
+
+    /// <summary>
+    /// Approval status of a mod file.
+    /// </summary>
+    [JsonPropertyName("status")]
+    public PlatformStatus Status { get; set; }
+}
+
+/// <summary>
+/// Platform approval status of a mod file.
+/// </summary>
+///
+/// <remarks>
+/// https://docs.mod.io/restapiref/#modfile-platform-object
+/// </remarks>
+public enum PlatformStatus
+{
+    /// <summary>
+    /// Pending
+    /// </summary>
+    Pending = 0,
+
+    /// <summary>
+    /// Approved
+    /// </summary>
+    Approved = 1,
+
+    /// <summary>
+    /// Denied
+    /// </summary>
+
+    Denied = 2,
+    /// <summary>
+    /// Targetted
+    /// </summary>
+    Targetted = 3,
 }

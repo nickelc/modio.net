@@ -254,6 +254,7 @@ record FileUpload
     public bool? Active { get; }
     public string? Filehash { get; }
     public string? MetadataBlob { get; }
+    public TargetPlatform[] Platforms { get; }
 
     public record MultipartUploadCompleted : FileUpload
     {
@@ -281,6 +282,7 @@ record FileUpload
         Active = newFile.Active;
         Filehash = newFile.Filehash;
         MetadataBlob = newFile.MetadataBlob;
+        Platforms = newFile.Platforms;
     }
 
     public static MultipartUploadCompleted Create(NewFile newFile, Guid uploadId) => new(newFile, uploadId);
@@ -321,6 +323,10 @@ record FileUpload
         if (MetadataBlob is string metadata)
         {
             form.Add(metadata.ToContent(), "metadata_blob");
+        }
+        foreach (var platform in Platforms)
+        {
+            form.Add(platform.Value.ToContent(), "platforms[]");
         }
 
         return form;
