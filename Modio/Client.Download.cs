@@ -93,13 +93,10 @@ public partial class Client
     /// </summary>
     public async Task Download(File file, Stream stream, CancellationToken cancellationToken = default)
     {
-        var client = new HttpClient();
         try
         {
-            using (var input = await client.GetStreamAsync(file.Download?.BinaryUrl))
-            {
-                await input.CopyToAsync(stream, 81920 /* default buffer size */, cancellationToken);
-            }
+            using var input = await httpClient.GetStreamAsync(file.Download?.BinaryUrl);
+            await input.CopyToAsync(stream, 81920 /* default buffer size */, cancellationToken);
         }
         catch (NotFoundException ex)
         {

@@ -24,7 +24,9 @@ public partial class Client
 
     private static readonly string X_MODIO_PLATFORM_HDR = "X-Modio-Platform";
 
-    private IConnection connection;
+    private readonly HttpClient httpClient;
+
+    private readonly IConnection connection;
 
     /// <summary>
     /// Client for the Authentication API.
@@ -49,7 +51,7 @@ public partial class Client
         var apiKey = options.ApiKey;
         var token = options.Token;
         var baseAddress = FixBaseUrl(options.BaseUrl);
-        var httpClient = options.HttpClient ?? new HttpClient();
+        httpClient = options.HttpClient ?? new HttpClient();
 
         if (options.TargetPlatform != null && !httpClient.DefaultRequestHeaders.Contains(X_MODIO_PLATFORM_HDR))
         {
