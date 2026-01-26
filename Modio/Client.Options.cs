@@ -61,5 +61,14 @@ public partial class Client
                 Token = credentials.Token,
             };
         }
+
+        internal static Options Create(Credentials credentials, Uri? baseUrl = null, HttpClient? httpClient = null)
+        {
+            var opts = Options.FromCredentials(credentials);
+            opts.BaseUrl = baseUrl;
+            opts.HttpClient = httpClient;
+
+            return opts;
+        }
     }
 }
