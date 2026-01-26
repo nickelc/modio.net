@@ -53,7 +53,7 @@ public partial class Client
         /// <summary>
         /// Use a specifc user API host ("https://u-XXXX.modapi.io/v1").
         /// </summary>
-        public Builder WithUserHost(int userId)
+        public Builder WithUserHost(uint userId)
         {
             options.BaseUrl = new($"https://u-{userId}.modapi.io/v1");
             return this;
@@ -62,7 +62,7 @@ public partial class Client
         /// <summary>
         /// Use a specifc game API host ("https://g-XXXX.modapi.io/v1").
         /// </summary>
-        public Builder WithGameHost(int gameId)
+        public Builder WithGameHost(uint gameId)
         {
             options.BaseUrl = new($"https://g-{gameId}.modapi.io/v1");
             return this;
