@@ -546,34 +546,19 @@ public enum Operator
 
 internal static class OperatorMethods
 {
-    internal static string ToName(this Operator method, string name)
+    internal static string ToName(this Operator method, string name) => method switch
     {
-        switch (method)
-        {
-            case Operator.Equal:
-                return name;
-            case Operator.NotEqual:
-                return name + "-not";
-            case Operator.Like:
-                return name + "-lk";
-            case Operator.NotLike:
-                return name + "-not-lk";
-            case Operator.In:
-                return name + "-in";
-            case Operator.NotIn:
-                return name + "-not-in";
-            case Operator.LessThan:
-                return name + "-st";
-            case Operator.LessOrEqual:
-                return name + "-max";
-            case Operator.GreaterThan:
-                return name + "-gt";
-            case Operator.GreaterOrEqual:
-                return name + "-min";
-            case Operator.BitwiseAnd:
-                return name + "-bitwise-and";
-            default:
-                return name;
-        }
-    }
+        Operator.Equal => name,
+        Operator.NotEqual => name + "-not",
+        Operator.Like => name + "-lk",
+        Operator.NotLike => name + "-not-lk",
+        Operator.In => name + "-in",
+        Operator.NotIn => name + "-not-in",
+        Operator.LessThan => name + "-st",
+        Operator.LessOrEqual => name + "-max",
+        Operator.GreaterThan => name + "-gt",
+        Operator.GreaterOrEqual => name + "-min",
+        Operator.BitwiseAnd => name + "-bitwise-and",
+        _ => name,
+    };
 }
