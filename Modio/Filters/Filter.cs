@@ -11,6 +11,9 @@ public class Filter
 {
     private Parameters parameters;
 
+    /// <see cref="And"/>
+    public static Filter operator &(Filter a, Filter b) => a.And(b);
+
     internal Filter()
     {
         parameters = new SortedDictionary<string, string>();
