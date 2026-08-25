@@ -79,7 +79,8 @@ public class SearchClient<T> : ApiClient where T : class
     public async IAsyncEnumerable<IReadOnlyList<T>> ToPagedEnumerable()
     {
         var (method, path) = this.route;
-        uint? remaining = null;
+        // Huge integer type that does signed arithmetic and encompasses uint's max value
+        long? remaining = null;
         do
         {
             var req = new Request(method, path);
