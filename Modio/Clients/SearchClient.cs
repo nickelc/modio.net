@@ -94,6 +94,10 @@ public class SearchClient<T> : ApiClient where T : class
             remaining ??= result.Total;
             remaining -= result.Count;
 
+            // Don't bother returning anything or continuing for an empty response
+            if (result.Count == 0)
+                yield break;
+
             var limit = result.Limit;
             var offset = result.Offset;
 
